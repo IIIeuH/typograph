@@ -1,0 +1,24 @@
+{
+  "name": "qwerty",
+  "description": "",
+  "main": "public/javascripts/requestAnimationFrame.js",
+  "authors": [
+    "IIIeuH <Drums_jons@mail.ru>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/IIIeuH/A-B",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "/public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0"
+  },
+  "devDependencies": {
+  }
+}
