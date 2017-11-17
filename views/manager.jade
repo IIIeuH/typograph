@@ -2,10 +2,198 @@ extends layout
 
 block content
     .container-fluid
-        .card
-            .card-body
-                p chat
+        .panel.panel-primary
+            .panel-heading
+                h3.panel-title Chat Global
+            .panel-body.global-chat
+                .one-str
+                    span.label.label-primary Vasya:
+                    |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
+                .one-str
+                    span.label.label-primary Kolya:
+                    |  Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах, которое не получается при простой дубликации "Здесь ваш текст.. Здесь ваш текст.. Здесь ваш текст.."
+                .one-str
+                    span.label.label-primary John:
+                    |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
+            .panel-footer.global-chat-footer
+                .form-group.form-group-sm.label-floating
+                    label.control-label(for="globalChat") Введите текст
+                    .input-group
+                        input.form-control.input-sm(type="text", id="globalChat")
+                        span.input-group-btn
+                            button.btn.btn-primary(type="button") button
     .container-fluid
-        .card
-            .card-header title
-            .card-body
+        .row
+            .col-md-10
+                .panel.panel-warning
+                    .panel-heading
+                        h3.panel-title Passport data
+                    .panel-body
+                        .row
+                            .col-md-4
+                                .table-responsive
+                                    table.table.table-bordered.table-condensed
+                                        tr
+                                            th Заказ
+                                            th От
+                                            th Сдать на
+                                            th День
+                                        tr
+                                            td 1
+                                            td=moment(new Date()).format("DD.MM")
+                                            td
+                                                input.form-control(type="text")
+                                            td
+                                                input.form-control(type="text")
+                                        tr
+                                            td(colspan='4')
+                                                .form-group
+                                                    label.col-md-2(for="сustomer") Заказчик
+                                                    .col-md-10
+                                                        input.form-control(type="text", id="сustomer")
+                            .col-md-4
+                                .table-responsive
+                                    table.table.table-bordered.table-condensed
+                                        tr
+                                            td(rowspan='3')
+                                                .form-group.label-floating
+                                                    label.control-label(for="contact") Контактное лицо
+                                                    input.form-control(type="text", id="contact")
+                                                .form-group.label-floating
+                                                    label.control-label(for="phone" ) Телефон +7(xxx) xxx-xx-xx
+                                                    input.form-control(type="tel", id="phone")
+                            .col-md-4
+                                .table-responsive
+                                    table.table.table-bordered.table-condensed
+                                        tr
+                                            td
+                                                .form-group.label-floating
+                                                    label.control-label(for="address") Адрес
+                                                    input.form-control(type="text", id="address")
+                                            td
+                                                .checkbox
+                                                    label
+                                                        input(type="checkbox")
+                                                    | Накладная
+                                            td
+                                                .checkbox
+                                                    label
+                                                        input(type="checkbox")
+                                                    | Счет-фактура
+                                        tr
+                                            td
+                                                .form-group.label-floating
+                                                    label.control-label(for="timeOut") Время отправления
+                                                    input.form-control(type="text", id="timeOut")
+                                            td
+                                                .checkbox
+                                                    label
+                                                        input(type="checkbox")
+                                                    | Самовывоз
+                                            td
+                                                .checkbox
+                                                    label
+                                                        input(type="checkbox")
+                                                    | Автобус
+                                        tr
+                                            td
+                                                .form-group.label-floating
+                                                    label.control-label(for="timeIn") Время пребытия
+                                                    input.form-control(type="text", id="timeIn")
+                                            td
+                                                .checkbox
+                                                    label
+                                                        input(type="checkbox")
+                                                    | Поезд
+                                            td
+                                                .checkbox
+                                                    label
+                                                        input(type="checkbox")
+                                                    | Наш транспорт
+                        .row
+                            .col-md-12
+                                .table-responsive
+                                    table.table.table-bordered.table-condensed
+                                        tr
+                                            th Наименование
+                                            td
+                                                .form-group
+                                                    input.form-control(type="text")
+                                        tr
+                                            th Тираж заказчику
+                                            td
+                                                .form-group
+                                                    input.form-control(type="text")
+                                        tr
+                                            th Размер
+                                            td
+                                                .form-group
+                                                    input.form-control(type="text")
+                                        tr
+                                            th Страница / Полос
+                                            td
+                                                .form-group
+                                                    input.form-control(type="text")
+                                        tr
+                                            th Цветность
+                                            td
+                                                .form-group
+                                                    input.form-control(type="text")
+                                        tr
+                                            th Бумага
+                                            td
+                                                .form-group
+                                                    input.form-control(type="text")
+                                        tr
+                                            th Отделка
+                                            td
+                                                .form-group
+                                                    label.col-md-2.control-label(for="select1") Нужное выбрать
+                                                    .col-md-10
+                                                        select.form-control(id="select1", multiple="multiple")
+                        .row
+                            .col-md-12
+                                .table-responsive
+                                    table.table.table-bordered.table-condensed
+                                        tr
+                                            th Комплектующие
+                                            td
+                                                .form-group
+                                                    label.col-md-2.control-label(for="select2") Нужное выбрать
+                                                    .col-md-10
+                                                        select.form-control(id="select2", multiple="multiple")
+                                                            option Люверсы
+                                                            option Болты металлические
+                                                            option Болты пластиковые
+                                                            option Ригель
+                                                            option Курсор
+                                                            option Спайдеры
+                                                            option Держатели для воблеров
+                                                            option Механизмы кольца / клепки
+                                                            option Шнур
+                        .row
+                            .col-md-12
+                                .table-responsive
+                                    table.table.table-bordered.table-condensed
+            .col-md-2
+                .panel.panel-info
+                    .panel-heading
+                        h3.panel-title Chat local
+                    .panel-body.local-chat
+                        .one-str
+                            span.label.label-info Vasya:
+                            |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
+                        .one-str
+                            span.label.label-info Kolya:
+                            |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
+                        .one-str
+                            span.label.label-info John:
+                            |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
+                    .panel-footer.global-chat-footer
+                        .form-group.label-floating
+                            label.control-label(for="localChat") Введите текст
+                            .input-group
+                                input.form-control(type="text", id="localChat")
+                                span.input-group-btn
+                                    button.btn.btn-fab.btn-fab-mini
+                                        i.material-icons send

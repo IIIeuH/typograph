@@ -19,7 +19,10 @@ gulp.task('concatCss', function(){
         .pipe(gulp.dest('public/app/css/')) ,
     gulp.src([
         'bower_components/animate/*.css',
+        'bower_components/bootstrap/dist/css/bootstrap.min.css',
         'bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css',
+        'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
+        'bower_components/select2/dist/css/select2.min.css',
         'bower_components/font-awesome/css/font-awesome.min.css'
     ])
         .pipe(concatCss('bundleOther.min.css'))
@@ -34,7 +37,13 @@ gulp.task('clean', function(){
 
 gulp.task('scriptOther', function(){
     return gulp.src([
-            'bower_components/jquery/dist/jquery.min.js'])
+            'bower_components/jquery/dist/jquery.min.js',
+            'bower_components/bootstrap/dist/js/bootstrap.min.js',
+            'bower_components/bootstrap-material-design/dist/js/material.min.js',
+            'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
+            'bower_components/select2/dist/js/select2.full.min.js',
+            'bower_components/jquery.maskedinput.min.js'
+    ])
         .pipe(concat('other.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('public/app/js/'));

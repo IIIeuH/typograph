@@ -1,8 +1,24 @@
 body {
-  padding: 50px;
+  padding: 10px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+table .form-group{
+  margin: 0;
+  padding: 0;
+}
+.global-chat{
+  height: 150px;
+  overflow-y: scroll;
+}
+.one-str:not(:last-child){
+  border-bottom: 1px solid #d6d6d6;
+  margin-bottom: 5px;
+}
+.local-chat{
+  height: 350px;
+  overflow-y: scroll;
 }
