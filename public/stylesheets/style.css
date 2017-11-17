@@ -1,4 +1,5 @@
 body {
+  background-color: #ebeff5 !important;
   padding: 10px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -10,6 +11,34 @@ table .form-group{
   margin: 0;
   padding: 0;
 }
+.panel{
+  border-radius: 10px !important;
+}
+.panel-heading{
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+.panel-footer{
+
+}
+.panel.panel-cosmic .panel-heading{
+  background-color: #3d3780 !important;
+}
+.panel-white h3{
+  font-size: 26px;
+  padding: 5px;
+  font-family: Exo;
+  font-weight: 500 !important;
+  color: #2a2a2a !important;
+}
+.panel.panel-white .panel-heading{
+  background-color: white !important;
+  border-bottom: 1px solid #efefef;
+}
+
+.btn-cosmic{
+  background: linear-gradient(90deg,#00d9bf,#00d977) !important;
+}
 .global-chat{
   height: 150px;
   overflow-y: scroll;
@@ -19,6 +48,18 @@ table .form-group{
   margin-bottom: 5px;
 }
 .local-chat{
-  height: 350px;
+  height: 586px;
   overflow-y: scroll;
+}
+.signature{
+  display: block;
+  margin: 0 auto;
+}
+.btn-right{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.btn-right h3{
+  margin-right: auto;
 }

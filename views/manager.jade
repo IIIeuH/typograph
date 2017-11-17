@@ -2,7 +2,7 @@ extends layout
 
 block content
     .container-fluid
-        .panel.panel-primary
+        .panel.panel-white
             .panel-heading
                 h3.panel-title Chat Global
             .panel-body.global-chat
@@ -25,9 +25,12 @@ block content
     .container-fluid
         .row
             .col-md-10
-                .panel.panel-warning
-                    .panel-heading
+                .panel.panel-white
+                    .panel-heading.btn-right
                         h3.panel-title Passport data
+                        button.btn.btn-primary Сохранить
+                        button.btn.btn-success Отправить
+                        .clearfix
                     .panel-body
                         .row
                             .col-md-4
@@ -111,7 +114,7 @@ block content
                                                         input(type="checkbox")
                                                     | Наш транспорт
                         .row
-                            .col-md-12
+                            .col-md-6
                                 .table-responsive
                                     table.table.table-bordered.table-condensed
                                         tr
@@ -144,23 +147,21 @@ block content
                                             td
                                                 .form-group
                                                     input.form-control(type="text")
+                                .table-responsive
+                                    table.table.table-bordered.table-condensed
                                         tr
                                             th Отделка
                                             td
                                                 .form-group
-                                                    label.col-md-2.control-label(for="select1") Нужное выбрать
-                                                    .col-md-10
+                                                    label.col-md-3.control-label(for="select1") Нужное выбрать
+                                                    .col-md-9
                                                         select.form-control(id="select1", multiple="multiple")
-                        .row
-                            .col-md-12
-                                .table-responsive
-                                    table.table.table-bordered.table-condensed
                                         tr
                                             th Комплектующие
                                             td
                                                 .form-group
-                                                    label.col-md-2.control-label(for="select2") Нужное выбрать
-                                                    .col-md-10
+                                                    label.col-md-3.control-label(for="select2") Нужное выбрать
+                                                    .col-md-9
                                                         select.form-control(id="select2", multiple="multiple")
                                                             option Люверсы
                                                             option Болты металлические
@@ -171,12 +172,87 @@ block content
                                                             option Держатели для воблеров
                                                             option Механизмы кольца / клепки
                                                             option Шнур
-                        .row
-                            .col-md-12
-                                .table-responsive
-                                    table.table.table-bordered.table-condensed
+                            .col-md-6
+                                .row
+                                    .col-md-6
+                                        table.table.table-bordered.table-condensed
+                                            tr
+                                                td
+                                                    .form-group
+                                                        label.col-md-5(for="onCar1") На машину
+                                                        .col-md-7
+                                                            input.form-control(type="text", id="onCar1")
+                                                    .row
+                                                        .col-md-6
+                                                            .form-group
+                                                                label.col-md-3(for="Sht1") Шт.
+                                                                .col-md-9
+                                                                    input.form-control(type="text", id="Sht1")
+                                                        .col-md-6
+                                                            .form-group
+                                                                label.col-md-3(for="on1") На
+                                                                .col-md-9
+                                                                    input.form-control(type="text", id="on1")
+                                                    .form-group
+                                                        label.col-md-6(for="printSheet1") Печ. листов
+                                                        .col-md-6
+                                                            input.form-control(type="text", id="printSheet1")
+                                                    .form-group
+                                                        label.col-md-6(for="allSheet1") Исходных листов
+                                                        .col-md-6
+                                                            input.form-control(type="text", id="allSheet1")
+                                            tr
+                                                td
+                                                    textarea.signature
+                                            tr
+                                                td
+                                                    .form-group
+                                                        label.col-md-4(for="manager") Менеджер
+                                                        .col-md-8
+                                                            input.form-control(type="text", id="manager")
+                                                    .form-group
+                                                        label.col-md-4(for="payment") Оплата
+                                                        .col-md-8
+                                                            input.form-control(type="text", id="payment")
+                                    .col-md-6
+                                        table.table.table-bordered.table-condensed
+                                            tr
+                                                td
+                                                    .form-group
+                                                        label.col-md-5(for="onCar2") На машину
+                                                        .col-md-7
+                                                            input.form-control(type="text", id="onCar2")
+                                                    .row
+                                                        .col-md-12
+                                                            .form-group
+                                                                label.col-md-3(for="Sht2") Шт.
+                                                                .col-md-9
+                                                                    input.form-control(type="text", id="Sht2")
+                                                    .form-group
+                                                        label.col-md-6(for="printSheet2") Печ. листов
+                                                        .col-md-6
+                                                            input.form-control(type="text", id="printSheet2")
+                                                    .form-group
+                                                        label.col-md-6(for="allSheet2") Исходных листов
+                                                        .col-md-6
+                                                            input.form-control(type="text", id="allSheet2")
+                                            tr
+                                                td
+                                                    textarea.signature
+                                            tr
+                                                td
+                                                    .form-group
+                                                        label.col-md-4(for="dispatcher") Диспетчер
+                                                        .col-md-8
+                                                            input.form-control(type="text", id="dispatcher")
+                                                    .form-group
+                                                        label.col-md-5.control-label(for="select3") Нужное выбрать
+                                                        .col-md-7
+                                                            select.form-control(id="select3", multiple="multiple")
+                                                                option Заказ зарегистрирован
+                                                                option Материалы заказаны
             .col-md-2
-                .panel.panel-info
+                .panel.panel-white
                     .panel-heading
                         h3.panel-title Chat local
                     .panel-body.local-chat

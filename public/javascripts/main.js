@@ -3,4 +3,5 @@ $(function(){
     $('input[type="tel"]').mask("+7(999) 999-9999");
     $('#select1').select2();
     $('#select2').select2();
+    $('#select3').select2();
 });
