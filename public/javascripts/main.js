@@ -4,4 +4,5 @@ $(function(){
     $('#select1').select2();
     $('#select2').select2();
     $('#select3').select2();
+    $('#select4').select2();
 });
