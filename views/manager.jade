@@ -1,49 +1,9 @@
 extends layout
 
 block content
-    .navbar.navbar-default.navbar-white
-        .container-fluid
-            .navbar-header
-                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
-                a.navbar-brand(href='javascript:void(0)') Managers
-            .navbar-collapse.collapse.navbar-responsive-collapse
-                ul.nav.navbar-nav
-                    li.active
-                        a(href='javascript:void(0)') Active
-                    li
-                        a(href='javascript:void(0)') Link
-                ul.nav.navbar-nav.navbar-right
-                    li
-                        a(href="#demo" data-toggle="collapse")
-                            i.material-icons mail_outline
-                    li
-                        a(href='javascript:void(0)')
-                            .users users name
-        #demo.collapse
-            .local-chat-body
-                .one-str
-                    span.label.label-info Vasya:
-                    |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
-                .one-str
-                    span.label.label-info Kolya:
-                    |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
-                .one-str
-                    span.label.label-info John:
-                    |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
-                .btn-send-local
-                    .form-group.label-floating
-                        label.control-label(for="localChat") Введите текст
-                        .input-group
-                            input.form-control(type="text", id="localChat")
-                            span.input-group-btn
-                                button.btn.btn-fab.btn-fab-mini
-                                    i.material-icons send
     .container-fluid
         .row
-            .col-md-8
+            .col-md-12
                 .panel.panel-white
                     .panel-heading
                         h3.panel-title Chat Global
@@ -64,322 +24,324 @@ block content
                                 input.form-control.input-sm(type="text", id="globalChat")
                                 span.input-group-btn
                                     button.btn.btn-primary(type="button") button
-            .col-md-4
-                .panel.panel-white
-                    .panel-heading
-                        h3.panel-title Your passports
-                    .panel-body.passports-data
-                        table.table.table-hover
-                            tr
-                                th Дата
-                                th ID
-                            tr
-                                td=moment(new Date()).format('YYY.MM.DD')
-                                td k0654534
-                            tr
-                                td=moment(new Date()).format('YYY.MM.DD')
-                                td k0654534
-                            tr
-                                td=moment(new Date()).format('YYY.MM.DD')
-                                td k0654534
-                            tr
-                                td=moment(new Date()).format('YYY.MM.DD')
-                                td k0654534
-                            tr
-                                td=moment(new Date()).format('YYY.MM.DD')
-                                td k0654534
-                            tr
-                                td=moment(new Date()).format('YYY.MM.DD')
-                                td k0654534
-                            tr
-                                td=moment(new Date()).format('YYY.MM.DD')
-                                td k0654534
-    .container-fluid
-        .row
-            .col-md-12
-                .panel.panel-white
-                    .panel-heading.btn-right
-                        h3.panel-title Passport data
-                        button.btn.btn-primary Сохранить
-                        button.btn.btn-success Отправить
-                        .clearfix
-                    .panel-body
-                        .row
-                            .col-md-4
-                                .table-responsive
-                                    table.table.table-bordered.table-condensed
-                                        tr
-                                            th Заказ
-                                            th От
-                                            th Сдать на
-                                            th День
-                                        tr
-                                            td 1
-                                            td=moment(new Date()).format("DD.MM")
-                                            td
-                                                input.form-control(type="text")
-                                            td
-                                                input.form-control(type="text")
-                                        tr
-                                            td(colspan='4')
-                                                .form-group.form-group-sm
-                                                    label.col-md-2(for="сustom  er") Заказчик
-                                                    .col-md-10
-                                                        input.form-control.input-sm(type="text", id="сustomer")
-                            .col-md-4
-                                .table-responsive
-                                    table.table.table-bordered.table-condensed
-                                        tr
-                                            td(rowspan='3')
-                                                .form-group.label-floating.form-group-sm
-                                                    label.control-label(for="contact") Контактное лицо
-                                                    input.form-control.input-sm(type="text", id="contact")
-                                                .form-group.label-floating.form-group-sm
-                                                    label.control-label(for="phone" ) Телефон +7(xxx) xxx-xx-xx
-                                                    input.form-control.input-sm(type="tel", id="phone")
-                            .col-md-4
-                                .table-responsive
-                                    table.table.table-bordered.table-condensed
-                                        tr
-                                            td
-                                                .form-group.label-floating.form-group-sm
-                                                    label.control-label(for="address") Адрес
-                                                    input.form-control.input-sm(type="text", id="address")
-                                            td
-                                                .checkbox
-                                                    label
-                                                        input(type="checkbox")
-                                                    | Накладная
-                                            td
-                                                .checkbox
-                                                    label
-                                                        input(type="checkbox")
-                                                    | Счет-фактура
-                                        tr
-                                            td
-                                                .form-group.label-floating.form-group-sm
-                                                    label.control-label(for="timeOut") Время отправления
-                                                    input.form-control.input-sm(type="text", id="timeOut")
-                                            td
-                                                .checkbox
-                                                    label
-                                                        input(type="checkbox")
-                                                    | Самовывоз
-                                            td
-                                                .checkbox
-                                                    label
-                                                        input(type="checkbox")
-                                                    | Автобус
-                                        tr
-                                            td
-                                                .form-group.label-floating.form-group-sm
-                                                    label.control-label(for="timeIn") Время пребытия
-                                                    input.form-control.input-sm(type="text", id="timeIn")
-                                            td
-                                                .checkbox
-                                                    label
-                                                        input(type="checkbox")
-                                                    | Поезд
-                                            td
-                                                .checkbox
-                                                    label
-                                                        input(type="checkbox")
-                                                    | Наш транспорт
-                        .row
-                            .col-md-6
-                                .table-responsive
-                                    table.table.table-bordered.table-condensed
-                                        tr
-                                            th Наименование
-                                            td
-                                                .form-group
-                                                    input.form-control(type="text")
-                                        tr
-                                            th Тираж заказчику
-                                            td
-                                                .form-group
-                                                    input.form-control(type="text")
-                                        tr
-                                            th Размер
-                                            td
-                                                .form-group
-                                                    input.form-control(type="text")
-                                        tr
-                                            th Страница / Полос
-                                            td
-                                                .form-group
-                                                    input.form-control(type="text")
-                                        tr
-                                            th Цветность
-                                            td
-                                                .form-group
-                                                    input.form-control(type="text")
-                                        tr
-                                            th Бумага
-                                            td
-                                                .form-group
-                                                    input.form-control(type="text")
-                            .col-md-6
-                                .row
-                                    .col-md-6
-                                        table.table.table-bordered.table-condensed
-                                            tr
-                                                td
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="onCar1") На машину
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="onCar1")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="Sht1") Шт.
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="Sht1")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="on1") На
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="on1")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="printSheet1") Печ. листов
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="printSheet1")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="allSheet1") Исходных листов
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="allSheet1")
-                                            tr
-                                                td
-                                                    textarea.signature
-                                            tr
-                                                td
-                                                    .form-group.form-group-sm
-                                                        label.col-md-4(for="manager") Менеджер
-                                                        .col-md-8
-                                                            input.form-control.input-sm(type="text", id="manager")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-4(for="payment") Оплата
-                                                        .col-md-8
-                                                            input.form-control.input-sm(type="text", id="payment")
-                                    .col-md-6
-                                        table.table.table-bordered.table-condensed
-                                            tr
-                                                td
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="onCar2") На машину
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="onCar2")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="Sht2") Шт.
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="Sht2")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="printSheet2") Печ. листов
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="printSheet2")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="allSheet2") Исходных листов
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="allSheet2")
-                                            tr
-                                                td
-                                                    textarea.signature
-                                            tr
-                                                td
-                                                    .form-group.form-group-sm
-                                                        label.col-md-4(for="dispatcher") Диспетчер
-                                                        .col-md-8
-                                                            input.form-control.input-sm(type="text", id="dispatcher")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-5.control-label(for="select3") Нужное выбрать
-                                                        .col-md-7
-                                                            select.form-control.input-sm(id="select3", multiple="multiple")
-                                                                option Заказ зарегистрирован
-                                                                option Материалы заказаны
-
-                        .row
-                            .col-md-4
-                                .table-responsive
-                                    table.table.table-bordered.table-condensed
-                                        tr
-                                            th Отделка
-                                            td
-                                                .form-group
-                                                    select.form-control(id="select1", multiple="multiple")
-                                                        option Ламинат 1+0
-                                                        option Ламинат 1+1
-                                                        option Ламинат глянцевый
-                                                        option Ламинат матовый
-                                                        option Уф-лак 1+0
-                                                        option Уф-лак 1+1
-                                                        option Уф-лак сполошной
-                                                        option Уф-лак выборочно
-                                                        option Уф-лак глянцевый
-                                                        option Уф-лак матовый
-                                                        option Обычный
-                                                        option Объемный
-                                                        option Глитеры цвет
-                                                        option Ириодин цвет
-                                                        option Переплет
-                                                        option Скоба
-                                                        option Пружина
-                                                        option КБС
-                                                        option Твердный
-                                                        option На нить
-                                                        option Листоподборка
-                                                        option Вкладка
-                                                        option Склейка
-                                                        option Кашировка
-                                                        option Фальцовка
-                                                        option Биговка
-                                                        option Перфорация
-                                                        option Микро
-                                                        option Марочная
-                                                        option Тиснение
-                                                        option Фольга
-                                                        option Цвет
-                                                        option Блинтовое
-                                                        option Конгрев
-                                                        option Высечка
-                                                        option Тигель
-                                                        option Автомат
-                                                        option KLUGE
-                                                        option Сапожок
-                                                        option Нумерация
-                                                        option Сверление
-                                                        option ММ
-                                                        option №
-                            .col-md-4
-                                .table-responsive
-                                    table.table.table-bordered.table-condensed
-                                        tr
-                                            th Комплектующие
-                                            td
-                                                .form-group
-                                                    select.form-control(id="select2", multiple="multiple")
-                                                        option Люверсы
-                                                        option Болты металлические
-                                                        option Болты пластиковые
-                                                        option Ригель
-                                                        option Курсор
-                                                        option Спайдеры
-                                                        option Держатели для воблеров
-                                                        option Механизмы кольца / клепки
-                                                        option Шнур
-                                                        option Уголки металлические
-                                                        option Скотч 2-сторонний
-                                                        option Скотч Тонкий
-                                                        option Скотч Объемный
-                            .col-md-4
-                                .table-responsive
-                                    table.table.table-bordered.table-condensed
-                                        tr
-                                            th Допечатная подготовка
-                                            td
-                                                .form-group
-                                                    select.form-control(id="select4", multiple="multiple")
-                                                        option Спуск полос
-                                                        option Цветокоррекция
-                                                        option Ретушь
-                                                        option Изменения цвета
-                                                        option Изменение размера
-                                                        option Отрисовка и заказ штампа
-                                                        option Отрисовка и заказ штанцформы
-                                                        option Отрисовка и заказ клише
+        form(method="GET", action="/passport")
+            button.btn.btn-raised.btn-warning(type="submit") Создать заказ
+            //.col-md-4
+            //    .panel.panel-white
+            //        .panel-heading
+            //            h3.panel-title Your passports
+            //        .panel-body.passports-data
+            //            table.table.table-hover
+            //                tr
+            //                    th Дата
+            //                    th ID
+            //                tr
+            //                    td=moment(new Date()).format('YYYY.MM.DD')
+            //                    td k0654534
+            //                tr
+            //                    td=moment(new Date()).format('YYYY.MM.DD')
+            //                    td k0654534
+            //                tr
+            //                    td=moment(new Date()).format('YYYY.MM.DD')
+            //                    td k0654534
+            //                tr
+            //                    td=moment(new Date()).format('YYYY.MM.DD')
+            //                    td k0654534
+            //                tr
+            //                    td=moment(new Date()).format('YYYY.MM.DD')
+            //                    td k0654534
+            //                tr
+            //                    td=moment(new Date()).format('YYYY.MM.DD')
+            //                    td k0654534
+            //                tr
+            //                    td=moment(new Date()).format('YYY.MM.DD')
+            //                    td k0654534
+    //.container-fluid
+    //    .row
+    //        .col-md-12
+    //            .panel.panel-white
+    //                .panel-heading.btn-right
+    //                    h3.panel-title Passport data
+    //                    button.btn.btn-primary Сохранить
+    //                    button.btn.btn-success Отправить
+    //                    .clearfix
+    //                .panel-body
+    //                    .row
+    //                        .col-md-4
+    //                            .table-responsive
+    //                                table.table.table-bordered.table-condensed
+    //                                    tr
+    //                                        th Заказ
+    //                                        th От
+    //                                        th Сдать на
+    //                                        th День
+    //                                    tr
+    //                                        td 1
+    //                                        td=moment(new Date()).format("DD.MM")
+    //                                        td
+    //                                            input.form-control(type="text")
+    //                                        td
+    //                                            input.form-control(type="text")
+    //                                    tr
+    //                                        td(colspan='4')
+    //                                            .form-group.form-group-sm
+    //                                                label.col-md-2(for="сustom  er") Заказчик
+    //                                                .col-md-10
+    //                                                    input.form-control.input-sm(type="text", id="сustomer")
+    //                        .col-md-4
+    //                            .table-responsive
+    //                                table.table.table-bordered.table-condensed
+    //                                    tr
+    //                                        td(rowspan='3')
+    //                                            .form-group.label-floating.form-group-sm
+    //                                                label.control-label(for="contact") Контактное лицо
+    //                                                input.form-control.input-sm(type="text", id="contact")
+    //                                            .form-group.label-floating.form-group-sm
+    //                                                label.control-label(for="phone" ) Телефон +7(xxx) xxx-xx-xx
+    //                                                input.form-control.input-sm(type="tel", id="phone")
+    //                        .col-md-4
+    //                            .table-responsive
+    //                                table.table.table-bordered.table-condensed
+    //                                    tr
+    //                                        td
+    //                                            .form-group.label-floating.form-group-sm
+    //                                                label.control-label(for="address") Адрес
+    //                                                input.form-control.input-sm(type="text", id="address")
+    //                                        td
+    //                                            .checkbox
+    //                                                label
+    //                                                    input(type="checkbox")
+    //                                                | Накладная
+    //                                        td
+    //                                            .checkbox
+    //                                                label
+    //                                                    input(type="checkbox")
+    //                                                | Счет-фактура
+    //                                    tr
+    //                                        td
+    //                                            .form-group.label-floating.form-group-sm
+    //                                                label.control-label(for="timeOut") Время отправления
+    //                                                input.form-control.input-sm(type="text", id="timeOut")
+    //                                        td
+    //                                            .checkbox
+    //                                                label
+    //                                                    input(type="checkbox")
+    //                                                | Самовывоз
+    //                                        td
+    //                                            .checkbox
+    //                                                label
+    //                                                    input(type="checkbox")
+    //                                                | Автобус
+    //                                    tr
+    //                                        td
+    //                                            .form-group.label-floating.form-group-sm
+    //                                                label.control-label(for="timeIn") Время пребытия
+    //                                                input.form-control.input-sm(type="text", id="timeIn")
+    //                                        td
+    //                                            .checkbox
+    //                                                label
+    //                                                    input(type="checkbox")
+    //                                                | Поезд
+    //                                        td
+    //                                            .checkbox
+    //                                                label
+    //                                                    input(type="checkbox")
+    //                                                | Наш транспорт
+    //                    .row
+    //                        .col-md-6
+    //                            .table-responsive
+    //                                table.table.table-bordered.table-condensed
+    //                                    tr
+    //                                        th Наименование
+    //                                        td
+    //                                            .form-group
+    //                                                input.form-control(type="text")
+    //                                    tr
+    //                                        th Тираж заказчику
+    //                                        td
+    //                                            .form-group
+    //                                                input.form-control(type="text")
+    //                                    tr
+    //                                        th Размер
+    //                                        td
+    //                                            .form-group
+    //                                                input.form-control(type="text")
+    //                                    tr
+    //                                        th Страница / Полос
+    //                                        td
+    //                                            .form-group
+    //                                                input.form-control(type="text")
+    //                                    tr
+    //                                        th Цветность
+    //                                        td
+    //                                            .form-group
+    //                                                input.form-control(type="text")
+    //                                    tr
+    //                                        th Бумага
+    //                                        td
+    //                                            .form-group
+    //                                                input.form-control(type="text")
+    //                        .col-md-6
+    //                            .row
+    //                                .col-md-6
+    //                                    table.table.table-bordered.table-condensed
+    //                                        tr
+    //                                            td
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-6(for="onCar1") На машину
+    //                                                    .col-md-6
+    //                                                        input.form-control.input-sm(type="text", id="onCar1")
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-6(for="Sht1") Шт.
+    //                                                    .col-md-6
+    //                                                        input.form-control.input-sm(type="text", id="Sht1")
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-6(for="on1") На
+    //                                                    .col-md-6
+    //                                                        input.form-control.input-sm(type="text", id="on1")
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-6(for="printSheet1") Печ. листов
+    //                                                    .col-md-6
+    //                                                        input.form-control.input-sm(type="text", id="printSheet1")
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-6(for="allSheet1") Исходных листов
+    //                                                    .col-md-6
+    //                                                        input.form-control.input-sm(type="text", id="allSheet1")
+    //                                        tr
+    //                                            td
+    //                                                textarea.signature
+    //                                        tr
+    //                                            td
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-4(for="manager") Менеджер
+    //                                                    .col-md-8
+    //                                                        input.form-control.input-sm(type="text", id="manager")
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-4(for="payment") Оплата
+    //                                                    .col-md-8
+    //                                                        input.form-control.input-sm(type="text", id="payment")
+    //                                .col-md-6
+    //                                    table.table.table-bordered.table-condensed
+    //                                        tr
+    //                                            td
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-6(for="onCar2") На машину
+    //                                                    .col-md-6
+    //                                                        input.form-control.input-sm(type="text", id="onCar2")
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-6(for="Sht2") Шт.
+    //                                                    .col-md-6
+    //                                                        input.form-control.input-sm(type="text", id="Sht2")
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-6(for="printSheet2") Печ. листов
+    //                                                    .col-md-6
+    //                                                        input.form-control.input-sm(type="text", id="printSheet2")
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-6(for="allSheet2") Исходных листов
+    //                                                    .col-md-6
+    //                                                        input.form-control.input-sm(type="text", id="allSheet2")
+    //                                        tr
+    //                                            td
+    //                                                textarea.signature
+    //                                        tr
+    //                                            td
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-4(for="dispatcher") Диспетчер
+    //                                                    .col-md-8
+    //                                                        input.form-control.input-sm(type="text", id="dispatcher")
+    //                                                .form-group.form-group-sm
+    //                                                    label.col-md-5.control-label(for="select3") Нужное выбрать
+    //                                                    .col-md-7
+    //                                                        select.form-control.input-sm(id="select3", multiple="multiple")
+    //                                                            option Заказ зарегистрирован
+    //                                                            option Материалы заказаны
+    //
+    //                    .row
+    //                        .col-md-4
+    //                            .table-responsive
+    //                                table.table.table-bordered.table-condensed
+    //                                    tr
+    //                                        th Отделка
+    //                                        td
+    //                                            .form-group
+    //                                                select.form-control(id="select1", multiple="multiple")
+    //                                                    option Ламинат 1+0
+    //                                                    option Ламинат 1+1
+    //                                                    option Ламинат глянцевый
+    //                                                    option Ламинат матовый
+    //                                                    option Уф-лак 1+0
+    //                                                    option Уф-лак 1+1
+    //                                                    option Уф-лак сполошной
+    //                                                    option Уф-лак выборочно
+    //                                                    option Уф-лак глянцевый
+    //                                                    option Уф-лак матовый
+    //                                                    option Обычный
+    //                                                    option Объемный
+    //                                                    option Глитеры цвет
+    //                                                    option Ириодин цвет
+    //                                                    option Переплет
+    //                                                    option Скоба
+    //                                                    option Пружина
+    //                                                    option КБС
+    //                                                    option Твердный
+    //                                                    option На нить
+    //                                                    option Листоподборка
+    //                                                    option Вкладка
+    //                                                    option Склейка
+    //                                                    option Кашировка
+    //                                                    option Фальцовка
+    //                                                    option Биговка
+    //                                                    option Перфорация
+    //                                                    option Микро
+    //                                                    option Марочная
+    //                                                    option Тиснение
+    //                                                    option Фольга
+    //                                                    option Цвет
+    //                                                    option Блинтовое
+    //                                                    option Конгрев
+    //                                                    option Высечка
+    //                                                    option Тигель
+    //                                                    option Автомат
+    //                                                    option KLUGE
+    //                                                    option Сапожок
+    //                                                    option Нумерация
+    //                                                    option Сверление
+    //                                                    option ММ
+    //                                                    option №
+    //                        .col-md-4
+    //                            .table-responsive
+    //                                table.table.table-bordered.table-condensed
+    //                                    tr
+    //                                        th Комплектующие
+    //                                        td
+    //                                            .form-group
+    //                                                select.form-control(id="select2", multiple="multiple")
+    //                                                    option Люверсы
+    //                                                    option Болты металлические
+    //                                                    option Болты пластиковые
+    //                                                    option Ригель
+    //                                                    option Курсор
+    //                                                    option Спайдеры
+    //                                                    option Держатели для воблеров
+    //                                                    option Механизмы кольца / клепки
+    //                                                    option Шнур
+    //                                                    option Уголки металлические
+    //                                                    option Скотч 2-сторонний
+    //                                                    option Скотч Тонкий
+    //                                                    option Скотч Объемный
+    //                        .col-md-4
+    //                            .table-responsive
+    //                                table.table.table-bordered.table-condensed
+    //                                    tr
+    //                                        th Допечатная подготовка
+    //                                        td
+    //                                            .form-group
+    //                                                select.form-control(id="select4", multiple="multiple")
+    //                                                    option Спуск полос
+    //                                                    option Цветокоррекция
+    //                                                    option Ретушь
+    //                                                    option Изменения цвета
+    //                                                    option Изменение размера
+    //                                                    option Отрисовка и заказ штампа
+    //                                                    option Отрисовка и заказ штанцформы
+    //                                                    option Отрисовка и заказ клише
