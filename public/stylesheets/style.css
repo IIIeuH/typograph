@@ -88,3 +88,21 @@ table .form-group{
 .btn-right h3{
   margin-right: auto;
 }
+#сustomerNumberButton{
+  margin-top: 30px;
+}
+.customerGroup{
+    float: left;
+}
+.addSelect{
+    width: 270px;
+}
+.customerGroup{
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.car-container{
+    margin-right: 40px;
+    width: 12.5%;
+    float: left;
+}
