@@ -5,11 +5,7 @@ block content
         .row
             .col-md-12
                 .panel.panel-white
-                    .panel-heading.btn-right
-                        h3.panel-title Passport data
-                        button.btn.btn-primary Сохранить
-                        button.btn.btn-success Отправить
-                        .clearfix
+                    .panel-heading
                     .panel-body
                         .container-fluid
                             .row
@@ -49,13 +45,20 @@ block content
                                                         input.form-control(type="tel", id="phone", placeholder="+7(xxx) xxx-xx-xx")
                             .row
                                 .col-md-12
-                                    .row
-                                        .col-md-12
-                                            .form-group
-                                                label.col-md-2.control-label(for="customerNumber") Количество заказчиков
-                                                .col-md-1
-                                                    input.form-control(type="number", id="customerNumber", max="4", min="0", value="0")
-                                    .form-group.customerGroup
+                                    .form-group
+                                        .col-md-2
+                                            label.control-label Заказчик
+                                            button.btn.btn-customer(type="button", id="remove-customer")
+                                                i.material-icons remove
+                                            button.btn.btn-customer(type="button", id="add-customer")
+                                                i.material-icons add
+                                        .col-md-2.customer-container
+                                            select.form-control.customerNumber(multiple)
+                                                option Заказчик 1
+                                                option Заказчик 2
+                                                option Заказчик 3
+                                                option Заказчик 4
+                                .form-group.customerGroup
                             .row
                                 .col-md-12
                                     .form-group
@@ -190,29 +193,29 @@ block content
                                         table.table.table-bordered.table-condensed.car-tabel
                                             tr
                                                 td
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="onCar1") На машину
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="onCar1")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="Sht1") Шт.
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="Sht1")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="on1") На
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="on1")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="printSheet1") Печ. листов
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="printSheet1")
-                                                    .form-group.form-group-sm
-                                                        label.col-md-6(for="allSheet1") Исходных листов
-                                                        .col-md-6
-                                                            input.form-control.input-sm(type="text", id="allSheet1")
+                                                    .form-group
+                                                        label.col-md-5.control-label(for="onCar1") На машину
+                                                        .col-md-7
+                                                            input.form-control(type="text", id="onCar1")
+                                                    .form-group
+                                                        label.col-md-5.control-label(for="Sht1") Шт.
+                                                        .col-md-7
+                                                            input.form-control(type="text", id="Sht1")
+                                                    .form-group
+                                                        label.col-md-5.control-label(for="on1") На
+                                                        .col-md-7
+                                                            input.form-control(type="text", id="on1")
+                                                    .form-group
+                                                        label.col-md-5.control-label(for="printSheet1") Печ. листов
+                                                        .col-md-7
+                                                            input.form-control(type="text", id="printSheet1")
+                                                    .form-group
+                                                        label.col-md-5.control-label(for="allSheet1") Исходных листов
+                                                        .col-md-7
+                                                            input.form-control(type="text", id="allSheet1")
                                             tr
                                                 td
-                                                    textarea.signature
+                                                    textarea(cols="30").signature
                             .row
                                 .form-group
                                     label.col-md-2.control-label(for="manager") Менеджер
@@ -232,15 +235,16 @@ block content
                                     .col-md-10
                                         input.form-control(id="montage", type="text")
                             .row
-                                .form-group
-                                    .radio.radio-primary.delever
-                                        label
-                                            input(type="radio", name="delivery", value="Самовывоз", checked)
-                                            | Самовывоз
-                                        label
-                                            input(type="radio", name="delivery" value="Доставка")
-                                            | Доставка
-                                .type-delever
+                                .col-md-3
+                                    .form-group
+                                        .radio.radio-primary.delever
+                                            label
+                                                input(type="radio", name="delivery", value="Самовывоз", checked)
+                                                | Самовывоз
+                                            label
+                                                input(type="radio", name="delivery" value="Доставка")
+                                                | Доставка
+                                .col-md-3.type-delever
                                     .form-group
                                         .radio.radio-primary
                                             label
@@ -249,17 +253,21 @@ block content
                                             label
                                                 input(type="radio", name="type-delivery" value="Наш транспорт")
                                                 | Наш транспорт
-                                    .form-group.bus
-                                        label.col-md-2.control-label(for="departure-time") Время отправления
-                                        .col-md-10
-                                            input.form-control(type="text", id="departure-time")
-                                    .form-group.bus
-                                        label.col-md-2.control-label(for="arrival-time") Время пребытия
-                                        .col-md-10
-                                            input.form-control(type="text", id="arrival-time")
+                                .col-md-6
+                                    .row
+                                        .col-md-6.bus
+                                            .form-group
+                                                label.col-md-6.control-label(for="departure-time") Время отправления
+                                                .col-md-6
+                                                    input.form-control(type="time", id="departure-time")
+                                        .col-md-6.bus
+                                            .form-group
+                                                label.col-md-6.control-label(for="arrival-time") Время пребытия
+                                                .col-md-6
+                                                    input.form-control(type="time", id="arrival-time")
                                     .form-group.delivery-address
-                                        label.col-md-2.control-label(for="delivery-address") Адрес доставки
-                                        .col-md-10
+                                        label.col-md-3.control-label(for="delivery-address") Адрес доставки
+                                        .col-md-9
                                             input.form-control(type="text", id="delivery-address")
                             .row
                                 .col-md-12
@@ -267,6 +275,9 @@ block content
                                         label.col-md-2.control-label(for="comment") Комментарий
                                         .col-md-10
                                             textarea.form-control(type="text", id="comment")
+                        .ready-btn
+                            button.btn.btn-primary Сохранить
+                            button.btn.btn-success Отправить
 
                             //.row
                             //    .col-md-4

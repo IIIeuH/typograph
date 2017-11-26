@@ -7,6 +7,12 @@ body {
 a {
   color: #00B7FF;
 }
+.form-group label.control-label{
+    font-size: 13px !important;
+}
+.form-group .checkbox label, .form-group .radio label, .form-group label{
+    color: black !important;
+}
 .local-chat{
   min-height: 200px !important;
   width: 300px !important;
@@ -102,6 +108,13 @@ table .form-group{
     margin-bottom: 20px;
 }
 .car-container{
-    width: 15.5%;
+    width: 25%;
     float: left;
+}
+.btn-customer{
+    margin: 0 5px !important;
+    padding: 0 !important;
+}
+.ready-btn{
+    border-top: 1px solid #efefef;
 }

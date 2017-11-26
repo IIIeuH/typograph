@@ -4,22 +4,27 @@ $(function(){
     $('select').select2();
 
     //Добавление Заказчиков
-    var html = '' +
-        '<div class="customerGroup addSelect">' +
-            '<select multiple="multiple" class="form-control customer">' +
+    var btnAdd = $('#add-customer');
+    var btnRemove = $('#remove-customer');
+    var clone = '' +
+        '<div class="col-md-2 customer-container">' +
+            '<select multiple="multiple" class="form-control customerNumber">' +
                 '<option>Заказчик 1</option>' +
                 '<option>Заказчик 2</option>' +
                 '<option>Заказчик 3</option>' +
                 '<option>Заказчик 4</option>' +
             '</select>' +
         '</div>';
-    var customerGroup = $('.customerGroup');
-    $('#customerNumber').click(function(){
-        customerGroup.empty();
-        for(var i = 0; i < $(this).val(); i ++){
-            customerGroup.append(html);
+    btnAdd.click(function(){
+        var customerContainer = $('.customer-container');
+        if(customerContainer.length < 5){
+            customerContainer.last().after(clone);
+            $('.customerNumber').select2();
         }
-        $('.customer').select2();
+    });
+    btnRemove.click(function(){
+        var customerContainer = $('.customer-container');
+        if(customerContainer.length > 1) customerContainer.last().remove();
     });
 
     //input time disabled
@@ -66,6 +71,8 @@ $(function(){
             typeDelever.show();
         }else{
             typeDelever.hide();
+            deliveryAddress.hide();
+            bus.hide();
         }
     });
 
