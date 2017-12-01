@@ -1,30 +1,49 @@
 $(function(){
+    var select            = $('select:not(".car-select")');
+    var btnAddCustomer    = $('#add-customer');
+    var btnRemoveCustomer = $('#remove-customer');
+    var btnAddName        = $('#add-name');
+    var btnRemoveName     = $('#remove-name');
+    var carAdd            = $('#car-add');
+    var carRemove         = $('#car-remove');
+    var data              = $('.passport-date');
+    var id                = $('.passport-id');
+    var strData           = $('#searchDate');
+    var strId             = $('#searchId');
+    var selectPaper       = $('select:not(".size-paper")');
+
     $.material.init();
     $('input[type="tel"]').mask("+7(999) 999-9999");
-    $('select').select2();
+
+    select.select2();
+    selectPaper.on('select2:opening select2:closing', function( event ) {
+        var $searchfield = $(this).parent().find('.select2-search__field');
+        $searchfield.prop('disabled', true);
+    });
+
+    select.on("select2:select", function (evt) {
+        var element = evt.params.data.element;
+        var $element = $(element);
+
+        $element.detach();
+        $(this).append($element);
+        $(this).trigger("change");
+    });
 
     //Добавление Заказчиков
-    var btnAdd = $('#add-customer');
-    var btnRemove = $('#remove-customer');
-    var clone = '' +
-        '<div class="col-md-2 customer-container">' +
-            '<select multiple="multiple" class="form-control customerNumber">' +
-                '<option>Заказчик 1</option>' +
-                '<option>Заказчик 2</option>' +
-                '<option>Заказчик 3</option>' +
-                '<option>Заказчик 4</option>' +
-            '</select>' +
-        '</div>';
-    btnAdd.click(function(){
-        var customerContainer = $('.customer-container');
-        if(customerContainer.length < 5){
-            customerContainer.last().after(clone);
-            $('.customerNumber').select2();
-        }
+    btnAddCustomer.click(function(){
+        addCustomer();
     });
-    btnRemove.click(function(){
-        var customerContainer = $('.customer-container');
-        if(customerContainer.length > 1) customerContainer.last().remove();
+    btnRemoveCustomer.click(function(){
+        removeCustomer();
+    });
+
+    //Добавление наименование
+    btnAddName.click(function(){
+        addName();
+    });
+    btnRemoveName.click(function(){
+        removeName();
     });
 
     //input time disabled
@@ -38,20 +57,13 @@ $(function(){
         }
     });
 
-    //ДОбавление машин
-    var carAdd       = $('#car-add');
-    var carRemove    = $('#car-remove');
-    var carWrap      = $('.car-wrap');
-
+    //ДОбавление машин;
     carAdd.click(function(){
-        var carContainer = $('.car-container');
-        var carContainerClone = carContainer.last().clone();
-        if(carContainer.length < 8) carContainer.last().after(carContainerClone);
+        addCar();
     });
 
     carRemove.click(function(){
-        var carContainer = $('.car-container');
-        if(carContainer.length > 1) carContainer.last().remove();
+        removeCar();
     });
 
     //Добавление доставки
@@ -89,10 +101,6 @@ $(function(){
 
 
     //поиск в pasports
-    var data = $('.passport-date');
-    var id   = $('.passport-id');
-    var strData = $('#searchDate');
-    var strId = $('#searchId');
     strData.keyup(function(){
         searchPassports($(this).val(), data);
     });
@@ -110,4 +118,59 @@ function searchPassports(str, field){
             tr.hide();
         }
     })
+}
+
+function addCustomer() {
+    var clone = '' +
+        '<div class="col-md-2 customer-container">' +
+        '<select multiple="multiple" class="form-control customerNumber">' +
+        '<option>Заказчик 1</option>' +
+        '<option>Заказчик 2</option>' +
+        '<option>Заказчик 3</option>' +
+        '<option>Заказчик 4</option>' +
+        '</select>' +
+        '</div>';
+    var customerContainer = $('.customer-container');
+    if(customerContainer.length < 5){
+        customerContainer.last().after(clone);
+        $('.customerNumber').select2();
+    }
+}
+
+function removeCustomer(){
+    var customerContainer = $('.customer-container');
+    if(customerContainer.length > 1) customerContainer.last().remove();
+}
+
+function addName(){
+    var cloneName = '' +
+        '<div class="col-md-2 name-container">' +
+        '<select multiple="multiple" class="form-control name">' +
+        '<option>Наименование 1</option>' +
+        '<option>Наименование 2</option>' +
+        '<option>Наименование 3</option>' +
+        '<option>Наименование 4</option>' +
+        '</select>' +
+        '</div>';
+    var nameContainer = $('.name-container');
+    if(nameContainer.length < 5){
+        nameContainer.last().after(cloneName);
+        $('.name').select2();
+    }
+}
+
+function removeName(){
+    var nameContainer = $('.name-container');
+    if(nameContainer.length > 1) nameContainer.last().remove();
+}
+
+function addCar(){
+    var carContainer = $('.car-container');
+    var carContainerClone = carContainer.last().clone();
+    if(carContainer.length < 8) carContainer.last().after(carContainerClone);
+}
+
+function removeCar(){
+    var carContainer = $('.car-container');
+    if(carContainer.length > 1) carContainer.last().remove();
 }
