@@ -48,27 +48,29 @@ block content
                                     .form-group
                                         .col-md-2
                                             label.control-label Заказчик
-                                            button.btn.btn-customer(type="button", id="remove-customer")
-                                                i.material-icons remove
-                                            button.btn.btn-customer(type="button", id="add-customer")
-                                                i.material-icons add
-                                        .col-md-2.customer-container
-                                            select.form-control.customerNumber(multiple)
-                                                option Заказчик 1
-                                                option Заказчик 2
-                                                option Заказчик 3
-                                                option Заказчик 4
+                                            //button.btn.btn-customer(type="button", id="remove-customer")
+                                            //    i.material-icons remove
+                                            //button.btn.btn-customer(type="button", id="add-customer")
+                                            //    i.material-icons add
+                                        //.col-md-2.customer-container
+                                        .col-md-10
+                                            select.form-control.customerNumber.text(multiple)
+                                                //option Заказчик 1
+                                                //option Заказчик 2
+                                                //option Заказчик 3
+                                                //option Заказчик 4
                             .row
                                 .col-md-12
                                     .form-group
                                         .col-md-2
                                             label.control-label Наименование
-                                            button.btn.btn-customer(type="button", id="remove-name")
-                                                i.material-icons remove
-                                            button.btn.btn-customer(type="button", id="add-name")
-                                                i.material-icons add
-                                        .col-md-2.name-container
-                                            select.form-control.name(multiple="multiple")
+                                            //button.btn.btn-customer(type="button", id="remove-name")
+                                            //    i.material-icons remove
+                                            //button.btn.btn-customer(type="button", id="add-name")
+                                            //    i.material-icons add
+                                        //.col-md-2.name-container
+                                        .col-md-10
+                                            select.form-control.name.text(multiple="multiple")
                                                 option Наименование 1
                                                 option Наименование 2
                                                 option Наименование 3
@@ -77,16 +79,20 @@ block content
                                 .col-md-12
                                     .form-group.circulation
                                         label.col-md-2.control-label Тираж заказчику
-                                        .col-md-2
-                                            input(type="text")
-                                        .col-md-2
-                                            input(type="text")
-                                        .col-md-2
-                                            input(type="text")
-                                        .col-md-2
-                                            input(type="text")
-                                        .col-md-2
-                                            input(type="text")
+                                        .col-md-10
+                                            select.form-control.text(multiple)
+                                        //.col-md-2
+                                        //    input(type="text")
+                                        //.col-md-2
+                                        //    input(type="text")
+                                        //.col-md-2
+                                        //    input(type="text")
+                                        //.col-md-2
+                                        //    input(type="text")
+                                        //.col-md-2
+                                        //    input(type="text")
+                            .row
+                                .col-md-12
                                     .form-group
                                         label.col-md-2.control-label(for="select7") Размер
                                         .col-md-10
@@ -98,18 +104,20 @@ block content
                                                 option А4
                                                 option А5
                                                 option А6
+                            .row
+                                .col-md-12
                                     .form-group
                                         label.col-md-2.control-label(for="select8") Страница
                                         .col-md-10
-                                            select.form-control(id="select8", multiple="multiple")
-                                                option опция 1
-                                                option опция 2
-                                                option опция 3
-                                                option опция 4
+                                            select.form-control.text(id="select8", multiple="multiple")
+                            .row
+                                .col-md-12
                                     .form-group
                                         label.col-md-2.control-label Красочность
                                         .col-md-10
-                                            input.form-control(type="text")
+                                            select.form-control.text(multiple="multiple")
+                            .row
+                                .col-md-12
                                     .form-group
                                         label.col-md-2.control-label(for="select10") Бумага
                                         .col-md-10
@@ -205,8 +213,8 @@ block content
                                                                 label.col-md-5.control-label На машину
                                                                 .col-md-7
                                                                     select.form-control.car-select
-                                                                        option A1
                                                                         option A2
+                                                                        option A3
                                                     .form-group
                                                         label.col-md-5.control-label(for="Sht1") Шт.
                                                         .col-md-7
@@ -239,13 +247,14 @@ block content
                                 .form-group
                                     label.col-md-2.control-label(for="file") Адрес исходного файла
                                     .col-md-10
-                                        input.form-control(type="text", readonly="", placeholder="Файл...")
-                                        input(type="file", id="file", multiple="")
-                            .row
-                                .form-group
-                                    label.col-md-2.control-label(for="montage") Монтаж выполнил
-                                    .col-md-10
-                                        input.form-control(id="montage", type="text")
+                                        input.form-control.fileText(type="text", readonly="", placeholder="Файл...")
+                                        input(type="file", id="file", multiple="", accept="image/*,application/pdf,application/msword,application/rtf,application/rtf,text/plain,text/csv,text/xml")
+                                        #fullPath
+                            //.row
+                            //    .form-group
+                            //        label.col-md-2.control-label(for="montage") Монтаж выполнил
+                            //        .col-md-10
+                            //            input.form-control(id="montage", type="text")
                             .row
                                 .col-md-3
                                     .form-group

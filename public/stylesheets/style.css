@@ -16,6 +16,9 @@ a {
 .select2-container--default .select2-selection--multiple{
     border: 1px solid black !important;
 }
+.fileText{
+    width: 100%;
+}
 input {
     border: 1px solid black;
     border-radius: 5px;
@@ -23,6 +26,11 @@ input {
 }
 input[type="radio"]{
     border: 1px solid black;
+}
+
+/*no result found select2*/
+.select2-hidden {
+    display:none !important;
 }
 .border-label{
     padding-right: 5px;

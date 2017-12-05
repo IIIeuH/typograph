@@ -1,5 +1,4 @@
 $(function(){
-    var select            = $('select:not(".car-select")');
     var btnAddCustomer    = $('#add-customer');
     var btnRemoveCustomer = $('#remove-customer');
     var btnAddName        = $('#add-name');
@@ -10,16 +9,28 @@ $(function(){
     var id                = $('.passport-id');
     var strData           = $('#searchDate');
     var strId             = $('#searchId');
+    var select            = $('select:not(".car-select")');
     var selectPaper       = $('select:not(".size-paper")');
 
     $.material.init();
     $('input[type="tel"]').mask("+7(999) 999-9999");
 
     select.select2();
-    selectPaper.on('select2:opening select2:closing', function( event ) {
-        var $searchfield = $(this).parent().find('.select2-search__field');
-        $searchfield.prop('disabled', true);
+
+    $('.text').select2({
+        tags: true,
+        tokenSeparators: [',', ' '],
+        dropdownCssClass: 'select2-hidden'
     });
+    $('.size-paper').select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
+    });
+
+    // selectPaper.on('select2:opening select2:closing', function( event ) {
+    //     var $searchfield = $(this).parent().find('.select2-search__field');
+    //     $searchfield.prop('disabled', true);
+    // });
 
     select.on("select2:select", function (evt) {
         var element = evt.params.data.element;
@@ -66,6 +77,13 @@ $(function(){
         removeCar();
     });
 
+    //Полный путь к файлу
+    $('#file').change(function () {
+        var fullPath = $(this).val();
+        var fullPathNotFile = fullPath.split('\\');
+        fullPath = fullPath.replace(fullPathNotFile[fullPathNotFile.length - 1], "");
+        $('#fullPath').html(fullPath);
+    });
     //Добавление доставки
     var radio    = $('input[name="delivery"]');
     var typeDelever = $('.type-delever');
