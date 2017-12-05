@@ -1,8 +1,10 @@
 body {
-  background-color: #ebeff5 !important;
   padding: 0;
   margin: 10px 0;
   font: 14px Exo, Helvetica, Arial, sans-serif !important;
+}
+.main-managers{
+    background-color: #ebeff5 !important;
 }
 a {
   color: #00B7FF;
