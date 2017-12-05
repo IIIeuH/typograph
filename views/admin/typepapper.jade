@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    .container-fluid
+        button.btn.btn-raised.btn-cosmo.add-btn(type="button") Добавить тип бумаги
+        button.btn.btn-raised.btn-danger.cancel-btn.hidden(type="button") Отмена
+        button.btn.btn-raised.btn-info.save-btn.hidden(type="button") Сохранить
+        .row.hidden.row-papper
+            .form-group
+                label.control-label.col-md-2 Тип бумаги
+                .col-md-10
+                    select.form-control.text

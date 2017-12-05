@@ -1,0 +1,27 @@
+doctype html
+html
+    head
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title= title
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Exo')
+        link(rel='stylesheet', href='/app/css/bundleMain.min.css')
+        link(rel='stylesheet', href='/app/css/bundleOther.min.css')
+    body.admin
+        script(src="/app/js/other.min.js")
+        script(src="/app/js/main.min.js")
+        .navbar.navbar-cosmo
+            .container-fluid
+                .navbar-header
+                    button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-warning-collapse')
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='/admin') Администратор
+                .navbar-collapse.collapse.navbar-warning-collapse
+                    ul.nav.navbar-nav
+                        li.active
+                            a(href='/admin/typepapper') Тип бумаги
+                        li
+                            a(href='/admin/grammpapper') Граммаж бумаги
+        block content

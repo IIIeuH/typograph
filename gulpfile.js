@@ -51,7 +51,7 @@ gulp.task('scriptOther', function(){
 
 gulp.task('script', function(){
     return gulp.src([
-            'public/javascripts/main.js'])
+            'public/javascripts/*.js'])
         .pipe(concat('main.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('public/app/js/'));

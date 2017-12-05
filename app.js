@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var config = require('./config');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var admin = require('./routes/admin');
 
 var app = express();
 app.locals.moment = require('moment');
@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/admin', admin);
 
 app.listen(config.port, function(){
   console.log('Server is listen on port '+ config.port);
