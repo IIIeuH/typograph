@@ -5,19 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./config');
-var MongoClient = require('mongodb').MongoClient;
 
 var routes = require('./routes/index');
 var admin = require('./routes/admin');
 
 var app = express();
 app.locals.moment = require('moment');
-global.db = MongoClient.connect(config.url, function(err, data){
-  if(err) console.log(err);
-  console.log('success');
-  return data;
-});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

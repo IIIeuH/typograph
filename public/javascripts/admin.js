@@ -47,21 +47,38 @@ function btnShow(rowPapper, addBtn, saveBtn, that){
 
 function sandData(element){
     var val = element.val();
-    var obj = {};
     var arr = [];
-    val.forEach(function(item){
-        obj.name = item;
-        arr.push(obj);
-    });
-    arr =  JSON.stringify(arr);
-    $.ajax({
-        type: 'PUT',
-        data: {data: arr},
-        success: function(data){
-            console.log(data);
-        },
-        error: function(err){
-            console.log(err);
-        }
-    });
+    if(val !== null){
+        val.forEach(function(item){
+            var obj = {};
+            obj.name = item;
+            arr.push(obj);
+        });
+        arr =  JSON.stringify(arr);
+        $.ajax({
+            type: 'PUT',
+            data: {data: arr},
+            success: function(data){
+                Snackbar.show({
+                    text: 'Данные успешно сохраненны!',
+                    pos: 'bottom-left',
+                    actionText: null
+                });
+            },
+            error: function(err){
+                Snackbar.show({
+                    text: 'Что-то пошло не так!',
+                    pos: 'bottom-left',
+                    actionText: null
+                });
+            }
+        });
+    }else{
+        Snackbar.show({
+            text: 'Заполните поле Граммаж бумаги!',
+            pos: 'top-center',
+            actionText: 'OK',
+            actionTextColor: '#ff0000'
+        });
+    }
 }

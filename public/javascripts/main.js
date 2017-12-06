@@ -12,6 +12,13 @@ $(function(){
     var select            = $('select:not(".car-select")');
     var selectPaper       = $('select:not(".size-paper")');
 
+
+    var url = window.location;
+    $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
+
+    $('ul.nav a').filter(function() {
+        return this.href == url;
+    }).parent().addClass('active');
     $.material.init();
     $('input[type="tel"]').mask("+7(999) 999-9999");
 

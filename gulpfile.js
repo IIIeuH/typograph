@@ -23,7 +23,8 @@ gulp.task('concatCss', function(){
         'bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css',
         'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
         'bower_components/select2/dist/css/select2.min.css',
-        'bower_components/font-awesome/css/font-awesome.min.css'
+        'bower_components/font-awesome/css/font-awesome.min.css',
+        'bower_components/snackbar/dist/snackbar.min.css'
     ])
         .pipe(concatCss('bundleOther.min.css'))
         .pipe(cleanCss())
@@ -42,7 +43,8 @@ gulp.task('scriptOther', function(){
             'bower_components/bootstrap-material-design/dist/js/material.min.js',
             'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
             'bower_components/select2/dist/js/select2.full.min.js',
-            'bower_components/jquery.maskedinput.min.js'
+            'bower_components/jquery.maskedinput.min.js',
+            'bower_components/snackbar/dist/snackbar.min.js'
     ])
         .pipe(concat('other.min.js'))
         .pipe(uglify())

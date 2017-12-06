@@ -7,7 +7,12 @@ block content
         button.btn.btn-raised.btn-info.save-btn.hidden(type="button") Сохранить
         .row.row-papper
             .form-group
-                .col-md-2
-                    label.control-label Тип бумаги
-                .col-md-10
-                    select.form-control.text(multiple, id="type-papper", style="width:100%;")
+                label.col-md-2.control-label Тип бумаги
+                select.col-md-10.form-control.text(multiple, id="type-papper", style="width:100%;")
+        .row
+            .col-md-12
+                table.table.table-striped
+                    tbody
+                        each item in typePappers
+                            tr
+                                td=item.name

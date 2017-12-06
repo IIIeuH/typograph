@@ -1,14 +1,24 @@
 var wrap = require('co-express');
+var model = require('../../models/admin/index');
 
 exports.typePappers = function(req, res, next){
-    res.render('admin/typepapper', {title: 'Администратор - тип бумаги'});
-};
-exports.putTypePappers = wrap(function* (req, res, next){
-    var data = JSON.parse(req.body.data);
-    var typePappers = yield db.collection('typepappers');
-    console.log(typePappers);
-    typePappers.find({}).toArray(function(err, data){
-        if(err) console.log(err);
-        console.log(data);
+    var collection = req.path.slice(1);
+    model.findAll(collection).then(function(data){
+        res.render('admin/typepapper', {title: 'Администратор - тип бумаги', typePappers: data});
     });
-});
+};
+
+exports.grammPappers = function(req, res, next){
+    var collection = req.path.slice(1);
+    model.findAll(collection).then(function(data){
+        res.render('admin/grammpapper', {title: 'Администратор - граммаж бумаги', grammPappers: data});
+    });
+};
+
+exports.putPappers = function (req, res, next){
+    var data = JSON.parse(req.body.data);
+    var collection = req.path.slice(1);
+    model.saveAll(data, collection).then(function(data){
+        res.json(data);
+    });
+};

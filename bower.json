@@ -19,7 +19,8 @@
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "bootstrap-material-design": "^0.5.10",
-    "select2": "^4.0.5"
+    "select2": "^4.0.5",
+    "snackbar": "^0.1.8"
   },
   "devDependencies": {}
 }
