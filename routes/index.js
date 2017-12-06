@@ -1,5 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var ctrl   = require('../ctrl');
+
+
+//ajax
+router.route('/getCollection')
+    .get(ctrl.getCollectionSelect);
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

@@ -18,3 +18,29 @@ module.exports.saveAll = function(data, collection){
         });
     });
 };
+
+module.exports.searchItem = function(collection, data){
+    return new Promise(function(resolve, reject){
+        shema[collection].aggregate([
+            {
+                $match:{
+                    name: regexp(data)
+                }
+            }
+        ], function(err, result){
+            if(err) reject(err);
+            else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+function regexp(text) {
+    if(text){
+        text = text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+        return new RegExp('(^| )' + text, 'i');
+    }else{
+        return "";
+    }
+}

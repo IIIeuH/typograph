@@ -48,6 +48,56 @@ $(function(){
         $(this).trigger("change");
     });
 
+    //ajax select2
+    $('#typepapper').select2({
+        ajax: {
+            url: '/getCollection',
+            dataType: 'json',
+            data: function (params) {
+
+                var queryParameters = {
+                    term: params.term,
+                    collection: 'typepappers'
+                };
+                return queryParameters;
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name,
+                            id: item._id
+                        }
+                    })
+                };
+            }
+        }
+    });
+
+    $('#grammpapper').select2({
+        ajax: {
+            url: '/getCollection',
+            dataType: 'json',
+            data: function (params) {
+
+                var queryParameters = {
+                    term: params.term,
+                    collection: 'grammpappers'
+                };
+                return queryParameters;
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name,
+                            id: item._id
+                        }
+                    })
+                };
+            }
+        }
+    });
     //Добавление Заказчиков
     btnAddCustomer.click(function(){
         addCustomer();
