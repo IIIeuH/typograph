@@ -75,7 +75,7 @@ function sandData(element){
         });
     }else{
         Snackbar.show({
-            text: 'Заполните поле Граммаж бумаги!',
+            text: 'Заполните поле!',
             pos: 'top-center',
             actionText: 'OK',
             actionTextColor: '#ff0000'
