@@ -3,7 +3,7 @@ $(function(){
     var cancelBtn = $('.cancel-btn');
     var saveBtn = $('.save-btn');
     var rowPapper    = $('.row-papper');
-
+    var btlDelRow = $('.removeRow');
     $('.text').on("select2:select", function (evt) {
         var element = evt.params.data.element;
         var $element = $(element);
@@ -26,7 +26,14 @@ $(function(){
 
     saveBtn.click(function () {
         sandData($('#type-papper'));
-    })
+    });
+
+    btlDelRow.click(function(){
+        var del = confirm("Вы действительно хотите удалить " + $(this).data('name') + "?");
+        if(del){
+            removeRow($(this));
+        }
+    });
 });
 
 //1 аргументом идет элемент который нужно отображать остальные кнопки
@@ -64,6 +71,7 @@ function sandData(element){
                     pos: 'bottom-left',
                     actionText: null
                 });
+                window.location.reload();
             },
             error: function(err){
                 Snackbar.show({
@@ -81,4 +89,22 @@ function sandData(element){
             actionTextColor: '#ff0000'
         });
     }
+}
+
+function removeRow(row){
+    var id = row.attr('id');
+    $.ajax({
+        type: 'DELETE',
+        data: {id: id},
+        success: function(){
+            row.parent().parent().hide();
+        },
+        error: function(){
+            Snackbar.show({
+                text: 'Что-то пошло не так!',
+                pos: 'bottom-left',
+                actionText: null
+            });
+        }
+    })
 }

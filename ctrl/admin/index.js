@@ -1,4 +1,3 @@
-var wrap = require('co-express');
 var model = require('../../models/admin/index');
 
 exports.typePappers = function(req, res, next){
@@ -19,6 +18,13 @@ exports.putPappers = function (req, res, next){
     var data = JSON.parse(req.body.data);
     var collection = req.path.slice(1);
     model.saveAll(data, collection).then(function(data){
+        res.json(data);
+    });
+};
+
+exports.deleteItem = function (req, res, next){
+    var collection = req.path.slice(1);
+    model.deleteItem(req.body.id, collection).then(function(data){
         res.json(data);
     });
 };

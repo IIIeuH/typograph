@@ -17,3 +17,4 @@ block content
                         each item in typePappers
                             tr
                                 td=item.name
+                                    i.material-icons.removeRow(id=item._id, data-name=item.name) delete_forever

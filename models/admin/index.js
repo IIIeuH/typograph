@@ -44,3 +44,14 @@ function regexp(text) {
         return "";
     }
 }
+
+module.exports.deleteItem = function(id, collection){
+    console.log(id, collection);
+    return new Promise(function(resolve, reject){
+        shema[collection].deleteOne({_id: id}, function(err, data){
+            if(err) reject(err);
+            resolve(data);
+        });
+    });
+};
+

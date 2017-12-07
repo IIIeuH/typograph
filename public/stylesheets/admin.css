@@ -12,3 +12,9 @@ table tr :hover{
     color: #ffffff !important;
     background-color: #3d3780;
 }
+table td i{
+    float: right;
+}
+table td i:hover{
+    text-shadow:0 0 20px #f1ffed;
+}

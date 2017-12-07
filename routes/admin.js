@@ -9,10 +9,12 @@ router.get('/', function(req, res, next) {
 
 router.route('/typepappers')
     .get(ctrl.typePappers)
-    .put(ctrl.putPappers);
+    .put(ctrl.putPappers)
+    .delete(ctrl.deleteItem);
 
 router.route('/grammpappers')
     .get(ctrl.grammPappers)
-    .put(ctrl.putPappers);
+    .put(ctrl.putPappers)
+    .delete(ctrl.deleteItem);
 
 module.exports = router;
