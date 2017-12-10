@@ -6,26 +6,48 @@ block content
             .col-md-12
                 .panel.panel-white
                     .panel-heading
-                        h3.panel-title Chat Global
-                    .panel-body.global-chat
-                        .one-str
-                            span.label.label-primary Vasya:
-                            |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
-                        .one-str
-                            span.label.label-primary Kolya:
-                            |  Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах, которое не получается при простой дубликации "Здесь ваш текст.. Здесь ваш текст.. Здесь ваш текст.."
-                        .one-str
-                            span.label.label-primary John:
-                            |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-                    .panel-body.global-chat-footer
-                        .form-group.form-group-sm.label-floating
-                            label.control-label(for="globalChat") Введите текст
-                            .input-group
-                                input.form-control.input-sm(type="text", id="globalChat")
-                                span.input-group-btn
-                                    button.btn.btn-primary(type="button") button
-        form(method="GET", action="/passport")
-            button.btn.btn-raised.btn-warning(type="submit") Создать заказ
+                        h3.panel-title Your passports
+                    .panel-body.passports-data
+                        table.table.table-hover
+                            tr
+                                th
+                                    .form-group
+                                        label.col-md-2.control-label(for="searchDate") Дата
+                                        .col-md-10
+                                            input.form-control(type="text", id="searchDate", placeholder="Поиск...")
+                                th
+                                    .form-group
+                                        label.col-md-2.control-label(for="searchId") ID
+                                        .col-md-10
+                                            input.form-control(type="text", id="searchId", placeholder="Поиск...")
+                            tr
+                                td.passport-date=moment(new Date()).format('YYYY.MM.DD')
+                                td.passport-id k0654534
+                            tr
+                                td.passport-date=moment(new Date()).format('YYYY.MM.DD')
+                                td.passport-id k0654535
+                            tr
+                                td.passport-date=moment(new Date()).format('YYYY.MM.DD')
+                                td.passport-id k0654536
+                            tr
+                                td.passport-date=moment(new Date()).format('YYYY.MM.DD')
+                                td.passport-id k0654537
+                            tr
+                                td.passport-date=moment(new Date()).format('YYYY.MM.DD')
+                                td.passport-id k0654538
+                            tr
+                                td.passport-date=moment(new Date()).format('YYYY.MM.DD')
+                                td.passport-id k0654539
+                            tr
+                                td.passport-date=moment(new Date()).format('YYYY.MM.DD')
+                                td.passport-id k0654540
+                            tr
+                                td.passport-date=moment(new Date()).format('YYYY.MM.DD')
+                                td.passport-id k0654541
+                            tr
+                                td.passport-date=moment(new Date()).format('YYYY.MM.DD')
+                                td.passport-id k0654542
+        a.btn.btn-success-green(href="/passport") Создать заказ
             //.col-md-4
             //    .panel.panel-white
             //        .panel-heading

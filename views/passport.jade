@@ -6,43 +6,52 @@ block content
             .col-md-12
                 .panel.panel-white
                     .panel-heading
+                        span Заказ № 1 от #{moment(new Date()).format("DD.MM")}
                     .panel-body
                         .container-fluid
+                            //.row
+                            //    .col-md-6
+                            //        .table-responsive
+                            //            table.table.table-bordered.table-condensed
+                            //                tr
+                            //                    th Заказ
+                            //                    th От
+                            //                    th Сдать на
+                            //                    th Время
+                            //                tr
+                            //                    td 1
+                            //                    td=moment(new Date()).format("DD.MM")
+                            //                    td
+                            //                        input.form-control(type="date")
+                            //                    td
+                            //
                             .row
                                 .col-md-6
-                                    .table-responsive
-                                        table.table.table-bordered.table-condensed
-                                            tr
-                                                th Заказ
-                                                th От
-                                                th Сдать на
-                                                th Время
-                                            tr
-                                                td 1
-                                                td=moment(new Date()).format("DD.MM")
-                                                td
-                                                    input.form-control(type="date")
-                                                td
-                                                    .col-md-6
-                                                        input.form-control(type="time", disabled, id="timeInput")
-                                                    .col-md-6
-                                                        .checkbox
-                                                            label
-                                                                input(type="checkbox", id="timeCheck")
-                                                            | Время
+                                    .form-group
+                                        .col-md-4
+                                            label.control-label Сдать на
+                                        .col-md-8
+                                            input.form-control(type="date")
                                 .col-md-6
-                                    .table-responsive
-                                        table.table.table-bordered.table-condensed
-                                            tr
-                                                th Контактное лицо
-                                                th Телефон
-                                            tr
-                                                td
-                                                    .form-group
-                                                        input.form-control(type="text", id="contact")
-                                                td
-                                                    .form-group.label-floating
-                                                        input.form-control(type="tel", id="phone", placeholder="+7(xxx) xxx-xx-xx")
+                                    .form-group
+                                        .col-md-4
+                                            .checkbox
+                                                label
+                                                    input(type="checkbox", id="timeCheck")
+                                                | Время
+                                        .col-md-8
+                                            input.form-control(type="time", disabled, id="timeInput")
+                            .row
+                                .col-md-6
+                                    .form-group
+                                        label.control-label.col-md-4 Контактное лицо
+                                        .col-md-8
+                                            input.form-control(type="text", id="contact")
+                                .col-md-6
+                                    .form-group
+                                        label.control-label.col-md-4 Телефон
+                                        .col-md-8
+                                            input.form-control(type="tel", id="phone", placeholder="+7(xxx) xxx-xx-xx")
                             .row
                                 .col-md-12
                                     .form-group
