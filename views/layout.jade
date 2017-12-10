@@ -10,46 +10,59 @@ html
   body.main-managers
     script(src="/app/js/other.min.js")
     script(src="/app/js/main.min.js")
-    .navbar.navbar-default.navbar-white
-      .container-fluid
-        .navbar-header
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href='javascript:void(0)') Managers
-        .navbar-collapse.collapse.navbar-responsive-collapse
-          ul.nav.navbar-nav
-            li
-              a(href='/') Главная
-            li
-              a(href='/passports') Все паспорта
-          ul.nav.navbar-nav.navbar-right
-            li
-              a(href="/admin") Админ. панель
-            li
-              a(href="#demo" data-toggle="collapse")
-                i.material-icons mail_outline
-            li
-              a(href='javascript:void(0)')
-                .users users name
-      #demo.collapse
-        .local-chat-body
-          .one-str
-            span.label.label-info Vasya:
-            |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
-          .one-str
-            span.label.label-info Kolya:
-            |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
-          .one-str
-            span.label.label-info John:
-            |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
-          .btn-send-local
-            .form-group.label-floating
-              label.control-label(for="localChat") Введите текст
-              .input-group
-                input.form-control(type="text", id="localChat")
-                span.input-group-btn
-                  button.btn.btn-fab.btn-fab-mini
-                    i.material-icons send
-    block content
+    .wrapper
+      .header
+        .navbar.navbar-default.navbar-white
+          .container-fluid
+            .navbar-header
+              button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              a.navbar-brand(href='javascript:void(0)') Managers
+            .navbar-collapse.collapse.navbar-responsive-collapse
+              //ul.nav.navbar-nav
+              //  li
+              //    a(href='/') Главная
+              //  li
+              //    a(href='/passports') Все паспорта
+              ul.nav.navbar-nav.navbar-right
+                li
+                  a(href="/admin") Админ. панель
+                //li
+                //  a(href="#demo" data-toggle="collapse")
+                //    i.material-icons mail_outline
+                //li
+                //  a(href='javascript:void(0)')
+                //    .users users name
+          #demo.collapse
+            .local-chat-body
+              .one-str
+                span.label.label-info Vasya:
+                |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
+              .one-str
+                span.label.label-info Kolya:
+                |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
+              .one-str
+                span.label.label-info John:
+                |  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum
+              .btn-send-local
+                .form-group.label-floating
+                  label.control-label(for="localChat") Введите текст
+                  .input-group
+                    input.form-control(type="text", id="localChat")
+                    span.input-group-btn
+                      button.btn.btn-fab.btn-fab-mini
+                        i.material-icons send
+      .content
+        .menu
+          .menu-wrap
+            ul.nav.nav-pills.nav-stacked(style='max-width: 300px;')
+              li
+                a(href='/') Главная
+              li
+                a(href='/passport') Создать заказ
+              li
+                a(href='/passports') Все паспорта
+        .main
+          block content
