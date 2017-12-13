@@ -1,6 +1,19 @@
 .navbar.navbar-cosmo{
     background-color: #3d3780;
 }
+.navbar.navbar-cosmo .dropdown-menu li>a:focus, .navbar.navbar-cosmo .dropdown-menu li>a:hover, .navbar.navbar-cosmo .dropdown-menu li>a:focus, .navbar.navbar-cosmo .dropdown-menu li>a:hover{
+    color: white;
+    background-color: #3d3780;
+}
+
+.navbar.navbar-cosmo .dropdown-menu .active>a, .navbar.navbar-cosmo .dropdown-menu .active>a{
+    color: white;
+    background-color: #3d3780;
+}
+
+.navbar-cosmo .dropdown.open a:focus{
+    color: white !important;
+}
 .btn-cosmo{
     background-color: #3d3780 !important;
     color: #ffffff !important;

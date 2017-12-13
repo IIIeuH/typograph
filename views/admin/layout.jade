@@ -20,10 +20,15 @@ html
                     a.navbar-brand(href='/admin') Администратор
                 .navbar-collapse.collapse.navbar-warning-collapse
                     ul.nav.navbar-nav
-                        li
-                            a(href='/admin/typepappers') Тип бумаги
-                        li
-                            a(href='/admin/grammpappers') Граммаж бумаги
+                        li.dropdown
+                            a.dropdown-toggle(href='bootstrap-elements.html', data-target='#', data-toggle='dropdown')
+                                | Бумага
+                                b.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/admin/typepappers') Тип бумаги
+                                li
+                                    a(href='/admin/grammpappers') Граммаж бумаги
                     ul.nav.navbar-nav.navbar-right
                         li
                             a(href="/") Выход

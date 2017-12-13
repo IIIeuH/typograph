@@ -182,6 +182,13 @@ $(function(){
     strId.keyup(function(){
         searchPassports($(this).val(), id);
     });
+
+    //Убираем чат
+    if(window.location.pathname === '/'){
+        $('.chat').show();
+    }else{
+        $('.chat').hide();
+    }
 });
 
 function searchPassports(str, field){
