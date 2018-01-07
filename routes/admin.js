@@ -17,4 +17,9 @@ router.route('/grammpappers')
     .put(ctrl.putPappers)
     .delete(ctrl.deleteItem);
 
+router.route('/sizepappers')
+    .get(ctrl.sizePappers)
+    .put(ctrl.putPappers)
+    .delete(ctrl.deleteItem);
+
 module.exports = router;

@@ -1,22 +1,31 @@
-var mongoose = require('./db');
-var Schema = mongoose.Schema;
+const mongoose = require('./db');
+const Schema = mongoose.Schema;
 
-var Typepappers = new Schema({
+const Typepappers = new Schema({
     name: {
         type: String,
         required: true
     }
 },{versionKey: false});
 
-var Grammpappers = new Schema({
+const Grammpappers = new Schema({
     name: {
         type: String,
         required: true
     }
 },{versionKey: false});
 
-var typepappers = mongoose.model('typepappers', Typepappers);
-var grammpappers = mongoose.model('grammpappers', Grammpappers);
+const Sizepappers = new Schema({
+    name: {
+        type: String,
+        required: true
+    }
+},{versionKey: false});
+
+const typepappers = mongoose.model('typepappers', Typepappers);
+const grammpappers = mongoose.model('grammpappers', Grammpappers);
+const sizepappers = mongoose.model('sizepappers', Sizepappers);
 
 module.exports.typepappers = typepappers;
 module.exports.grammpappers = grammpappers;
+module.exports.sizepappers = sizepappers;

@@ -50,6 +50,7 @@ $(function(){
 
     //ajax select2
     $('#typepapper').select2({
+        placeholder: "Тип",
         ajax: {
             url: '/getCollection',
             dataType: 'json',
@@ -75,6 +76,7 @@ $(function(){
     });
 
     $('#grammpapper').select2({
+        placeholder: "Граммаж",
         ajax: {
             url: '/getCollection',
             dataType: 'json',
@@ -98,6 +100,33 @@ $(function(){
             }
         }
     });
+
+    $('#sizepapper').select2({
+        placeholder: "Размер",
+        ajax: {
+            url: '/getCollection',
+            dataType: 'json',
+            data: function (params) {
+
+                var queryParameters = {
+                    term: params.term,
+                    collection: 'sizepappers'
+                };
+                return queryParameters;
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name,
+                            id: item._id
+                        }
+                    })
+                };
+            }
+        }
+    });
+
     //Добавление Заказчиков
     btnAddCustomer.click(function(){
         addCustomer();

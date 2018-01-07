@@ -2,19 +2,19 @@ extends layout
 
 block content
     .container-fluid
-        button.btn.btn-raised.btn-cosmo.add-btn(type="button") Добавить тип бумаги
+        button.btn.btn-raised.btn-cosmo.add-btn(type="button") Добавить размер бумаги
         button.btn.btn-raised.btn-danger.cancel-btn.hidden(type="button") Отмена
         button.btn.btn-raised.btn-info.save-btn.hidden(type="button") Сохранить
         .row.row-papper
             .form-group
-                label.control-label.col-md-2 Тип бумаги
+                label.control-label.col-md-2 Размер бумаги
                 .col-md-10
                     select.form-control.text(multiple, id="type-papper", style="width:100%;")
         .row
             .col-md-12
                 table.table.table-striped.admin-table
                     tbody
-                        each item in typePappers
+                        each item in sizePappers
                             tr
                                 td=item.name
                                     i.material-icons.removeRow(id=item._id, data-name=item.name) delete_forever

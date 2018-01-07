@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
     .container-fluid
@@ -129,9 +129,11 @@ block content
                                 .col-md-12
                                     .form-group
                                         label.col-md-2.control-label Бумага
-                                        .col-md-5
+                                        .col-md-3
                                             select.form-control(id="typepapper", multiple="multiple")
-                                        .col-md-5
+                                        .col-md-3
+                                            select.form-control(id="sizepapper", multiple="multiple")
+                                        .col-md-3
                                             select.col-md-5.form-control(id="grammpapper", multiple="multiple")
                             .row
                                 .col-md-6

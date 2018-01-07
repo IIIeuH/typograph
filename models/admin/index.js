@@ -1,39 +1,36 @@
-var shema = require('../../shema');
+const shema = require('../../shema');
 
-module.exports.findAll = function(collection){
-    return new Promise(function(resolve, reject){
-        shema[collection].find({}, function(err, data){
-            if(err) reject(err);
-            resolve(data);
-        });
-    });
+module.exports.findAll = async (collection) => {
+    try{
+        return await shema[collection].find();
+    }catch (err){
+        console.log(err);
+        return err;
+    }
 };
 
-module.exports.saveAll = function(data, collection){
-    console.log(collection);
-    return new Promise(function(resolve, reject){
-        shema[collection].create(data, function(err, data){
-            if(err) reject(err);
-            resolve(data);
-        });
-    });
+module.exports.saveAll = async (data, collection) => {
+    try{
+        return await shema[collection].create(data);
+    }catch (err){
+        console.log(err);
+        return err;
+    }
 };
 
-module.exports.searchItem = function(collection, data){
-    return new Promise(function(resolve, reject){
-        shema[collection].aggregate([
+module.exports.searchItem = async (collection, data) => {
+    try{
+        return await shema[collection].aggregate([
             {
                 $match:{
                     name: regexp(data)
                 }
             }
-        ], function(err, result){
-            if(err) reject(err);
-            else{
-                resolve(result);
-            }
-        });
-    });
+        ]);
+    }catch (err){
+        console.log(err);
+        return err;
+    }
 };
 
 function regexp(text) {
@@ -45,13 +42,12 @@ function regexp(text) {
     }
 }
 
-module.exports.deleteItem = function(id, collection){
-    console.log(id, collection);
-    return new Promise(function(resolve, reject){
-        shema[collection].deleteOne({_id: id}, function(err, data){
-            if(err) reject(err);
-            resolve(data);
-        });
-    });
+module.exports.deleteItem = async (id, collection) => {
+    try{
+        return await shema[collection].deleteOne({_id: id});
+    }catch (err){
+        console.log(err);
+        return err;
+    }
 };
 

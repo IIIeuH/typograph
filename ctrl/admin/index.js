@@ -1,30 +1,31 @@
-var model = require('../../models/admin/index');
+const model = require('../../models/admin/index');
 
-exports.typePappers = function(req, res, next){
-    var collection = req.path.slice(1);
-    model.findAll(collection).then(function(data){
-        res.render('admin/typepapper', {title: 'Администратор - тип бумаги', typePappers: data});
-    });
+exports.typePappers = async (req, res, next) => {
+    let collection = req.path.slice(1);
+    let data = await model.findAll(collection);
+    res.render('admin/typepapper', {title: 'Администратор - тип бумаги', typePappers: data});
 };
 
-exports.grammPappers = function(req, res, next){
-    var collection = req.path.slice(1);
-    model.findAll(collection).then(function(data){
-        res.render('admin/grammpapper', {title: 'Администратор - граммаж бумаги', grammPappers: data});
-    });
+exports.grammPappers = async (req, res, next) => {
+    let collection = req.path.slice(1);
+    let data = await model.findAll(collection);
+    res.render('admin/grammpapper', {title: 'Администратор - граммаж бумаги', grammPappers: data});
 };
 
-exports.putPappers = function (req, res, next){
-    var data = JSON.parse(req.body.data);
-    var collection = req.path.slice(1);
-    model.saveAll(data, collection).then(function(data){
-        res.json(data);
-    });
+exports.sizePappers = async (req, res, next) => {
+    let collection = req.path.slice(1);
+    let data = await model.findAll(collection);
+    res.render('admin/sizepapper', {title: 'Администратор - размер бумаги', sizePappers: data});
 };
 
-exports.deleteItem = function (req, res, next){
-    var collection = req.path.slice(1);
-    model.deleteItem(req.body.id, collection).then(function(data){
-        res.json(data);
-    });
+exports.putPappers = async (req, res, next) => {
+    let data = JSON.parse(req.body.data);
+    let collection = req.path.slice(1);
+    res.json(await model.saveAll(data, collection));
+};
+
+exports.deleteItem = async (req, res, next) => {
+    let collection = req.path.slice(1);
+    res.json(await model.deleteItem(req.body.id, collection));
+
 };
