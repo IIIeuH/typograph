@@ -10,6 +10,7 @@ $(function(){
     var strData           = $('#searchDate');
     var strId             = $('#searchId');
     var select            = $('select:not(".car-select")');
+    var selectMult        = $('select.mult');
     var selectPaper       = $('select:not(".size-paper")');
 
 
@@ -21,6 +22,20 @@ $(function(){
     }).parent().addClass('active');
     $.material.init();
     $('input[type="tel"]').mask("+7(999) 999-9999");
+
+    selectMult.on("select2:select", function (e) {
+        select.append('<option value="'+e.params.data.text+'">' +e.params.data.text + '</option>');
+    });
+
+    selectMult.on("select2:unselect", function (e) {
+        e.params.data.element.remove();
+    });
+
+    // function formatResultData (data) {
+    //     if (!data.id) return data.text;
+    //     if (data.element.selected) return;
+    //     return data.text;
+    // }
 
     select.select2();
 
@@ -39,6 +54,7 @@ $(function(){
     //     $searchfield.prop('disabled', true);
     // });
 
+
     select.on("select2:select", function (evt) {
         var element = evt.params.data.element;
         var $element = $(element);
@@ -47,6 +63,8 @@ $(function(){
         $(this).append($element);
         $(this).trigger("change");
     });
+
+
 
     //ajax select2
     $('#typepapper').select2({
@@ -163,6 +181,12 @@ $(function(){
         removeCar();
     });
 
+    //формула исходных листов
+    $(document).on('change', '.on, .printSheet', function(){
+        sourceSheets($(this));
+    });
+    //формула исходных листов
+
     //Полный путь к файлу
     $('#file').change(function () {
         var fullPath = $(this).val();
@@ -218,6 +242,9 @@ $(function(){
     }else{
         $('.chat').hide();
     }
+
+
+
 });
 
 function searchPassports(str, field){
@@ -277,9 +304,65 @@ function removeName(){
 
 function addCar(){
     var carContainer = $('.car-container');
-    var carContainerClone = carContainer.last().clone();
-    if(carContainer.length < 8) carContainer.last().after(carContainerClone);
+    var cont = '<div class="car-container">\n' +
+        '  <table class="table table-bordered table-condensed car-tabel">\n' +
+        '    <tr>\n' +
+        '      <td>\n' +
+        '        <div class="row">\n' +
+        '          <div class="col-md-12">\n' +
+        '            <div class="form-group">\n' +
+        '              <label class="col-md-5 control-label">На машину</label>\n' +
+        '              <div class="col-md-7">\n' +
+        '                <select class="form-control car-select">\n' +
+        '                  <option>A2</option>\n' +
+        '                  <option>A3</option>\n' +
+        '                </select>\n' +
+        '              </div>\n' +
+        '            </div>\n' +
+        '          </div>\n' +
+        '        </div>\n' +
+        '        <div class="form-group">\n' +
+        '          <label class="col-md-5 control-label">Шт.</label>\n' +
+        '          <div class="col-md-7">\n' +
+        '            <input type="text" class="form-control Sht"/>\n' +
+        '          </div>\n' +
+        '        </div>\n' +
+        '        <div class="form-group">\n' +
+        '          <label class="col-md-5 control-label">На</label>\n' +
+        '          <div class="col-md-7">\n' +
+        '            <input type="text" class="form-control on"/>\n' +
+        '          </div>\n' +
+        '        </div>\n' +
+        '        <div class="form-group">\n' +
+        '          <label class="col-md-5 control-label">Печ. листов</label>\n' +
+        '          <div class="col-md-7">\n' +
+        '            <input type="text" class="form-control printSheet"/>\n' +
+        '          </div>\n' +
+        '        </div>\n' +
+        '        <div class="form-group">\n' +
+        '          <label class="col-md-5 control-label">Исходных листов</label>\n' +
+        '          <div class="col-md-7">\n' +
+        '            <input type="text" class="form-control allSheet"/>\n' +
+        '          </div>\n' +
+        '        </div>\n' +
+        '      </td>\n' +
+        '    </tr>\n' +
+        '    <tr>\n' +
+        '      <td>\n' +
+        '        <textarea cols="30" class="signature"></textarea>\n' +
+        '      </td>\n' +
+        '    </tr>\n' +
+        '  </table>\n' +
+        '</div>';
+    if(carContainer.length < 8) carContainer.last().after(cont);
 }
+
+function sourceSheets(el){
+    var del = el.parents('.car-tabel').find('.on').val().slice('\\')[2] || 0;
+    var printSheet = eval(el.parents('.car-tabel').find('.printSheet').val()) || 0;
+    el.parents('.car-tabel').find('.allSheet').val(printSheet/del);
+}
+
 
 function removeCar(){
     var carContainer = $('.car-container');
