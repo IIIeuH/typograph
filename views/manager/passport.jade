@@ -9,22 +9,6 @@ block content
                         span Заказ № 1 от #{moment(new Date()).format("DD.MM")}
                     .panel-body
                         .container-fluid
-                            //.row
-                            //    .col-md-6
-                            //        .table-responsive
-                            //            table.table.table-bordered.table-condensed
-                            //                tr
-                            //                    th Заказ
-                            //                    th От
-                            //                    th Сдать на
-                            //                    th Время
-                            //                tr
-                            //                    td 1
-                            //                    td=moment(new Date()).format("DD.MM")
-                            //                    td
-                            //                        input.form-control(type="date")
-                            //                    td
-                            //
                             .row
                                 .col-md-6
                                     .form-group
@@ -57,55 +41,27 @@ block content
                                     .form-group
                                         .col-md-2
                                             label.control-label Заказчик
-                                            //button.btn.btn-customer(type="button", id="remove-customer")
-                                            //    i.material-icons remove
-                                            //button.btn.btn-customer(type="button", id="add-customer")
-                                            //    i.material-icons add
-                                        //.col-md-2.customer-container
                                         .col-md-10
-                                            select.form-control.customerNumber.text(multiple)
-                                                //option Заказчик 1
-                                                //option Заказчик 2
-                                                //option Заказчик 3
-                                                //option Заказчик 4
+                                            input.form-control
                             .row
                                 .col-md-12
                                     .form-group
                                         .col-md-2
                                             label.control-label Наименование
-                                            //button.btn.btn-customer(type="button", id="remove-name")
-                                            //    i.material-icons remove
-                                            //button.btn.btn-customer(type="button", id="add-name")
-                                            //    i.material-icons add
-                                        //.col-md-2.name-container
                                         .col-md-10
-                                            select.form-control.name.text(multiple="multiple")
-                                                option Наименование 1
-                                                option Наименование 2
-                                                option Наименование 3
-                                                option Наименование 4
+                                            input.form-control.name(multiple="multiple")
                             .row
                                 .col-md-12
                                     .form-group.circulation
                                         label.col-md-2.control-label Тираж заказчику
                                         .col-md-10
-                                            select.form-control.text.mult(multiple)
-                                        //.col-md-2
-                                        //    input(type="text")
-                                        //.col-md-2
-                                        //    input(type="text")
-                                        //.col-md-2
-                                        //    input(type="text")
-                                        //.col-md-2
-                                        //    input(type="text")
-                                        //.col-md-2
-                                        //    input(type="text")
+                                            input.form-control
                             .row
                                 .col-md-12
                                     .form-group
                                         label.col-md-2.control-label(for="select7") Размер
                                         .col-md-10
-                                            select.form-control.size-paper(id="select7", multiple="multiple")
+                                            select.form-control.size-paper(style="width: 100%", id="select7", multiple="multiple")
                                                 option А0
                                                 option А1
                                                 option А2
@@ -116,15 +72,15 @@ block content
                             .row
                                 .col-md-12
                                     .form-group
-                                        label.col-md-2.control-label(for="select8") Страница
+                                        label.col-md-2.control-label Страница
                                         .col-md-10
-                                            select.form-control.text(id="select8", multiple="multiple")
+                                            input.form-control
                             .row
                                 .col-md-12
                                     .form-group
                                         label.col-md-2.control-label Красочность
                                         .col-md-10
-                                            select.form-control.text(multiple="multiple")
+                                            input.form-control
                             .row
                                 .col-md-12
                                     .form-group
@@ -141,6 +97,7 @@ block content
                                         label.col-md-4.control-label(for="select2") Комплектующие
                                         .col-md-8
                                             select.form-control(id="select2", multiple="multiple")
+                                                option(selected) Нет
                                                 option Люверсы
                                                 option Болты металлические
                                                 option Болты пластиковые
@@ -159,6 +116,7 @@ block content
                                         label.col-md-2.control-label(for="select1") Отделка
                                         .col-md-10
                                             select.form-control(id="select1", multiple="multiple")
+                                                option(selected) Нет
                                                 option Ламинат 1+0
                                                 option Ламинат 1+1
                                                 option Ламинат глянцевый
@@ -255,15 +213,15 @@ block content
                             .row
                                 .form-group
                                     label.col-md-2.control-label(for="file") Адрес исходного файла
-                                    .col-md-10
+                                    .col-md-2
+                                        div.checkbox
+                                            label
+                                                input(type="checkbox", id="noFile")
+                                            |   Нет файла
+                                    .col-md-8
                                         input.form-control.fileText(type="text", readonly="", placeholder="Файл...")
                                         input(type="file", id="file", multiple="", accept="image/*,application/pdf,application/msword,application/rtf,application/rtf,text/plain,text/csv,text/xml")
                                         #fullPath
-                            //.row
-                            //    .form-group
-                            //        label.col-md-2.control-label(for="montage") Монтаж выполнил
-                            //        .col-md-10
-                            //            input.form-control(id="montage", type="text")
                             .row
                                 .col-md-3
                                     .form-group
@@ -284,17 +242,6 @@ block content
                                                 input(type="radio", name="type-delivery" value="Наш транспорт")
                                                 | Наш транспорт
                                 .col-md-6
-                                    //.row
-                                    //    .col-md-6.bus
-                                    //        .form-group
-                                    //            label.col-md-6.control-label(for="departure-time") Время отправления
-                                    //            .col-md-6
-                                    //                input.form-control(type="time", id="departure-time")
-                                    //    .col-md-6.bus
-                                    //        .form-group
-                                    //            label.col-md-6.control-label(for="arrival-time") Время пребытия
-                                    //            .col-md-6
-                                    //                input.form-control(type="time", id="arrival-time")
                                     .form-group.delivery-address
                                         label.col-md-4.control-label(for="delivery-address") Адрес доставки
                                         .col-md-8

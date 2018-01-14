@@ -23,48 +23,72 @@ $(function(){
     $.material.init();
     $('input[type="tel"]').mask("+7(999) 999-9999");
 
-    selectMult.on("select2:select", function (e) {
-        select.append('<option value="'+e.params.data.text+'">' +e.params.data.text + '</option>');
-    });
-
-    selectMult.on("select2:unselect", function (e) {
-        e.params.data.element.remove();
-    });
-
-    // function formatResultData (data) {
-    //     if (!data.id) return data.text;
-    //     if (data.element.selected) return;
-    //     return data.text;
-    // }
-
     select.select2();
 
-    $('.text').select2({
-        tags: true,
-        tokenSeparators: [',', ' '],
-        dropdownCssClass: 'select2-hidden'
-    });
+    // $('.text').select2({
+    //     tags: true,
+    //     tokenSeparators: [',', ' '],
+    //     dropdownCssClass: 'select2-hidden',
+    //     createTag: function (params) {
+    //         var term = $.trim(params.term);
+    //
+    //         if (term === '') {
+    //             return null;
+    //         }
+    //
+    //         return {
+    //             id: term,
+    //             text: term,
+    //             newTag: true // add additional parameters
+    //         }
+    //     }
+    // });
     $('.size-paper').select2({
         tags: true,
         tokenSeparators: [',', ' ']
     });
 
-    // selectPaper.on('select2:opening select2:closing', function( event ) {
+
+    // select.on("select2:select", function (evt) {
+    //     var element = evt.params.data.element;
+    //     var $element = $(element);
+    //
+    //     $element.detach();
+    //     $(this).append($element);
+    //     $(this).trigger("change");
+    // });
+
+
+    // selectMult.select({
+    //     insertTag: function (data, tag) {
+    //         // Insert the tag at the end of the results
+    //         data.push(tag);
+    //     }
+    // });
+    // selectMult.on("select2:select", function (e) {
+    //     selectMult.append('<option value="'+e.params.data.text+'">' +e.params.data.text + '</option>');
+    // });
+    //
+    // selectMult.on("select2:unselect", function (e) {
+    //     e.params.data.element.remove();
+    // });
+
+
+
+    // select.on('select2:opening select2:closing', function( event ) {
     //     var $searchfield = $(this).parent().find('.select2-search__field');
     //     $searchfield.prop('disabled', true);
     // });
 
-
-    select.on("select2:select", function (evt) {
-        var element = evt.params.data.element;
-        var $element = $(element);
-
-        $element.detach();
-        $(this).append($element);
-        $(this).trigger("change");
+    $('#noFile').click(function(){
+        if($(this).prop( "checked" )){
+            $('#file').attr('disabled', 'disabled');
+            $('.fileText').addClass('hidden');
+        }else{
+            $('#file').removeAttr('disabled');
+            $('.fileText').removeClass('hidden');
+        }
     });
-
-
 
     //ajax select2
     $('#typepapper').select2({
