@@ -13,6 +13,7 @@ $(function(){
         $(this).trigger("change");
     });
 
+
     rowPapper.hide();
 
     addBtn.click(function(){

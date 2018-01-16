@@ -25,24 +25,10 @@ $(function(){
 
     select.select2();
 
-    // $('.text').select2({
-    //     tags: true,
-    //     tokenSeparators: [',', ' '],
-    //     dropdownCssClass: 'select2-hidden',
-    //     createTag: function (params) {
-    //         var term = $.trim(params.term);
-    //
-    //         if (term === '') {
-    //             return null;
-    //         }
-    //
-    //         return {
-    //             id: term,
-    //             text: term,
-    //             newTag: true // add additional parameters
-    //         }
-    //     }
-    // });
+    $('.text').select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
+    });
     $('.size-paper').select2({
         tags: true,
         tokenSeparators: [',', ' ']
@@ -268,6 +254,27 @@ $(function(){
     }
 
 
+
+    //validateFiled
+    var field =  $('.patter');
+
+    field.each(function(){
+        $(this).keyup(function(){
+            var text =  $(this).val();
+            var newtext = /[!@#$%^&*()_/\\;,."']/i.test(text);
+            if(newtext){
+                newtext = text.replace(/[!@#$%^&*()_/\\;,."']/i, "");
+                if(newtext){
+                    Snackbar.show({
+                        text: 'Записи разделаются только пробелом!',
+                        pos: 'top-center',
+                        actionText: null
+                    });
+                }
+                $(this).val(newtext);
+            }
+        });
+    });
 
 });
 
