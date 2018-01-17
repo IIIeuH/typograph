@@ -1,13 +1,13 @@
 const router = require('express').Router();
+const ctrl   = require('../../ctrl/manager');
 
 //start managers
-router.get('/passport', function(req, res, next) {
-    res.render('manager/passport', { title: 'Passport form' });
-});
+router.get('/passport', ctrl.renderPassport);
+
+router.post('/passport', ctrl.savePassport);
 
 
 router.get('/', function(req, res, next) {
-    console.log(123);
     res.render('manager/passports', { title: 'All passports' });
 });
 //end managers

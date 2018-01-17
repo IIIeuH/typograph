@@ -44,7 +44,8 @@ gulp.task('scriptOther', function(){
             'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
             'bower_components/select2/dist/js/select2.full.min.js',
             'bower_components/jquery.maskedinput.min.js',
-            'bower_components/snackbar/dist/snackbar.min.js'
+            'bower_components/snackbar/dist/snackbar.min.js',
+            'node_modules/moment/min/moment.min.js'
     ])
         .pipe(concat('other.min.js'))
         .pipe(uglify())

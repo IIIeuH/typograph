@@ -68,11 +68,9 @@ $(function(){
 
     $('#noFile').click(function(){
         if($(this).prop( "checked" )){
-            $('#file').attr('disabled', 'disabled');
-            $('.fileText').addClass('hidden');
-        }else{
             $('#file').removeAttr('disabled');
-            $('.fileText').removeClass('hidden');
+        }else{
+            $('#file').attr('disabled', 'disabled');
         }
     });
 
@@ -95,7 +93,7 @@ $(function(){
                     results: $.map(data, function (item) {
                         return {
                             text: item.name,
-                            id: item._id
+                            id: item.name
                         }
                     })
                 };
@@ -121,7 +119,7 @@ $(function(){
                     results: $.map(data, function (item) {
                         return {
                             text: item.name,
-                            id: item._id
+                            id: item.name
                         }
                     })
                 };
@@ -147,7 +145,7 @@ $(function(){
                     results: $.map(data, function (item) {
                         return {
                             text: item.name,
-                            id: item._id
+                            id: item.name
                         }
                     })
                 };
@@ -210,6 +208,7 @@ $(function(){
     var radioBus = $('input[name="type-delivery"]');
     var bus = $('.bus');
     var deliveryAddress = $('.delivery-address');
+    var address = $('.address');
 
     bus.hide();
     deliveryAddress.hide();
@@ -221,6 +220,8 @@ $(function(){
             typeDelever.show();
         }else{
             typeDelever.hide();
+            radioBus.prop('checked', false);
+            address.val("");
             deliveryAddress.hide();
             bus.hide();
         }
@@ -231,6 +232,7 @@ $(function(){
         if(radioVal === "Автобус"){
             bus.show();
             deliveryAddress.hide();
+            address.val("");
         }else{
             deliveryAddress.show();
             bus.hide();
