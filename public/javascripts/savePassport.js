@@ -2,8 +2,9 @@ $(function(){
 
     var btn = $('#savePassportBtn');
     var form = $('#formPassport');
+    var socket = io();
 
-    form.on( "submit", function( event ) {
+    btn.on( "click", function( event ) {
     //btn.click(function(){
         var data = {};
         data.passOn = $('.pass-on').val() || '';
@@ -27,34 +28,52 @@ $(function(){
 
 
         var dataMass = {};
-        dataMass.sizePaper = [];
-        dataMass.typePaper = [];
-        dataMass.typePaperSize = [];
-        dataMass.typePaperGramm = [];
-        dataMass.decoration = [];
-        dataMass.manager = [];
+        data.sizePaper = [];
+        data.typePaper = [];
+        data.typePaperSize = [];
+        data.typePaperGramm = [];
+        data.decoration = [];
+        data.manager = [];
 
 
-        dataMass.sizePaper = $('.size-paper').val() || [];
-        dataMass.typePaper = $('.typePaper').val() || [];
-        dataMass.typePaperSize = $('.typePaperSize').val() || [];
-        dataMass.typePaperGramm = $('.typePaperGramm').val() || [];
-        dataMass.set = $('.set').val() || [];
-        dataMass.decoration = $('.decoration').val() || [];
-        dataMass.manager = $('.manager').val() || [];
+        data.sizePaper = $('.size-paper').val() || [];
+        data.typePaper = $('.typePaper').val() || [];
+        data.typePaperSize = $('.typePaperSize').val() || [];
+        data.typePaperGramm = $('.typePaperGramm').val() || [];
+        data.set = $('.set').val() || [];
+        data.decoration = $('.decoration').val() || [];
+        data.manager = $('.manager').val() || [];
 
-        $.ajax({
-            type: 'POST',
-            dataType: "json",
-            data: {field1: JSON.stringify(data), field2: JSON.stringify(dataMass)},
-            success: function(data){
-                let href = window.location.host;
-                window.location.replace = (href +'/manager');
-            },
-            error: function(err){
-                console.log(err);
+
+        $(".validate").each(function(){
+            if($(this).val() === ''){
+                $(this).focus();
+                $(this).closest('.form-group').addClass('has-error');
             }
-        })
+        });
+
+        socket.emit('savePassportBtn', data);
+        socket.on('readySavePassport', function(data) {
+            if(data.status === 412){
+                Snackbar.show({
+                    text: data.msg,
+                    pos: 'top-center',
+                    actionText: null
+                });
+            }
+        });
+        //return {field1: JSON.stringify(data), field2: JSON.stringify(dataMass)};
+        // $.ajax({
+        //     type: 'post',
+        //     dataType: "json",
+        //     data: {field1: JSON.stringify(data), field2: JSON.stringify(dataMass)},
+        //     success: function(data){
+        //         console.log(data);
+        //     },
+        //     error: function(err){
+        //         console.log(err);
+        //     }
+        // })
     });
 
 });

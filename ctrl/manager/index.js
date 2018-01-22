@@ -1,4 +1,5 @@
 const model = require('../../models/manager');
+const io = require('../../app');
 
 
 module.exports.renderPassport = function(req, res, next) {
@@ -6,6 +7,13 @@ module.exports.renderPassport = function(req, res, next) {
 };
 
 module.exports.savePassport =  async function(req, res, next) {
-    let ans = await model.savePassport(req.body);
-    res.json(ans);
+    io.on('connection', function(socket){
+        socket.on('savePassportBtn', (data) => {
+            console.log(data);
+        });
+    });
+
+    // model.savePassport(req.body).then(function(){
+    //     res.redirect('/manager');
+    // });
 };

@@ -5,11 +5,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./config');
+var sockets = require('./sockets');
 
 var routes = require('./routes/index');
 var admin = require('./routes/admin');
 
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+    sockets.init(socket);
+});
+
 app.locals.moment = require('moment');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,7 +36,8 @@ app.use('/', routes);
 app.use('/admin', admin);
 
 
-app.listen(config.port, function(){
+
+http.listen(config.port, function(){
     console.log('Server is listen on port '+ config.port);
 });
 
@@ -65,3 +74,4 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+module.exports = io;
