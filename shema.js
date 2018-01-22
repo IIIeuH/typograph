@@ -61,4 +61,3 @@ module.exports.typepappers = typepappers;
 module.exports.grammpappers = grammpappers;
 module.exports.sizepappers = sizepappers;
 module.exports.passports = passports;
-module.exports.modelPassport = Passports;
