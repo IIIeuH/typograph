@@ -50,6 +50,7 @@ $(function(){
             data.allCar.push(obj);
         });
 
+        var valid = true;
         socket.emit('savePassportBtn', data);
         socket.on('readySavePassport', function(data) {
             if(data.status === 412){
@@ -58,8 +59,14 @@ $(function(){
                     pos: 'top-center',
                     actionText: null
                 });
+                valid = false;
+            }else{
+                valid = true;
             }
         });
+        if(!valid){
+            return false;
+        }
     });
 
 });
