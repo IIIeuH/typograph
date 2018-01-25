@@ -214,7 +214,27 @@ $(function(){
     deliveryAddress.hide();
     typeDelever.hide();
 
-    radio.change(function(){
+
+    var radioVal1 = $('input[name="delivery"]:checked').val();
+    if(radioVal1 === "Доставка"){
+        typeDelever.show();
+    }else{
+        typeDelever.hide();
+        radioBus.prop('checked', false);
+        address.val("");
+        deliveryAddress.hide();
+        bus.hide();
+    }
+    var radioVal2 = $('input[name="type-delivery"]:checked').val();
+    if(radioVal2 === "Автобус"){
+        bus.show();
+        deliveryAddress.hide();
+        address.val("");
+    }else{
+        deliveryAddress.show();
+        bus.hide();
+    }
+    radio.on('change',function(){
         var radioVal = $('input[name="delivery"]:checked').val();
         if(radioVal === "Доставка"){
             typeDelever.show();
@@ -227,7 +247,7 @@ $(function(){
         }
     });
 
-    radioBus.change(function(){
+    radioBus.on('load change', function(){
         var radioVal = $('input[name="type-delivery"]:checked').val();
         if(radioVal === "Автобус"){
             bus.show();
@@ -346,7 +366,7 @@ function addCar(){
         '            <div class="form-group">\n' +
         '              <label class="col-md-5 control-label">На машину</label>\n' +
         '              <div class="col-md-7">\n' +
-        '                <select class="form-control car-select">\n' +
+        '                <select class="form-control car-select" required>\n' +
         '                  <option>A2</option>\n' +
         '                  <option>A3</option>\n' +
         '                </select>\n' +
@@ -357,25 +377,25 @@ function addCar(){
         '        <div class="form-group">\n' +
         '          <label class="col-md-5 control-label">Шт.</label>\n' +
         '          <div class="col-md-7">\n' +
-        '            <input type="text" class="form-control Sht"/>\n' +
+        '            <input type="text" class="form-control Sht" required/>\n' +
         '          </div>\n' +
         '        </div>\n' +
         '        <div class="form-group">\n' +
         '          <label class="col-md-5 control-label">На</label>\n' +
         '          <div class="col-md-7">\n' +
-        '            <input type="text" class="form-control on"/>\n' +
+        '            <input type="text" class="form-control on" required/>\n' +
         '          </div>\n' +
         '        </div>\n' +
         '        <div class="form-group">\n' +
         '          <label class="col-md-5 control-label">Печ. листов</label>\n' +
         '          <div class="col-md-7">\n' +
-        '            <input type="text" class="form-control printSheet"/>\n' +
+        '            <input type="text" class="form-control printSheet" required/>\n' +
         '          </div>\n' +
         '        </div>\n' +
         '        <div class="form-group">\n' +
         '          <label class="col-md-5 control-label">Исходных листов</label>\n' +
         '          <div class="col-md-7">\n' +
-        '            <input type="text" class="form-control allSheet"/>\n' +
+        '            <input type="text" class="form-control allSheet" required/>\n' +
         '          </div>\n' +
         '        </div>\n' +
         '      </td>\n' +

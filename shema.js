@@ -42,6 +42,7 @@ const Passports = new Schema({
     set: [],
     decoration: [],
     manager: [],
+    allCar: [],
     file: String,
     comment: String,
     deliveryFiled: String,

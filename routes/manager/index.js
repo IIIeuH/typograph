@@ -4,6 +4,7 @@ const ctrl   = require('../../ctrl/manager');
 //start managers
 router.get('/', ctrl.allPassports);
 router.get('/passport', ctrl.renderPassport);
+router.get('/passport/:id', ctrl.getPassport);
 router.post('/passport', ctrl.savePassport);
 
 

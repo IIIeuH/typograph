@@ -13,6 +13,7 @@ $(function(){
         data.typePaperGramm = [];
         data.decoration = [];
         data.manager = [];
+        data.allCar = [];
         data.passOn = $('.pass-on').val() || '';
         data.timePassport = $('.time').val() || '';
         data.contactPerson = $('.contact-person').val() || '';
@@ -37,6 +38,17 @@ $(function(){
         data.set = $('.set').val() || [];
         data.decoration = $('.decoration').val() || [];
         data.manager = $('.manager').val() || [];
+
+
+        $('.car-container').each(function(){
+            var obj = {};
+            obj.car = $(this).find('.car-select').val();
+            obj.sht = $(this).find('.Sht').val();
+            obj.on = $(this).find('.on').val();
+            obj.printSheet = $(this).find('.printSheet').val();
+            obj.allSheet = $(this).find('.allSheet').val();
+            data.allCar.push(obj);
+        });
 
         socket.emit('savePassportBtn', data);
         socket.on('readySavePassport', function(data) {

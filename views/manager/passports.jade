@@ -19,6 +19,6 @@ block content
                                 .col-md-10
                                     input.form-control(type="text", id="searchId", placeholder="Поиск...")
                     each item in data
-                        tr(onclick='window.location.href="/passport/'+item._id+'"; return false')
+                        tr(onclick='window.location.href="/manager/passport/'+item._id+'"; return false')
                             td.passport-date=item.date
                             td.passport-id=item.passportId
