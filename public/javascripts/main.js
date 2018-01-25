@@ -35,14 +35,14 @@ $(function(){
     });
 
 
-    // select.on("select2:select", function (evt) {
-    //     var element = evt.params.data.element;
-    //     var $element = $(element);
-    //
-    //     $element.detach();
-    //     $(this).append($element);
-    //     $(this).trigger("change");
-    // });
+    select.on("select2:select", function (evt) {
+        var element = evt.params.data.element;
+        var $element = $(element);
+
+        $element.detach();
+        $(this).append($element);
+        $(this).trigger("change");
+    });
 
 
     // selectMult.select({
@@ -225,8 +225,8 @@ $(function(){
         deliveryAddress.hide();
         bus.hide();
     }
-    var radioVal2 = $('input[name="type-delivery"]:checked').val();
-    if(radioVal2 === "Автобус"){
+    var radioVal3 = $('input[name="type-delivery"]:checked').val();
+    if(radioVal3 === "Автобус" || radioVal3 == undefined){
         bus.show();
         deliveryAddress.hide();
         address.val("");
@@ -247,7 +247,7 @@ $(function(){
         }
     });
 
-    radioBus.on('load change', function(){
+    radioBus.on('change', function(){
         var radioVal = $('input[name="type-delivery"]:checked').val();
         if(radioVal === "Автобус"){
             bus.show();
@@ -311,49 +311,49 @@ function searchPassports(str, field){
     })
 }
 
-function addCustomer() {
-    var clone = '' +
-        '<div class="col-md-2 customer-container">' +
-        '<select multiple="multiple" class="form-control customerNumber">' +
-        '<option>Заказчик 1</option>' +
-        '<option>Заказчик 2</option>' +
-        '<option>Заказчик 3</option>' +
-        '<option>Заказчик 4</option>' +
-        '</select>' +
-        '</div>';
-    var customerContainer = $('.customer-container');
-    if(customerContainer.length < 5){
-        customerContainer.last().after(clone);
-        $('.customerNumber').select2();
-    }
-}
+// function addCustomer() {
+//     var clone = '' +
+//         '<div class="col-md-2 customer-container">' +
+//         '<select multiple="multiple" class="form-control customerNumber">' +
+//         '<option>Заказчик 1</option>' +
+//         '<option>Заказчик 2</option>' +
+//         '<option>Заказчик 3</option>' +
+//         '<option>Заказчик 4</option>' +
+//         '</select>' +
+//         '</div>';
+//     var customerContainer = $('.customer-container');
+//     if(customerContainer.length < 5){
+//         customerContainer.last().after(clone);
+//         $('.customerNumber').select2();
+//     }
+// }
 
-function removeCustomer(){
-    var customerContainer = $('.customer-container');
-    if(customerContainer.length > 1) customerContainer.last().remove();
-}
+// function removeCustomer(){
+//     var customerContainer = $('.customer-container');
+//     if(customerContainer.length > 1) customerContainer.last().remove();
+// }
 
-function addName(){
-    var cloneName = '' +
-        '<div class="col-md-2 name-container">' +
-        '<select multiple="multiple" class="form-control name">' +
-        '<option>Наименование 1</option>' +
-        '<option>Наименование 2</option>' +
-        '<option>Наименование 3</option>' +
-        '<option>Наименование 4</option>' +
-        '</select>' +
-        '</div>';
-    var nameContainer = $('.name-container');
-    if(nameContainer.length < 5){
-        nameContainer.last().after(cloneName);
-        $('.name').select2();
-    }
-}
+// function addName(){
+//     var cloneName = '' +
+//         '<div class="col-md-2 name-container">' +
+//         '<select multiple="multiple" class="form-control name">' +
+//         '<option>Наименование 1</option>' +
+//         '<option>Наименование 2</option>' +
+//         '<option>Наименование 3</option>' +
+//         '<option>Наименование 4</option>' +
+//         '</select>' +
+//         '</div>';
+//     var nameContainer = $('.name-container');
+//     if(nameContainer.length < 5){
+//         nameContainer.last().after(cloneName);
+//         $('.name').select2();
+//     }
+// }
 
-function removeName(){
-    var nameContainer = $('.name-container');
-    if(nameContainer.length > 1) nameContainer.last().remove();
-}
+// function removeName(){
+//     var nameContainer = $('.name-container');
+//     if(nameContainer.length > 1) nameContainer.last().remove();
+// }
 
 function addCar(){
     var carContainer = $('.car-container');

@@ -50,7 +50,8 @@ const Passports = new Schema({
     address: String,
     date: String,
     timeSave: String,
-    passportId: String
+    passportId: String,
+    inc: Number
 },{versionKey: false});
 
 const typepappers = mongoose.model('typepappers', Typepappers);
