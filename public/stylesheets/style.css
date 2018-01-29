@@ -15,9 +15,9 @@ span{
 .panel-heading span{
     font-size: 20px;
 }
-.table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
-    border: 2px solid black !important;
-}
+/*.table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{*/
+    /*border: 2px solid black !important;*/
+/*}*/
 .form-control, .form-group .form-control{
     background-image:linear-gradient(#009688,#009688),linear-gradient(black,black) !important;
 }
@@ -32,18 +32,18 @@ input {
     border-radius: 5px;
     padding: 5px 0;
 }
-input[type="radio"]{
-    border: 1px solid black;
-}
+/*input[type="radio"]{*/
+    /*border: 1px solid black;*/
+/*}*/
 
 /*no result found select2*/
 .select2-hidden {
     display:none !important;
 }
-.border-label{
-    padding-right: 5px;
-    border-right: 1px solid black;
-}
+/*.border-label{*/
+    /*padding-right: 5px;*/
+    /*border-right: 1px solid black;*/
+/*}*/
 .form-group label.control-label:not('.not-weight'){
     font-weight: bold !important;
     font-size: 16px !important;
@@ -210,6 +210,9 @@ table .form-group{
 .chat{
     width: 450px;
     background-color: white;
+}
+.wrapperPrint{
+    display: none;
 }
 .main{
     padding: 10px;

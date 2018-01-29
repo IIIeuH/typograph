@@ -225,23 +225,21 @@ block content
                                             #fullPath
                                 .row
                                     .col-md-3
-                                        .form-group
-                                            .radio.radio-primary.delever
-                                                label.border-label
-                                                    input(type="radio", name="delivery", value="Самовывоз", checked)
-                                                    | Самовывоз
-                                                label
-                                                    input(type="radio", name="delivery" value="Доставка")
-                                                    | Доставка
+                                        .radio.radio-primary.delever
+                                            label.border-label
+                                                input(type="radio", name="delivery", value="Самовывоз", checked)
+                                                |Самовывоз
+                                            label
+                                                input(type="radio", name="delivery" value="Доставка")
+                                                |Доставка
                                     .col-md-3.type-delever
-                                        .form-group
-                                            .radio.radio-primary
-                                                label.border-label
-                                                    input(type="radio", name="type-delivery", value="Автобус", checked)
-                                                    | Автобус
-                                                label
-                                                    input(type="radio", name="type-delivery" value="Наш транспорт")
-                                                    | Наш транспорт
+                                        .radio.radio-primary
+                                            label.border-label
+                                                input(type="radio", name="type-delivery", value="Автобус", checked)
+                                                | Автобус
+                                            label
+                                                input(type="radio", name="type-delivery" value="Наш транспорт")
+                                                | Наш транспорт
                                     .col-md-6
                                         .form-group.delivery-address
                                             label.col-md-4.control-label(for="delivery-address") Адрес доставки
@@ -254,5 +252,4 @@ block content
                                             .col-md-10
                                                 textarea.form-control.comment(type="text", id="comment")
                             .ready-btn
-                                button.btn.btn-success-green(type="submit", id='savePassportBtn') Сохранить
-                                button.btn.btn-primary-purple Отправить
+                                button.btn.btn-success-green(type="submit", id='savePassportBtn') Создать

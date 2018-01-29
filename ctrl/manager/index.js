@@ -10,8 +10,7 @@ module.exports.renderPassport = function(req, res, next) {
 };
 
 module.exports.savePassport =  async function(req, res, next) {
-    res.json({tr: 1});
-    //res.redirect('/manager');
+    res.redirect('/manager');
 };
 
 module.exports.getPassport =  async function(req, res, next) {
