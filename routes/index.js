@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const ctrl   = require('../ctrl');
 const managerRoutes = require('./manager/index');
-const expressKerberos = require('express-kerberos');
+const kerberos = require('kerberos');
 
 //ajax
 router.route('/getCollection')
@@ -14,7 +14,18 @@ router.get('/login', (req, res) => {
 
 /* GET home page. */
 router.get('/', expressKerberos.default(), function(req, res, next) {
-  res.render('index', { title: 'Manager', user: req.auth});
+    //cut phrase "Negotiate "
+    var ticket = req.headers.authorization.substring(10);
+
+//init context
+    kerberos.authGSSServerInit("HTTP", function(err, context) {
+        //check ticket
+        kerberos.authGSSServerStep(context, ticket, function(err) {
+            //in success context contains username
+            res.set( 'WWW-Authenticate', 'Negotiate ' + context.response);
+            res.render('index', { title: 'Manager', user: context.username});
+        });
+    });
 });
 router.use('/manager', managerRoutes);
 
