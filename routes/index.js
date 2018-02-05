@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const ctrl   = require('../ctrl');
 const managerRoutes = require('./manager/index');
-const kerberos = require('kerberos');
+var KerberosNative = require('kerberos').Kerberos;
+var kerberos = new KerberosNative();
+var ActiveDirectory = require('activedirectory');
 
 //ajax
 router.route('/getCollection')
@@ -13,7 +15,7 @@ router.get('/login', (req, res) => {
 
 
 /* GET home page. */
-router.get('/', expressKerberos.default(), function(req, res, next) {
+router.get('/', function(req, res, next) {
     //cut phrase "Negotiate "
     var ticket = req.headers.authorization.substring(10);
 
