@@ -1,10 +1,22 @@
 const router = require('express').Router();
 const ctrl   = require('../ctrl');
 const managerRoutes = require('./manager/index');
-var KerberosNative = require('kerberos').Kerberos;
-var kerberos = new KerberosNative();
-var ActiveDirectory = require('activedirectory');
+const KerberosNative = require('kerberos').Kerberos;
+const kerberos = new KerberosNative();
+const ActiveDirectory = require('activedirectory');
 
+const query = 'cn=*Exchange*';
+const opts = {
+    includeMembership : [ 'group', 'user' ], // Optionally can use 'all'
+    includeDeleted : false
+};
+const config = { url: 'ldap://dc.plt.local',
+    baseDN: 'dc=plt,dc=local',
+    username: 'swra@plt.local',
+    password: 'Sqwerty123$%^'
+};
+
+let ad = new ActiveDirectory(config);
 //ajax
 router.route('/getCollection')
     .get(ctrl.getCollectionSelect);
@@ -15,19 +27,14 @@ router.get('/login', (req, res) => {
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    //cut phrase "Negotiate "
-    var ticket = req.headers.authorization.substring(10);
-
-//init context
-    kerberos.authGSSServerInit("HTTP", function(err, context) {
-        //check ticket
-        kerberos.authGSSServerStep(context, ticket, function(err) {
-            //in success context contains username
-            res.set( 'WWW-Authenticate', 'Negotiate ' + context.response);
-            res.render('index', { title: 'Manager', user: context.username});
-        });
-    });
+router.get('/', async function(req, res, next) {
+    try{
+        console.log(`ad = ${ad}`);
+        let user = await ad.find(query);
+        console.log(`user = ${user}`);
+    }catch(err){
+        console.log(err);
+    }
 });
 router.use('/manager', managerRoutes);
 
