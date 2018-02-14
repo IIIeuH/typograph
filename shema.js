@@ -1,5 +1,6 @@
 const mongoose = require('./db');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const Typepappers = new Schema({
     name: {
@@ -54,12 +55,28 @@ const Passports = new Schema({
     inc: Number
 },{versionKey: false});
 
+const Users = new Schema({
+    username: String,
+    email: String,
+    password: String,
+    role: {
+        type: String,
+        default: "manager"
+    },
+    main: {
+        type: Boolean,
+        default: false
+    }
+},{versionKey: false});
+
 const typepappers = mongoose.model('typepappers', Typepappers);
 const grammpappers = mongoose.model('grammpappers', Grammpappers);
 const sizepappers = mongoose.model('sizepappers', Sizepappers);
 const passports = mongoose.model('passports', Passports);
+const users = mongoose.model('users', Users);
 
 module.exports.typepappers = typepappers;
 module.exports.grammpappers = grammpappers;
 module.exports.sizepappers = sizepappers;
 module.exports.passports = passports;
+module.exports.users = users;
