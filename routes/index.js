@@ -1,23 +1,26 @@
 const router = require('express').Router();
 const ctrl   = require('../ctrl');
 const managerRoutes = require('./manager/index');
-
-
-
+const admin = require('./admin');
 
 router.route('/login')
     .get(ctrl.login)
     .post(ctrl.auth);
 router.post('/registration', ctrl.registration);
 router.use(ctrl.checkAuth);
-router.get('/logout', ctrl.logout);
 //ajax
 router.route('/getCollection')
     .get(ctrl.getCollectionSelect);
+router.get('/logout', ctrl.logout);
 
-router.use('/manager', managerRoutes);
-router.use('/', ctrl.role);
-router.use('/admin', ctrl.role);
+router.get('/', (req, res) => {
+    res.redirect(req.user.role);
+});
+
+router.use('/manager', ctrl.permission, managerRoutes);
+router.use('/admin', ctrl.permission, admin);
+
+//router.use(ctrl.error);
 
 
 

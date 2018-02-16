@@ -15,6 +15,9 @@ span{
 .panel-heading span{
     font-size: 20px;
 }
+.panel {
+    margin-bottom: 0 !important;
+}
 /*.table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{*/
     /*border: 2px solid black !important;*/
 /*}*/
@@ -70,13 +73,13 @@ table .form-group{
 .navbar-white .active>a, .navbar-white .active>a:focus, .navbar-white .active>a:hover{
   background-color: hsl(19, 6%, 90%) !important;
 }
-.panel{
-  border-radius: 10px !important;
-}
-.panel-heading{
-  border-top-left-radius: 10px !important;
-  border-top-right-radius: 10px !important;
-}
+/*.panel{*/
+  /*border-radius: 10px !important;*/
+/*}*/
+/*.panel-heading{*/
+  /*border-top-left-radius: 10px !important;*/
+  /*border-top-right-radius: 10px !important;*/
+/*}*/
 .panel-footer{
 
 }
@@ -179,6 +182,11 @@ table .form-group{
     background-color: transparent !important;
     color: #494949 !important;
 }
+.menu.admin a, a:focus{
+    font-weight: 600 !important;
+    background-color: transparent !important;
+    color: #494949 !important;
+}
 .menu  a:hover{
     color: #2a2a2a !important;
 }
@@ -186,6 +194,9 @@ table .form-group{
 .wrapper{
     display: flex;
     flex-direction: column;
+}
+.wrap {
+    padding-top: 20px;
 }
 .header{
     z-index: 1;
@@ -215,7 +226,7 @@ table .form-group{
     display: none;
 }
 .main{
-    padding: 10px;
+    padding-top: 12px;
     width: 100%;
     max-height: calc(100vh - 60px);
     overflow-y: scroll;

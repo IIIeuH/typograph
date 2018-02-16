@@ -1,0 +1,17 @@
+extends layout
+
+
+block content
+    include ../message
+    .panel.panel-white
+        .panel-heading
+            span Ваш профиль
+        .panel-body
+            .container-fluid
+                .row
+                    .form-group
+                        .col-md-4
+                            label.control-label Ваше имя
+                        .col-md-8
+                            input.form-control(type="text", required, value=user.name, name="name", id="name")
+                    button.btn.btn-success-green(type="button", id="profileUpdate") Сохранить

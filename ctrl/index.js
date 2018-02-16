@@ -1,5 +1,6 @@
-const model = require('../models/admin/index');
-const passport = require('../models/passport');
+const model     = require('../models/admin/index');
+const passport  = require('../models/passport');
+const _         = require('lodash');
 
 exports.getCollectionSelect = async (req, res, next) => {
     res.json(await model.searchItem(req.query.collection, req.query.term));
@@ -10,16 +11,19 @@ exports.checkAuth = (req, res, next) => {
         : res.redirect('/login');
 };
 
-
-exports.role = (req, res, next) => {
-    if(req.user.role === 'manager' && req.user.main === false){
-        res.redirect(301, '/manager');
-        next();
-    }
-    if(req.user.main){
-        next();
-    }
+exports.permission = (req, res, next) => {
+    const accesses = {
+        GET: 1,
+        POST: 2,
+        PUT: 2,
+        DELETE: 3
+    };
+    const access = accesses[req.method];
+    if(req.user.main) return next();
+    const permission = _.find(req.user.permissions, {name: req.baseUrl});
+    (permission && permission.access >= access) ? next() : next(new Error('У вас нет доступа'));
 };
+
 
 exports.login = (req, res) => {
     if(req.user){
@@ -44,3 +48,13 @@ exports.registration = passport.authenticate('registration', {
     failureRedirect: '/login',
     failureFlash: true
 });
+
+exports.error = (err, req, res, next) => {
+    res.status(err.status || 500);
+    console.log(123);
+    res.render('error', {
+        message: err.message,
+        error: err,
+        user: req.user
+    });
+};

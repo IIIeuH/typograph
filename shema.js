@@ -2,6 +2,7 @@ const mongoose = require('./db');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
+
 const Typepappers = new Schema({
     name: {
         type: String,
@@ -28,21 +29,47 @@ const Passports = new Schema({
         type: String,
         required: true
     },
-    timePassport: String,
-    contactPerson: String,
-    phone: String,
-    customer: String,
-    name: String,
-    circulationFiled: String,
+    timePassport: {
+        type: String
+    },
+    contactPerson: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    customer: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    circulationFiled: {
+        type: String,
+        required: true
+    },
     sizePaper: [],
-    page: String,
-    redness: String,
+    page: {
+        type: String,
+        required: true
+    },
+    redness:{
+        type: String,
+        required: true
+    },
     typePaper: [],
     typePaperSize: [],
     typePaperGramm: [],
     set: [],
     decoration: [],
-    manager: [],
+    manager: {
+        type: Array,
+        required: true
+    },
     allCar: [],
     file: String,
     comment: String,
@@ -52,7 +79,8 @@ const Passports = new Schema({
     date: String,
     timeSave: String,
     passportId: String,
-    inc: Number
+    inc: Number,
+    managerId: ObjectId
 },{versionKey: false});
 
 const Users = new Schema({
@@ -66,6 +94,14 @@ const Users = new Schema({
     main: {
         type: Boolean,
         default: false
+    },
+    permissions: {
+        type: Array,
+        default: [{name: '/manager', access: 2}]
+    },
+    name: {
+        type: String,
+        default: 'Anonymous'
     }
 },{versionKey: false});
 

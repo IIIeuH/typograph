@@ -153,6 +153,33 @@ $(function(){
         }
     });
 
+
+    $('#manager').select2({
+        placeholder: "Менеджер",
+        ajax: {
+            url: '/getCollection',
+            dataType: 'json',
+            data: function (params) {
+
+                var queryParameters = {
+                    term: params.term,
+                    collection: 'users'
+                };
+                return queryParameters;
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name,
+                            id: item.name
+                        }
+                    })
+                };
+            }
+        }
+    });
+
     //Добавление Заказчиков
     btnAddCustomer.click(function(){
         addCustomer();

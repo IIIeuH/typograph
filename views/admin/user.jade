@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    .container-fluid
+        .row
+            .col-md-12
+                button.btn.btn-cosmo(type="button", id="saveUser") Сохранить
+        .row
+            .col-md-6
+                .form-group.label-floating
+                    label.control-label(for='email') E-mail
+                    input#email.form-control(type='text', required, value=user.email, name="email")
+                .form-group.label-floating
+                    label.control-label(for='role') Роль
+                    input#role.form-control(type='text', required, value=user.role, name="role")
+                .form-group.label-floating
+                    label.control-label(for='name') Имя
+                    input#name.form-control(type='text', required, value=user.name, name="name")
+
+        .row.permiss
+            .col-md-6
+                h3.h3 Доступ
+                each i in user.permissions
+                    button(type="button", class="close", data-dismiss="alert") ×
+                    .wrap
+                        .col-md-6
+                            .form-group.label-floating
+                                label.control-label Url
+                                input.form-control.name(type='text', required, value=i.name)
+                        .col-md-6
+                            .form-group.label-floating
+                                label.control-label Доступ
+                                select.form-control.access(required)
+                                    if i.access === 1
+                                        option(value="1", selected) Чтение
+                                        option(value="2") Чтение/Запись
+                                        option(value="3") Чтение/Запись/Удаление
+                                    if i.access === 2
+                                        option(value="1") Чтение
+                                        option(value="2", selected) Чтение/Запись
+                                        option(value="3") Чтение/Запись/Удаление
+                                    if i.access === 3
+                                        option(value="1") Чтение
+                                        option(value="2") Чтение/Запись
+                                        option(value="3", selected) Чтение/Запись/Удаление
+        button.btn.btn-info(type="button", id="addPermissions") Добавить

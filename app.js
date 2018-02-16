@@ -8,11 +8,10 @@ const config = require('./config');
 const sockets = require('./sockets');
 const session = require('express-session');
 const routes = require('./routes/index');
-const admin = require('./routes/admin');
 const passport = require('./models/passport');
 const flash        = require('req-flash');
 const MongoStore = require('connect-mongo')(session);
-
+const ctrl = require('./ctrl/index');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -43,9 +42,8 @@ app.use(passport.session());
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.use('/', routes);
-app.use('/admin', admin);
+
 
 
 
@@ -78,9 +76,11 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
+  console.log(err);
   res.render('error', {
     message: err.message,
-    error: {}
+    error: err,
+    user: req.user
   });
 });
 

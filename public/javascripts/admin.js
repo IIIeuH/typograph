@@ -4,6 +4,7 @@ $(function(){
     var saveBtn = $('.save-btn');
     var rowPapper    = $('.row-papper');
     var btlDelRow = $('.removeRow');
+
     $('.text').on("select2:select", function (evt) {
         var element = evt.params.data.element;
         var $element = $(element);
@@ -34,6 +35,39 @@ $(function(){
         if(del){
             removeRow($(this));
         }
+    });
+
+    $(document).on('click','.close', function(){
+        console.log($(this).parent('row'));
+        if($('.permiss').length > 1){
+            $(this).parents('.permiss').remove();
+        }
+    });
+    $(document).on('click', '#addPermissions', function(){
+        $(this).before('' +
+            '<div class="row permiss">\n' +
+            '  <div class="col-md-6">\n' +
+            '    <button type="button" data-dismiss="alert" class="close">×</button>\n' +
+            '    <div class="col-md-6">\n' +
+            '      <div class="form-group label-floating">\n' +
+            '        <label class="control-label">Url</label>\n' +
+            '        <input type="text" required class="form-control name"/>\n' +
+            '      </div>\n' +
+            '    </div>\n' +
+            '    <div class="col-md-6">\n' +
+            '      <div class="form-group label-floating">\n' +
+            '        <label class="control-label">Доступ</label>\n' +
+            '        <select class="form-control access" required>\n' +
+            '          <option value="1" selected="selected">Чтение</option>\n' +
+            '          <option value="2">Чтение/Запись</option>\n' +
+            '          <option value="3">Чтение/Запись/Удаление</option>\n' +
+            '        </select>\n' +
+            '      </div>\n' +
+            '    </div>\n' +
+            '  </div>\n' +
+            '</div>'
+        );
+        $('.access').select2();
     });
 });
 

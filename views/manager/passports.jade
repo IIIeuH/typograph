@@ -1,24 +1,23 @@
 extends index
 
 block content
-    .col-md-12
-        .panel.panel-white
-            .panel-heading
-                h3.panel-title Ваши паспорта
-            .panel-body.passports-data
-                table.table.table-hover
-                    tr
-                        th
-                            .form-group
-                                label.col-md-2.control-label(for="searchDate") Дата
-                                .col-md-10
-                                    input.form-control(type="text", id="searchDate", placeholder="Поиск...")
-                        th
-                            .form-group
-                                label.col-md-2.control-label(for="searchId") ID
-                                .col-md-10
-                                    input.form-control(type="text", id="searchId", placeholder="Поиск...")
-                    each item in data
-                        tr(onclick='window.location.href="/manager/passport/'+item._id+'"; return false')
-                            td.passport-date=item.date
-                            td.passport-id=item.passportId
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Ваши паспорта
+        .panel-body.passports-data
+            table.table.table-hover
+                tr
+                    th
+                        .form-group
+                            label.col-md-2.control-label(for="searchDate") Дата
+                            .col-md-10
+                                input.form-control(type="text", id="searchDate", placeholder="Поиск...")
+                    th
+                        .form-group
+                            label.col-md-2.control-label(for="searchId") ID
+                            .col-md-10
+                                input.form-control(type="text", id="searchId", placeholder="Поиск...")
+                each item in data
+                    tr(onclick='window.location.href="/manager/passport/'+item._id+'"; return false')
+                        td.passport-date=item.date
+                        td.passport-id=item.passportId

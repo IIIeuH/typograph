@@ -9,9 +9,27 @@ module.exports.findAll = async (collection) => {
     }
 };
 
+module.exports.findOne = async (collection, id) => {
+    try{
+        return await shema[collection].findOne({_id: id});
+    }catch (err){
+        console.log(err);
+        return err;
+    }
+};
+
 module.exports.saveAll = async (data, collection) => {
     try{
         return await shema[collection].create(data);
+    }catch (err){
+        console.log(err);
+        return err;
+    }
+};
+
+module.exports.update = async (data, collection, id) => {
+    try{
+        return await shema[collection].update({_id: id}, data);
     }catch (err){
         console.log(err);
         return err;
