@@ -15,11 +15,14 @@ module.exports.init = function(socket){
                 }
             ]);
             if(!inc.length){
-                data.inc = 1;
+                data.inc = + 1;
             }else{
                 data.inc = inc[0].inc + 1;
             }
-            console.log(data);
+            let str = '00000';
+            let number = +String(data.inc).length;
+            str = str.slice(number) + String(data.inc);
+            data.passportId += '-' + str;
             let saveData = new model.passports(data);
             await saveData.save();
             socket.emit('readySavePassport', {status: 200});

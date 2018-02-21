@@ -33,12 +33,10 @@ const Passports = new Schema({
         type: String
     },
     contactPerson: {
-        type: String,
-        required: true
+        type: String
     },
     phone: {
-        type: String,
-        required: true
+        type: String
     },
     customer: {
         type: String,

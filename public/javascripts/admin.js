@@ -34,6 +34,8 @@ $(function(){
         var del = confirm("Вы действительно хотите удалить " + $(this).data('name') + "?");
         if(del){
             removeRow($(this));
+        }else{
+            return false;
         }
     });
 

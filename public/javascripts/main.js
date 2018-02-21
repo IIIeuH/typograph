@@ -7,8 +7,12 @@ $(function(){
     var carRemove         = $('#car-remove');
     var data              = $('.passport-date');
     var id                = $('.passport-id');
+    var customer          = $('.passport-customer');
+    var manager           = $('.passport-manager');
     var strData           = $('#searchDate');
     var strId             = $('#searchId');
+    var strCustomer       = $('#searchCustomer');
+    var strManager        = $('#searchManager');
     var select            = $('select:not(".car-select")');
     var selectMult        = $('select.mult');
     var selectPaper       = $('select:not(".size-paper")');
@@ -294,6 +298,12 @@ $(function(){
     strId.keyup(function(){
         searchPassports($(this).val(), id);
     });
+    strCustomer.keyup(function(){
+        searchPassports($(this).val(), customer);
+    });
+    strManager.keyup(function(){
+        searchPassports($(this).val(), manager);
+    });
 
     //Убираем чат
     if(window.location.pathname === '/'){
@@ -310,9 +320,9 @@ $(function(){
     field.each(function(){
         $(this).keyup(function(){
             var text =  $(this).val();
-            var newtext = /[!@#$%^&*()_/\\;,."']/i.test(text);
+            var newtext = /[!@#$%^&*()_\\;,."']/i.test(text);
             if(newtext){
-                newtext = text.replace(/[!@#$%^&*()_/\\;,."']/i, "");
+                newtext = text.replace(/[!@#$%^&*()_\\;,."']/i, "");
                 if(newtext){
                     Snackbar.show({
                         text: 'Записи разделаются только пробелом!',

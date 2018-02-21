@@ -27,7 +27,7 @@ $(function(){
         data.address = $('.address').val() || '';
         data.date = moment().format("DD.MM.YYYY") || '';
         data.timeSave = moment().format("hh:mm") || '';
-        data.passportId = 'k'+moment().format("DDMMYYYYhhmm") || '';
+        data.passportId = moment().format("DDMMYYYY") || '';
         data.deliveryFiled = $('input[name="delivery"]:checked').val() || '';
         data.typeDeliveryFiled = $('input[name="type-delivery"]:checked').val() || '';
         data.sizePaper = $('.size-paper').val() || [];
@@ -93,7 +93,7 @@ $(function(){
         data.address = $('.address').val() || '';
         data.date = moment().format("DD.MM.YYYY") || '';
         data.timeSave = moment().format("hh:mm") || '';
-        data.passportId = 'k'+moment().format("DDMMYYYYhhmm") || '';
+        data.passportId = moment().format("DDMMYYYY") || '';
         data.deliveryFiled = $('input[name="delivery"]:checked').val() || '';
         data.typeDeliveryFiled = $('input[name="type-delivery"]:checked').val() || '';
         data.sizePaper = $('.size-paper').val() || [];
@@ -118,7 +118,7 @@ $(function(){
 
         var id = window.location.pathname.split('/')[3];
 
-
+        var valid = true;
         socket.emit('updatePassportBtn', {data: data, id: id});
         socket.on('readyUpdatePassport', function(data) {
             if(data.status === 412){
@@ -127,14 +127,19 @@ $(function(){
                     pos: 'top-center',
                     actionText: null
                 });
+                valid = false;
             }else{
                 Snackbar.show({
                     text: data.msg,
                     pos: 'top-center',
                     actionText: null
                 });
+                valid = true;
             }
         });
+        if(!valid){
+            return false;
+        }
     });
 
 

@@ -5,7 +5,7 @@ block content
         .panel-heading
             h3.panel-title Ваши паспорта
         .panel-body.passports-data
-            table.table.table-hover
+            table.table.table-hover.table-bordered
                 tr
                     th
                         .form-group
@@ -14,10 +14,25 @@ block content
                                 input.form-control(type="text", id="searchDate", placeholder="Поиск...")
                     th
                         .form-group
-                            label.col-md-2.control-label(for="searchId") ID
+                            label.col-md-2.control-label(for="searchManager") Менеджер
+                            .col-md-10
+                                input.form-control(type="text", id="searchManager", placeholder="Поиск...")
+                    th
+                        .form-group
+                            label.col-md-2.control-label(for="searchCustomer") Заказчик
+                            .col-md-10
+                                input.form-control(type="text", id="searchCustomer", placeholder="Поиск...")
+                    th
+                        .form-group
+                            label.col-md-2.control-label(for="searchId") Номер паспорта
                             .col-md-10
                                 input.form-control(type="text", id="searchId", placeholder="Поиск...")
+                    th
                 each item in data
-                    tr(onclick='window.location.href="/manager/passport/'+item._id+'"; return false')
-                        td.passport-date=item.date
-                        td.passport-id=item.passportId
+                    tr
+                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-date=item.date
+                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-manager=item.manager
+                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-customer=item.customer
+                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-id=item.passportId
+                        td
+                            i.material-icons.removeRow(id=item._id, data-name='пасспорт от ' + item.date + ', номер паспорта ' + item.passportId + ', Заказчик: ' + item.customer) delete_forever

@@ -7,7 +7,9 @@ router.get('/', ctrl.main);
 router.route('/profile')
     .get(ctrl.profile)
     .post(ctrl.saveProfile);
-router.get('/allpassport', ctrl.allPassports);
+router.route('/allpassport')
+    .get(ctrl.allPassports)
+    .delete(ctrl.deleteItem);
 router.get('/passport', ctrl.renderPassport);
 router.get('/passport/:id', ctrl.getPassport);
 router.post('/passport', ctrl.savePassport);

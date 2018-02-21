@@ -32,6 +32,10 @@ exports.allPassports = async function(req, res){
     res.render('manager/passports', { title: 'Ваши паспорта', data: data ,user: req.user});
 };
 
+exports.deleteItem = async (req, res, next) => {
+    res.json(await model.deleteItem(req.body.id, 'passports'));
+};
+
 exports.renderPassport = function(req, res, next) {
     res.render('manager/passport', { title: 'Passport form', user: req.user});
 };
