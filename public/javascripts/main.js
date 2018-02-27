@@ -27,7 +27,10 @@ $(function(){
     $.material.init();
     $('input[type="tel"]').mask("+7(999) 999-9999");
 
+
+
     select.select2();
+
 
     $('.text').select2({
         tags: true,
@@ -39,6 +42,7 @@ $(function(){
     });
 
 
+
     select.on("select2:select", function (evt) {
         var element = evt.params.data.element;
         var $element = $(element);
@@ -48,6 +52,11 @@ $(function(){
         $(this).trigger("change");
     });
 
+    $('.checkbox-select').select2({
+        closeOnSelect: false,
+        tags: true,
+        tokenSeparators: [',', ' ']
+    });
 
     // selectMult.select({
     //     insertTag: function (data, tag) {
@@ -55,7 +64,7 @@ $(function(){
     //         data.push(tag);
     //     }
     // });
-    // selectMult.on("select2:select", function (e) {
+    // $('.checkbox-select').on("select2:select", function (e) {
     //     selectMult.append('<option value="'+e.params.data.text+'">' +e.params.data.text + '</option>');
     // });
     //
@@ -80,6 +89,8 @@ $(function(){
 
     //ajax select2
     $('#typepapper').select2({
+        tags: true,
+        tokenSeparators: [',', ' '],
         placeholder: "Тип",
         ajax: {
             url: '/getCollection',
@@ -106,6 +117,8 @@ $(function(){
     });
 
     $('#grammpapper').select2({
+        tags: true,
+        tokenSeparators: [',', ' '],
         placeholder: "Граммаж",
         ajax: {
             url: '/getCollection',
@@ -132,6 +145,8 @@ $(function(){
     });
 
     $('#sizepapper').select2({
+        tags: true,
+        tokenSeparators: [',', ' '],
         placeholder: "Размер",
         ajax: {
             url: '/getCollection',
@@ -454,9 +469,16 @@ function addCar(){
 function sourceSheets(el){
     var del = el.parents('.car-tabel').find('.on').val().slice('\\')[2] || 0;
     var printSheet = eval(el.parents('.car-tabel').find('.printSheet').val()) || 0;
-    el.parents('.car-tabel').find('.allSheet').val(printSheet/del);
+    var res = printSheet / del;
+    if(!isInteger(res)){
+        res = res.toFixed(2);
+    }
+    el.parents('.car-tabel').find('.allSheet').val(res);
 }
 
+function isInteger(num) {
+    return (num ^ 0) === num;
+}
 
 function removeCar(){
     var carContainer = $('.car-container');

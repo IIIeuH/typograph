@@ -52,8 +52,7 @@ const Passports = new Schema({
     },
     sizePaper: [],
     page: {
-        type: String,
-        required: true
+        type: String
     },
     redness:{
         type: String,

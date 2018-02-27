@@ -70,9 +70,9 @@ block content
                     .row
                         .col-md-12
                             .form-group
-                                label.col-md-2.control-label Страница
+                                label.col-md-2.control-label Страниц
                                 .col-md-10
-                                    input.form-control.patter.page(required)
+                                    input.form-control.patter.page
                     .row
                         .col-md-12
                             .form-group
@@ -94,7 +94,7 @@ block content
                             .form-group
                                 label.col-md-4.control-label(for="select2") Комплектующие
                                 .col-md-8
-                                    select.form-control.set(id="select2", multiple="multiple", required)
+                                    select.form-control.set.checkbox-select(id="select2", multiple="multiple", required)
                                         option(selected) Нет
                                         option Люверсы
                                         option Болты металлические
@@ -113,7 +113,7 @@ block content
                             .form-group
                                 label.col-md-2.control-label(for="select1") Отделка
                                 .col-md-10
-                                    select.form-control.decoration(id="select1", multiple="multiple", required)
+                                    select.form-control.decoration.checkbox-select(id="select1", multiple="multiple", required)
                                         option(selected) Нет
                                         option Ламинат 1+0
                                         option Ламинат 1+1
@@ -198,7 +198,7 @@ block content
                                                     input.form-control.allSheet(type="text", required)
                                     tr
                                         td
-                                            textarea(cols="30").signature
+                                            textarea(cols="30", style="text-align: center;").signature
                     .row
                         .form-group
                             label.col-md-2.control-label(for="manager") Менеджер

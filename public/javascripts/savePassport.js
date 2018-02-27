@@ -46,6 +46,7 @@ $(function(){
             obj.on = $(this).find('.on').val();
             obj.printSheet = $(this).find('.printSheet').val();
             obj.allSheet = $(this).find('.allSheet').val();
+            obj.signature = $(this).find('.signature').val();
             data.allCar.push(obj);
         });
 
@@ -113,6 +114,7 @@ $(function(){
             obj.on = $(this).find('.on').val();
             obj.printSheet = $(this).find('.printSheet').val();
             obj.allSheet = $(this).find('.allSheet').val();
+            obj.signature = $(this).find('.signature').val();
             data.allCar.push(obj);
         });
 
