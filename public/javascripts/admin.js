@@ -40,7 +40,6 @@ $(function(){
     });
 
     $(document).on('click','.close', function(){
-        console.log($(this).parent('row'));
         if($('.permiss').length > 1){
             $(this).parents('.permiss').remove();
         }

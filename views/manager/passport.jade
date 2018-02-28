@@ -92,23 +92,54 @@ block content
                     .row
                         .col-md-6
                             .form-group
-                                label.col-md-4.control-label(for="select2") Комплектующие
-                                .col-md-8
-                                    select.form-control.set.checkbox-select(id="select2", multiple="multiple", required)
-                                        option(selected) Нет
-                                        option Люверсы
-                                        option Болты металлические
-                                        option Болты пластиковые
-                                        option Ригель
-                                        option Курсор
-                                        option Спайдеры
-                                        option Держатели для воблеров
-                                        option Механизмы кольца / клепки
-                                        option Шнур
-                                        option Уголки металлические
-                                        option Скотч 2-сторонний
-                                        option Скотч Тонкий
-                                        option Скотч Объемный
+                                label.col-md-4.control-label Комплектующие
+                                .col-md-6
+                                    textarea.form-control(rows="3", id="res")
+                                .col-md-2
+                                    button.btn.btn-success-green(type="button" data-toggle="modal" data-target="#myModal") Добавить
+                                    .modal(id="myModal")
+                                        .modal-dialog
+                                            .modal-content
+                                                .modal-header
+                                                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                                                    h4.modal-title Список значений
+                                                .modal-body
+                                                    .box Люверсы
+                                                    .box Болты металлические
+                                                    .box  Болты пластиковые
+                                                    .box  Ригель
+                                                    .box  Курсор
+                                                    .box  Спайдеры
+                                                    .box  Держатели для воблеров
+                                                    .box  Механизмы кольца / клепки
+                                                    .box  Шнур
+                                                    .box  Уголки металлические
+                                                    .box  Скотч 2-сторонний
+                                                    .box  Скотч Тонкий
+                                                    .box  Скотч Объемный
+                                                    button.btn.btn-primary(type='button', id="addBox") Добавить машину
+                                                    .carBox
+                                                        button.close.closeCarBox(type='button') ×
+                                                        h4.modal-title Значения для машины
+                                                        .resultBox
+                                                .modal-footer
+                                                    button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
+                                                    button.btn.btn-primary(type='button', id="resultBox") Применить
+                                    //select.form-control.set.checkbox-select(id="select2", multiple="multiple", required)
+                                    //    option(selected) Нет
+                                    //    option Люверсы
+                                    //    option Болты металлические
+                                    //    option Болты пластиковые
+                                    //    option Ригель
+                                    //    option Курсор
+                                    //    option Спайдеры
+                                    //    option Держатели для воблеров
+                                    //    option Механизмы кольца / клепки
+                                    //    option Шнур
+                                    //    option Уголки металлические
+                                    //    option Скотч 2-сторонний
+                                    //    option Скотч Тонкий
+                                    //    option Скотч Объемный
                         .col-md-6
                             .form-group
                                 label.col-md-2.control-label(for="select1") Отделка

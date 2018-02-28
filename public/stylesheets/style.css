@@ -235,6 +235,47 @@ table .form-group{
 .car-tabel{
     width: 260px!important;
 }
+
+/*Кнопки выбора значений*/
+.box{
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+.box:hover{
+    background-color: #dfdfdf;
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+
+.childrenBox{
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+.childrenBox:hover{
+    background-color: #dfdfdf;
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+.carBox{
+    min-width: 100%;
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #666;
+}
+.resultBox{
+    display: inline-block;
+}
+/*Кнопки выбора значений*/
+
 /*Кнопка Success*/
 .btn-success-green{
     padding: 15px !important;

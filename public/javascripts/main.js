@@ -41,6 +41,82 @@ $(function(){
         tokenSeparators: [',', ' ']
     });
 
+    $('.checkbox-select').select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
+    });
+
+    //Значения checkbox в textarea
+    var mas = [];
+    $('.box').click(function(){
+        mas.push($(this).text() + '; ');
+        $('.resultBox').last().append(
+            '<div class="childrenBox" contenteditable="true">' +
+            '<button type="button" class="close closeBox">×</button>' +
+            '<div class="textBox">' +
+            $(this).text() +
+            '</div>' +
+            '</div>'
+        );
+    });
+
+    $(document).on('click', '#addBox', function(e){
+        $('.modal-body').append(
+            '<div class="carBox">' +
+            '<button type="button" class="close closeCarBox">×</button>' +
+            '<h4 class="modal-title">Значения для машины' +
+            '</h4>' +
+            '<div class="resultBox"></div>' +
+            '</div>');
+    });
+
+    $(document).on('click', '.childrenBox', function(){
+        $(this).parents('.childrenBox').text()
+    });
+
+    $(document).on('click', '.closeBox', function(){
+        $(this).parents('.childrenBox').remove();
+    });
+
+    $(document).on('click', '.closeCarBox', function(){
+        $(this).parent().remove();
+    });
+
+    $('#resultBox').click(function(){
+        var text = '';
+        if($('.resultBox').length >1){
+            text = '';
+            $('.resultBox').each(function(){
+                $(this).find('.textBox').each(function(){
+                    text += $(this).text() +'; ';
+                });
+                text += "// ";
+            });
+            text = text.substring(0, text.length - 3)
+        }else{
+            $('.resultBox').each(function(){
+                text = '';
+                $(this).find('.textBox').each(function(){
+                    text += $(this).text() +'; ';
+                });
+            });
+        }
+        $('#myModal').modal('toggle');
+        $('#res').val(text);
+    });
+    // $('.checkbox-select').on("select2:select", function (e) {
+    //     $('.checkbox-select').append('<option value="'+e.params.data.text+'">' +e.params.data.text + '</option>');
+    // });
+    // $('.checkbox-select').on("select2:unselect", function (e) {
+    //     e.params.data.element.remove();
+    // });
+    //
+    // function formatResultData (data) {
+    //     if (!data.id) return data.text;
+    //     if (data.element.selected) return;
+    //     return data.text;
+    // };
+
 
 
     select.on("select2:select", function (evt) {
@@ -52,11 +128,6 @@ $(function(){
         $(this).trigger("change");
     });
 
-    $('.checkbox-select').select2({
-        closeOnSelect: false,
-        tags: true,
-        tokenSeparators: [',', ' ']
-    });
 
     // selectMult.select({
     //     insertTag: function (data, tag) {
@@ -64,9 +135,7 @@ $(function(){
     //         data.push(tag);
     //     }
     // });
-    // $('.checkbox-select').on("select2:select", function (e) {
-    //     selectMult.append('<option value="'+e.params.data.text+'">' +e.params.data.text + '</option>');
-    // });
+
     //
     // selectMult.on("select2:unselect", function (e) {
     //     e.params.data.element.remove();
