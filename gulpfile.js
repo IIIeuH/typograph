@@ -46,7 +46,8 @@ gulp.task('scriptOther', function(){
             'bower_components/jquery.maskedinput.min.js',
             'bower_components/snackbar/dist/snackbar.min.js',
             'node_modules/moment/min/moment.min.js',
-            'node_modules/socket.io-client/dist/socket.io.slim.js'
+            'node_modules/socket.io-client/dist/socket.io.slim.js',
+            'node_modules/lodash/lodash.min.js'
     ])
         .pipe(concat('other.min.js'))
         .pipe(uglify())

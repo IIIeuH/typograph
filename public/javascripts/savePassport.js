@@ -31,11 +31,11 @@ $(function(){
         data.deliveryFiled = $('input[name="delivery"]:checked').val() || '';
         data.typeDeliveryFiled = $('input[name="type-delivery"]:checked').val() || '';
         data.sizePaper = $('.size-paper').val() || [];
-        data.typePaper = $('.typePaper').val() || [];
-        data.typePaperSize = $('.typePaperSize').val() || [];
-        data.typePaperGramm = $('.typePaperGramm').val() || [];
-        data.set = $('.set').val() || [];
-        data.decoration = $('.decoration').val() || [];
+        data.typePaper = $('.typePaper').val() || '';
+        data.typePaperSize = $('.typePaperSize').val() || '';
+        data.typePaperGramm = $('.typePaperGramm').val() || '';
+        data.set = $('.set').val() || '';
+        data.decoration = $('.decoration').val() || '';
         data.manager = $('.manager').val() || [];
         data.managerId = $('#managerId').val();
 
@@ -98,11 +98,11 @@ $(function(){
         data.deliveryFiled = $('input[name="delivery"]:checked').val() || '';
         data.typeDeliveryFiled = $('input[name="type-delivery"]:checked').val() || '';
         data.sizePaper = $('.size-paper').val() || [];
-        data.typePaper = $('.typePaper').val() || [];
-        data.typePaperSize = $('.typePaperSize').val() || [];
-        data.typePaperGramm = $('.typePaperGramm').val() || [];
-        data.set = $('.set').val() || [];
-        data.decoration = $('.decoration').val() || [];
+        data.typePaper = $('.typePaper').val() || '';
+        data.typePaperSize = $('.typePaperSize').val() || '';
+        data.typePaperGramm = $('.typePaperGramm').val() || '';
+        data.set = $('.set').val() || '';
+        data.decoration = $('.decoration').val() || '';
         data.manager = $('.manager').val() || [];
         data.managerId = $('.managerId').val();
 

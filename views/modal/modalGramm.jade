@@ -1,0 +1,16 @@
+.modal(id="modalGramm")
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                h4.modal-title Список значений
+            .modal-body.gramm-modal-body
+                select.form-control.typePaperGramm(id="grammpapper", multiple="multiple", style="width: 100%")
+                button.btn.btn-primary.addBoxGramm(type='button') Добавить машину
+                .carBoxGramm
+                    button.close.closeCarBoxGramm(type='button') ×
+                    h4.modal-title Значения для машины
+                    .resultBoxGramm
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
+                button.btn.btn-primary.resultButtonGramm(type='button') Применить

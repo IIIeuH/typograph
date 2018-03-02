@@ -41,10 +41,10 @@ $(function(){
         tokenSeparators: [',', ' ']
     });
 
-    $('.checkbox-select').select2({
-        tags: true,
-        tokenSeparators: [',', ' ']
-    });
+    // $('.checkbox-select').select2({
+    //     tags: true,
+    //     tokenSeparators: [',', ' ']
+    // });
 
     //Значения checkbox в textarea
     var mas = [];
@@ -60,8 +60,9 @@ $(function(){
         );
     });
 
-    $(document).on('click', '#addBox', function(e){
-        $('.modal-body').append(
+
+    $(document).on('click', '.addBox', function(e){
+        $('.set-modal-body').append(
             '<div class="carBox">' +
             '<button type="button" class="close closeCarBox">×</button>' +
             '<h4 class="modal-title">Значения для машины' +
@@ -82,7 +83,8 @@ $(function(){
         $(this).parent().remove();
     });
 
-    $('#resultBox').click(function(){
+    //Комплектующие
+    $('.resultButton').click(function(){
         var text = '';
         if($('.resultBox').length >1){
             text = '';
@@ -90,9 +92,9 @@ $(function(){
                 $(this).find('.textBox').each(function(){
                     text += $(this).text() +'; ';
                 });
-                text += "// ";
+                text += "//";
             });
-            text = text.substring(0, text.length - 3)
+            text = text.substring(0, text.length - 2)
         }else{
             $('.resultBox').each(function(){
                 text = '';
@@ -102,7 +104,136 @@ $(function(){
             });
         }
         $('#myModal').modal('toggle');
-        $('#res').val(text);
+        $('.set').val(text);
+    });
+
+
+    $('.addSet').click(function(){
+        var carBox = $('.carBox');
+        carBox.remove();
+        var text = $('.set').val().split('//');
+        var subText = '';
+        var mas = [];
+        for(var i =0; i < text.length; i++){
+            $('.set-modal-body').append(
+                '<div class="carBox">' +
+                '<button type="button" class="close closeCarBox">×</button>' +
+                '<h4 class="modal-title">Значения для машины</h4>' +
+                '<div class="resultBox"></div>' +
+                '</div>'
+            );
+        }
+        $('.carBox').each(function(i, item){
+            subText = text[i].split('; ');
+            subText = _.compact(subText);
+            var that = $(this);
+            subText.forEach(function(item){
+                that.find('.resultBox').append(
+                    '<div class="childrenBox" contenteditable="true">' +
+                    '<button type="button" class="close closeBox">×</button>' +
+                    '<div class="textBox">' +
+                    item +
+                    '</div>' +
+                    '</div>'
+                );
+            });
+
+        });
+    });
+
+
+    //Значения checkbox в textarea в Отделке
+    var masD = [];
+    $('.boxD').click(function(){
+        mas.push($(this).text() + '; ');
+        $('.resultBoxD').last().append(
+            '<div class="childrenBoxD" contenteditable="true">' +
+            '<button type="buttonD" class="close closeBoxD">×</button>' +
+            '<div class="textBoxD">' +
+            $(this).text() +
+            '</div>' +
+            '</div>'
+        );
+    });
+
+
+    $(document).on('click', '.addBoxD', function(e){
+        $('.decoration-modal').append(
+            '<div class="carBoxD">' +
+            '<button type="button" class="close closeCarBox">×</button>' +
+            '<h4 class="modal-title">Значения для машины' +
+            '</h4>' +
+            '<div class="resultBoxD"></div>' +
+            '</div>');
+    });
+
+    $(document).on('click', '.childrenBoxD', function(){
+        $(this).parents('.childrenBoxD').text()
+    });
+
+    $(document).on('click', '.closeBox', function(){
+        $(this).parents('.childrenBox').remove();
+    });
+
+    $(document).on('click', '.closeCarBoxD', function(){
+        $(this).parent().remove();
+    });
+
+    $('.resultButtonDecoration').click(function(){
+        var text = '';
+        if($('.resultBoxD').length >1){
+            text = '';
+            $('.resultBoxD').each(function(){
+                $(this).find('.textBoxD').each(function(){
+                    text += $(this).text() +'; ';
+                });
+                text += "//";
+            });
+            text = text.substring(0, text.length - 2)
+        }else{
+            $('.resultBoxD').each(function(){
+                text = '';
+                $(this).find('.textBoxD').each(function(){
+                    text += $(this).text() +'; ';
+                });
+            });
+        }
+        $('#modalDecoration').modal('toggle');
+        $('.decoration').val(text);
+    });
+
+
+    $('.addSetD').click(function(){
+        var carBox = $('.carBoxD');
+        carBox.remove();
+        var text = $('.decoration').val().split('//');
+        var subText = '';
+        var mas = [];
+        for(var i =0; i < text.length; i++){
+            $('.decoration-modal').append(
+                '<div class="carBoxD">' +
+                '<button type="button" class="close closeCarBoxD">×</button>' +
+                '<h4 class="modal-title">Значения для машины</h4>' +
+                '<div class="resultBoxD"></div>' +
+                '</div>'
+            );
+        }
+        $('.carBoxD').each(function(i, item){
+            subText = text[i].split('; ');
+            subText = _.compact(subText);
+            var that = $(this);
+            subText.forEach(function(item){
+                that.find('.resultBoxD').append(
+                    '<div class="childrenBoxD" contenteditable="true">' +
+                    '<button type="button" class="close closeBoxD">×</button>' +
+                    '<div class="textBoxD">' +
+                    item +
+                    '</div>' +
+                    '</div>'
+                );
+            });
+
+        });
     });
     // $('.checkbox-select').on("select2:select", function (e) {
     //     $('.checkbox-select').append('<option value="'+e.params.data.text+'">' +e.params.data.text + '</option>');
@@ -158,8 +289,7 @@ $(function(){
 
     //ajax select2
     $('#typepapper').select2({
-        tags: true,
-        tokenSeparators: [',', ' '],
+        allowClear: true,
         placeholder: "Тип",
         ajax: {
             url: '/getCollection',
@@ -186,8 +316,7 @@ $(function(){
     });
 
     $('#grammpapper').select2({
-        tags: true,
-        tokenSeparators: [',', ' '],
+        allowClear: true,
         placeholder: "Граммаж",
         ajax: {
             url: '/getCollection',
@@ -214,8 +343,7 @@ $(function(){
     });
 
     $('#sizepapper').select2({
-        tags: true,
-        tokenSeparators: [',', ' '],
+        allowClear: true,
         placeholder: "Размер",
         ajax: {
             url: '/getCollection',

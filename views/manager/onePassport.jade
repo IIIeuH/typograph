@@ -4,7 +4,7 @@ block content
     .noPrint
         .panel.panel-white
             .panel-heading
-                span Заказ № #{passport.inc} от #{moment(passport.date).format("DD.MM")}
+                span Заказ № #{passport.inc} от #{moment(passport.date, "DD.MM.YYYY").format("DD.MM")}
             .panel-body
                 .container-fluid
                     .row
@@ -94,84 +94,116 @@ block content
                         .col-md-12
                             .form-group
                                 label.col-md-2.control-label Бумага
-                                .col-md-3
-                                    select.form-control.typePaper(id="typepapper", multiple="multiple", required)
-                                        each item in passport.typePaper
-                                            option(selected) #{item}
-                                .col-md-3
-                                    select.form-control.typePaperSize(id="sizepapper", multiple="multiple", required)
-                                        each item in passport.typePaperSize
-                                            option(selected) #{item}
-                                .col-md-3
-                                    select.col-md-5.form-control.typePaperGramm(id="grammpapper", multiple="multiple", required)
-                                        each item in passport.typePaperGramm
-                                            option(selected) #{item}
+                                .col-md-2
+                                    textarea.form-control.typePaper(rows="3")=passport.typePaper
+                                .col-md-1
+                                    button.btn.btn-success-green.addSetType(type="button" data-toggle="modal" data-target="#modalType") Добавить
+                                    include ../modal/modalType
+                                .col-md-2
+                                    textarea.form-control.typePaperSize(rows="3")=passport.typePaperSize
+                                .col-md-1
+                                    button.btn.btn-success-green.addSetSize(type="button" data-toggle="modal" data-target="#modalSize") Добавить
+                                    include ../modal/modalSize
+                                .col-md-2
+                                    textarea.form-control.typePaperGramm(rows="3")=passport.typePaperGramm
+                                .col-md-1
+                                    button.btn.btn-success-green.addSetGramm(type="button" data-toggle="modal" data-target="#modalGramm") Добавить
+                                    include ../modal/modalGramm
                     .row
                         .col-md-6
                             .form-group
-                                label.col-md-4.control-label(for="select2") Комплектующие
-                                .col-md-8
-                                    select.form-control.set.checkbox-select(id="select2", multiple="multiple", required)
-                                        each item in passport.set
-                                            option(selected) #{item}
-                                        option Нет
-                                        option Люверсы
-                                        option Болты металлические
-                                        option Болты пластиковые
-                                        option Ригель
-                                        option Курсор
-                                        option Спайдеры
-                                        option Держатели для воблеров
-                                        option Механизмы кольца / клепки
-                                        option Шнур
-                                        option Скотч 2-сторонний
-                                        option Скотч Тонкий
-                                        option Скотч Объемный
+                                label.col-md-4.control-label Комплектующие
+                                .col-md-6
+                                    textarea.form-control.set(rows="3")=passport.set
+                                .col-md-2
+                                    button.btn.btn-success-green.addSet(type="button" data-toggle="modal" data-target="#myModal") Добавить
+                                    .modal(id="myModal")
+                                        .modal-dialog
+                                            .modal-content
+                                                .modal-header
+                                                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                                                    h4.modal-title Список значений
+                                                .modal-body.set-modal-body
+                                                    .box Люверсы
+                                                    .box Болты металлические
+                                                    .box  Болты пластиковые
+                                                    .box  Ригель
+                                                    .box  Курсор
+                                                    .box  Спайдеры
+                                                    .box  Держатели для воблеров
+                                                    .box  Механизмы кольца / клепки
+                                                    .box  Шнур
+                                                    .box  Уголки металлические
+                                                    .box  Скотч 2-сторонний
+                                                    .box  Скотч Тонкий
+                                                    .box  Скотч Объемный
+                                                    button.btn.btn-primary.addBox(type='button') Добавить машину
+                                                    .carBox
+                                                        button.close.closeCarBox(type='button') ×
+                                                        h4.modal-title Значения для машины
+                                                        .resultBox
+                                                .modal-footer
+                                                    button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
+                                                    button.btn.btn-primary.resultButton(type='button') Применить
                         .col-md-6
                             .form-group
-                                label.col-md-2.control-label(for="select1") Отделка
-                                .col-md-10
-                                    select.form-control.decoration.checkbox-select(id="select1", multiple="multiple", required)
-                                        each item in passport.decoration
-                                            option(selected) #{item}
-                                        option Нет
-                                        option Ламинат 1+0
-                                        option Ламинат 1+1
-                                        option Ламинат глянцевый
-                                        option Ламинат матовый
-                                        option Уф-лак 1+0
-                                        option Уф-лак 1+1
-                                        option Уф-лак сполошной
-                                        option Уф-лак выборочно
-                                        option Уф-лак глянцевый
-                                        option Уф-лак матовый
-                                        option Обычный
-                                        option Объемный
-                                        option Глитеры цвет
-                                        option Переплет
-                                        option Скоба
-                                        option Пружина
-                                        option КБС
-                                        option Твердный
-                                        option Листоподборка
-                                        option Вкладка
-                                        option Склейка
-                                        option Кашировка
-                                        option Фальцовка
-                                        option Биговка
-                                        option Перфорация
-                                        option Микро
-                                        option Тиснение
-                                        option Фольга
-                                        option Цвет
-                                        option Блинтовое
-                                        option Конгрев
-                                        option Высечка
-                                        option Тигель
-                                        option Автомат
-                                        option Зарайский пресс
-                                        option Нумерация
-                                        option Сверление
+                                label.col-md-2.control-label Отделка
+                                .col-md-6
+                                    textarea.form-control.decoration(rows="3")=passport.decoration
+                                .col-md-2
+                                    button.btn.btn-success-green.addSetD(type="button" data-toggle="modal" data-target="#modalDecoration") Добавить
+                                    .modal(id="modalDecoration")
+                                        .modal-dialog
+                                            .modal-content
+                                                .modal-header
+                                                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                                                    h4.modal-title Список значений
+                                                .modal-body.decoration-modal
+                                                    .boxD Ламинат 1+0
+                                                    .boxD Ламинат 1+1
+                                                    .boxD Ламинат глянцевый
+                                                    .boxD Ламинат матовый
+                                                    .boxD Уф-лак 1+0
+                                                    .boxD Уф-лак 1+1
+                                                    .boxD Уф-лак сполошной
+                                                    .boxD Уф-лак выборочно
+                                                    .boxD Уф-лак глянцевый
+                                                    .boxD Уф-лак матовый
+                                                    .boxD Обычный
+                                                    .boxD Объемный
+                                                    .boxD Глитеры цвет
+                                                    .boxD Переплет
+                                                    .boxD Скоба
+                                                    .boxD Пружина
+                                                    .boxD КБС
+                                                    .boxD Твердный
+                                                    .boxD Листоподборка
+                                                    .boxD Вкладка
+                                                    .boxD Склейка
+                                                    .boxD Кашировка
+                                                    .boxD Фальцовка
+                                                    .boxD Биговка
+                                                    .boxD Перфорация
+                                                    .boxD Микро
+                                                    .boxD Тиснение
+                                                    .boxD Фольга
+                                                    .boxD Цвет
+                                                    .boxD Блинтовое
+                                                    .boxD Конгрев
+                                                    .boxD Высечка
+                                                    .boxD Тигель
+                                                    .boxD Автомат
+                                                    .boxD Зарайский пресс
+                                                    .boxD Нумерация
+                                                    .boxD Сверление
+                                                    button.btn.btn-primary.addBoxD(type='button') Добавить машину
+                                                    .carBoxD
+                                                        button.close.closeCarBoxD(type='button') ×
+                                                        h4.modal-title Значения для машины
+                                                        .resultBoxD
+                                                .modal-footer
+                                                    button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
+                                                    button.btn.btn-primary.resultButtonDecoration(type='button') Применить
                     .row
                         .col-md-12
                             .form-group
@@ -342,15 +374,15 @@ block content
                 td=passport.name
                 th Отделка
                 td
-                    each item in passport.decoration
-                        div(style="float: left; padding-left: 10px")=item
+                    //each item in passport.decoration
+                    div(style="float: left; padding-left: 10px")=passport.decoration
             tr
                 th Тираж заказчику
                 td=passport.circulationFiled
                 th Комлектующие
                 td
-                    each item in passport.set
-                        div(style="float: left; padding-left: 10px")=item
+                    //each item in passport.set
+                    div(style="float: left; padding-left: 10px")=passport.set
             tr
                 th Размер
                 td

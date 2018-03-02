@@ -243,6 +243,27 @@ table .form-group{
     float: left;
     cursor: pointer;
 }
+.textBox{
+    float: left;
+}
+.textBoxD{
+    float: left;
+}
+.textBoxType{
+    float: left;
+}
+.textBoxSize{
+    float: left;
+}
+.textBoxGramm{
+    float: left;
+}
+.boxD{
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
 .box:hover{
     background-color: #dfdfdf;
     padding: 9px;
@@ -250,14 +271,72 @@ table .form-group{
     float: left;
     cursor: pointer;
 }
-
+.boxD:hover{
+    background-color: #dfdfdf;
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
 .childrenBox{
     padding: 9px;
     border: 1px solid #666;
     float: left;
     cursor: pointer;
 }
+.childrenBoxD{
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+.childrenBoxType{
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+.childrenBoxSize{
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+.childrenBoxGramm{
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
 .childrenBox:hover{
+    background-color: #dfdfdf;
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+.childrenBoxD:hover{
+    background-color: #dfdfdf;
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+.childrenBoxType:hover{
+    background-color: #dfdfdf;
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+.childrenBoxSize:hover{
+    background-color: #dfdfdf;
+    padding: 9px;
+    border: 1px solid #666;
+    float: left;
+    cursor: pointer;
+}
+.childrenBoxGramm:hover{
     background-color: #dfdfdf;
     padding: 9px;
     border: 1px solid #666;
@@ -271,7 +350,47 @@ table .form-group{
     padding: 10px;
     border: 1px solid #666;
 }
+.carBoxD{
+    min-width: 100%;
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #666;
+}
+.carBoxType{
+    min-width: 100%;
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #666;
+}
+.carBoxSize{
+    min-width: 100%;
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #666;
+}
+.carBoxGramm{
+    min-width: 100%;
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #666;
+}
 .resultBox{
+    display: inline-block;
+}
+.resultBoxD{
+    display: inline-block;
+}
+.resultBoxType{
+    display: inline-block;
+}
+.resultBoxSize{
+    display: inline-block;
+}
+.resultBoxgramm{
     display: inline-block;
 }
 /*Кнопки выбора значений*/
