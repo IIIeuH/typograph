@@ -395,12 +395,12 @@ block content
                 td=passport.redness
                 th Бумага
                 td
-                    each item in passport.typePaper
-                        div(style="float: left; padding-left: 10px")=item
-                    each item in passport.typePaperSize
-                        div(style="float: left; padding-left: 10px")=item
-                    each item in passport.typePaperGramm
-                        div(style="float: left; padding-left: 10px")=item
+                    b Тип бумаги:
+                    |       #{passport.typePaper}
+                    b Размер бумаги:
+                    |       #{passport.typePaperSize}
+                    b Граммаж бумаги:
+                    |       #{passport.typePaperGramm}
         table.table.table-bordered.table-condensed
             tr
                 each item in passport.allCar
