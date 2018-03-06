@@ -4,7 +4,7 @@ block content
     .noPrint
         .panel.panel-white
             .panel-heading
-                span Заказ № #{passport.inc} от #{moment(passport.date, "DD.MM.YYYY").format("DD.MM")}
+                h3.h3 Заказ № #{passport.inc} от #{moment(passport.date, "DD.MM.YYYY").format("DD.MM")}
             .panel-body
                 .container-fluid
                     .row
@@ -90,25 +90,25 @@ block content
                                 label.col-md-2.control-label Красочность
                                 .col-md-10
                                     input.form-control.patter.redness(required, value=passport.redness)
-                    .row
-                        .col-md-12
-                            .form-group
-                                label.col-md-2.control-label Бумага
-                                .col-md-2
-                                    textarea.form-control.typePaper(rows="3")=passport.typePaper
-                                .col-md-1
-                                    button.btn.btn-success-green.addSetType(type="button" data-toggle="modal" data-target="#modalType") Добавить
-                                    include ../modal/modalType
-                                .col-md-2
-                                    textarea.form-control.typePaperSize(rows="3")=passport.typePaperSize
-                                .col-md-1
-                                    button.btn.btn-success-green.addSetSize(type="button" data-toggle="modal" data-target="#modalSize") Добавить
-                                    include ../modal/modalSize
-                                .col-md-2
-                                    textarea.form-control.typePaperGramm(rows="3")=passport.typePaperGramm
-                                .col-md-1
-                                    button.btn.btn-success-green.addSetGramm(type="button" data-toggle="modal" data-target="#modalGramm") Добавить
-                                    include ../modal/modalGramm
+                    //.row
+                    //    .col-md-12
+                    //        .form-group
+                    //            label.col-md-2.control-label Бумага
+                    //            .col-md-2
+                    //                textarea.form-control.typePaper(rows="3")=passport.typePaper
+                    //            .col-md-1
+                    //                button.btn.btn-success-green.addSetType(type="button" data-toggle="modal" data-target="#modalType") Добавить
+                    //                include ../modal/modalType
+                    //            .col-md-2
+                    //                textarea.form-control.typePaperSize(rows="3")=passport.typePaperSize
+                    //            .col-md-1
+                    //                button.btn.btn-success-green.addSetSize(type="button" data-toggle="modal" data-target="#modalSize") Добавить
+                    //                include ../modal/modalSize
+                    //            .col-md-2
+                    //                textarea.form-control.typePaperGramm(rows="3")=passport.typePaperGramm
+                    //            .col-md-1
+                    //                button.btn.btn-success-green.addSetGramm(type="button" data-toggle="modal" data-target="#modalGramm") Добавить
+                    //                include ../modal/modalGramm
                     .row
                         .col-md-6
                             .form-group
@@ -222,8 +222,12 @@ block content
                                                 .row
                                                     .col-md-12
                                                         .form-group
-                                                            label.col-md-5.control-label На машину
-                                                            .col-md-7
+                                                            label.col-md-3.control-label На машину
+                                                            .col-md-3
+                                                                select.form-control.typePaper(style="margin-top: 10px;")
+                                                                    option(selected) #{item.typePaper}
+                                                        .form-group
+                                                            .col-md-3
                                                                 select.form-control.car-select(required)
                                                                     if item.car === 'A2'
                                                                         option(selected) A2
@@ -231,14 +235,24 @@ block content
                                                                     else
                                                                         option A2
                                                                         option(selected) A3
+                                                        .form-group
+                                                            .col-md-3
+                                                                input.form-control.comment-top(value=item.commentTop)
                                                 .form-group
                                                     label.col-md-5.control-label Шт.
-                                                    .col-md-7
+                                                    .col-md-3
                                                         input.form-control.Sht(type="text", required, value=item.sht)
+                                                    .col-md-4
+                                                        select.form-control.typePaperGramm(required)
+                                                            option(selected) #{item.grammPaper}
                                                 .form-group
                                                     label.col-md-5.control-label На
-                                                    .col-md-7
+                                                    .col-md-3
                                                         input.form-control.on(type="text", required, value=item.on)
+                                                .form-group
+                                                    .col-md-4
+                                                        select.form-control.typePaperSize(required)
+                                                            option(selected) #{item.sizePaper}
                                                 .form-group
                                                     label.col-md-5.control-label Печ. листов
                                                     .col-md-7
@@ -393,14 +407,14 @@ block content
             tr
                 th Красочность
                 td=passport.redness
-                th Бумага
-                td
-                    b Тип бумаги:
-                    |       #{passport.typePaper}
-                    b Размер бумаги:
-                    |       #{passport.typePaperSize}
-                    b Граммаж бумаги:
-                    |       #{passport.typePaperGramm}
+                //th Бумага
+                //td
+                //    b Тип бумаги:
+                //    |       #{passport.typePaper}
+                //    b Размер бумаги:
+                //    |       #{passport.typePaperSize}
+                //    b Граммаж бумаги:
+                //    |       #{passport.typePaperGramm}
         table.table.table-bordered.table-condensed
             tr
                 each item in passport.allCar
@@ -408,21 +422,25 @@ block content
                         table.table.table-condensed
                             tr
                                 th На машину:
+                                td=item.typePaper
                                 td=item.car
+                                td=item.commentTop
                             tr
                                 th Шт.:
                                 td=item.sht
+                                td(colspan="2")=item.grammPaper
                             tr
                                 th На:
                                 td=item.on
+                                td(colspan="2")=item.sizePaper
                             tr
                                 th Печ. листов:
-                                td=item.printSheet
+                                td(colspan="3")=item.printSheet
                             tr
                                 th Исходных листов:
-                                td=item.allSheet
+                                td(colspan="3")=item.allSheet
                             tr
-                                td(colspan="2")
+                                td(colspan="4")
                                     textarea(rows="3", style="width:100%;").signature=item.signature
         table.table.table-bordered.table-condensed
             tr

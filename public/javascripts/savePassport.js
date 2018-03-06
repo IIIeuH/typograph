@@ -31,7 +31,6 @@ $(function(){
         data.deliveryFiled = $('input[name="delivery"]:checked').val() || '';
         data.typeDeliveryFiled = $('input[name="type-delivery"]:checked').val() || '';
         data.sizePaper = $('.size-paper').val() || [];
-        data.typePaper = $('.typePaper').val() || '';
         data.typePaperSize = $('.typePaperSize').val() || '';
         data.typePaperGramm = $('.typePaperGramm').val() || '';
         data.set = $('.set').val() || '';
@@ -42,6 +41,10 @@ $(function(){
 
         $('.car-container').each(function(){
             var obj = {};
+            obj.typePaper = $(this).find('.typePaper').val();
+            obj.grammPaper = $(this).find('.typePaperGramm').val();
+            obj.sizePaper = $(this).find('.typePaperSize').val();
+            obj.commentTop = $(this).find('.comment-top').val();
             obj.car = $(this).find('.car-select').val();
             obj.sht = $(this).find('.Sht').val();
             obj.on = $(this).find('.on').val();
@@ -110,6 +113,10 @@ $(function(){
 
         $('.car-container').each(function(){
             var obj = {};
+            obj.typePaper = $(this).find('.typePaper').val();
+            obj.grammPaper = $(this).find('.typePaperGramm').val();
+            obj.sizePaper = $(this).find('.typePaperSize').val();
+            obj.commentTop = $(this).find('.comment-top').val();
             obj.car = $(this).find('.car-select').val();
             obj.sht = $(this).find('.Sht').val();
             obj.on = $(this).find('.on').val();

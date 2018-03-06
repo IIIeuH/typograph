@@ -4,7 +4,7 @@ block content
     form(method="POST", id="formPassport")
         .panel.panel-white
             .panel-heading
-                span Заказ № 1 от #{moment(new Date()).format("DD.MM")}
+                h3.h3 Заказ от #{moment(new Date()).format("DD.MM")}
             .panel-body
                 .container-fluid
                     .row
@@ -79,25 +79,25 @@ block content
                                 label.col-md-2.control-label Красочность
                                 .col-md-10
                                     input.form-control.patter.redness(required)
-                    .row
-                        .col-md-12
-                            .form-group
-                                label.col-md-2.control-label Бумага
-                                .col-md-2
-                                    textarea.form-control.typePaper(rows="3", required)
-                                .col-md-1
-                                    button.btn.btn-success-green.addSetType(type="button" data-toggle="modal" data-target="#modalType") Добавить
-                                    include ../modal/modalType
-                                .col-md-2
-                                    textarea.form-control.typePaperSize(rows="3", required)
-                                .col-md-1
-                                    button.btn.btn-success-green.addSetSize(type="button" data-toggle="modal" data-target="#modalSize") Добавить
-                                    include ../modal/modalSize
-                                .col-md-2
-                                    textarea.form-control.typePaperGramm(rows="3", required)
-                                .col-md-1
-                                    button.btn.btn-success-green.addSet(type="button" data-toggle="modal" data-target="#modalGramm") Добавить
-                                    include ../modal/modalGramm
+                    //.row
+                    //    .col-md-12
+                    //        .form-group
+                    //            label.col-md-2.control-label Бумага
+                    //            .col-md-2
+                    //                textarea.form-control.typePaper(rows="3", required)
+                    //            .col-md-1
+                    //                button.btn.btn-success-green.addSetType(type="button" data-toggle="modal" data-target="#modalType") Добавить
+                    //                include ../modal/modalType
+                    //            .col-md-2
+                    //                textarea.form-control.typePaperSize(rows="3", required)
+                    //            .col-md-1
+                    //                button.btn.btn-success-green.addSetSize(type="button" data-toggle="modal" data-target="#modalSize") Добавить
+                    //                include ../modal/modalSize
+                    //            .col-md-2
+                    //                textarea.form-control.typePaperGramm(rows="3", required)
+                    //            .col-md-1
+                    //                button.btn.btn-success-green.addSet(type="button" data-toggle="modal" data-target="#modalGramm") Добавить
+                    //                include ../modal/modalGramm
                     .row
                         .col-md-6
                             .form-group
@@ -210,19 +210,30 @@ block content
                                             .row
                                                 .col-md-12
                                                     .form-group
-                                                        label.col-md-5.control-label На машину
-                                                        .col-md-7
+                                                        label.col-md-3.control-label На машину
+                                                        .col-md-3
+                                                            select.form-control.typePaper(style="margin-top: 10px;", required)
+                                                    .form-group
+                                                        .col-md-3
                                                             select.form-control.car-select(required)
                                                                 option A2
                                                                 option A3
+                                                    .form-group
+                                                        .col-md-3
+                                                            input.form-control.comment-top
                                             .form-group
                                                 label.col-md-5.control-label Шт.
-                                                .col-md-7
+                                                .col-md-3
                                                     input.form-control.Sht(type="text", required)
+                                                .col-md-4
+                                                    select.form-control.typePaperGramm(required)
                                             .form-group
                                                 label.col-md-5.control-label На
-                                                .col-md-7
+                                                .col-md-3
                                                     input.form-control.on(type="text", required)
+                                            .form-group
+                                                .col-md-4
+                                                    select.form-control.typePaperSize(required)
                                             .form-group
                                                 label.col-md-5.control-label Печ. листов
                                                 .col-md-7
@@ -233,7 +244,7 @@ block content
                                                     input.form-control.allSheet(type="text", required)
                                     tr
                                         td
-                                            textarea(cols="30", style="text-align: center;").signature
+                                            textarea(cols="40", style="text-align: center;").signature
                     .row
                         .form-group
                             label.col-md-2.control-label(for="manager") Менеджер

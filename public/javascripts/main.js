@@ -60,6 +60,13 @@ $(function(){
         );
     });
 
+    //AJAX SELECT
+    ajaxSelect($('.typePaper'), 'Тип', 'typepappers');
+    ajaxSelect($('.typePaperGramm'), 'Граммаж', 'grammpappers');
+    ajaxSelect($('.typePaperSize'), 'Размер', 'sizepappers');
+    ajaxSelect($('#manager'), 'Менеджер', 'users');
+
+
 
     $(document).on('click', '.addBox', function(e){
         $('.set-modal-body').append(
@@ -235,20 +242,6 @@ $(function(){
 
         });
     });
-    // $('.checkbox-select').on("select2:select", function (e) {
-    //     $('.checkbox-select').append('<option value="'+e.params.data.text+'">' +e.params.data.text + '</option>');
-    // });
-    // $('.checkbox-select').on("select2:unselect", function (e) {
-    //     e.params.data.element.remove();
-    // });
-    //
-    // function formatResultData (data) {
-    //     if (!data.id) return data.text;
-    //     if (data.element.selected) return;
-    //     return data.text;
-    // };
-
-
 
     select.on("select2:select", function (evt) {
         var element = evt.params.data.element;
@@ -259,140 +252,11 @@ $(function(){
         $(this).trigger("change");
     });
 
-
-    // selectMult.select({
-    //     insertTag: function (data, tag) {
-    //         // Insert the tag at the end of the results
-    //         data.push(tag);
-    //     }
-    // });
-
-    //
-    // selectMult.on("select2:unselect", function (e) {
-    //     e.params.data.element.remove();
-    // });
-
-
-
-    // select.on('select2:opening select2:closing', function( event ) {
-    //     var $searchfield = $(this).parent().find('.select2-search__field');
-    //     $searchfield.prop('disabled', true);
-    // });
-
     $('#noFile').click(function(){
         if($(this).prop( "checked" )){
             $('#file').removeAttr('disabled');
         }else{
             $('#file').attr('disabled', 'disabled');
-        }
-    });
-
-    //ajax select2
-    $('#typepapper').select2({
-        allowClear: true,
-        placeholder: "Тип",
-        ajax: {
-            url: '/getCollection',
-            dataType: 'json',
-            data: function (params) {
-
-                var queryParameters = {
-                    term: params.term,
-                    collection: 'typepappers'
-                };
-                return queryParameters;
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.name,
-                            id: item.name
-                        }
-                    })
-                };
-            }
-        }
-    });
-
-    $('#grammpapper').select2({
-        allowClear: true,
-        placeholder: "Граммаж",
-        ajax: {
-            url: '/getCollection',
-            dataType: 'json',
-            data: function (params) {
-
-                var queryParameters = {
-                    term: params.term,
-                    collection: 'grammpappers'
-                };
-                return queryParameters;
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.name,
-                            id: item.name
-                        }
-                    })
-                };
-            }
-        }
-    });
-
-    $('#sizepapper').select2({
-        allowClear: true,
-        placeholder: "Размер",
-        ajax: {
-            url: '/getCollection',
-            dataType: 'json',
-            data: function (params) {
-
-                var queryParameters = {
-                    term: params.term,
-                    collection: 'sizepappers'
-                };
-                return queryParameters;
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.name,
-                            id: item.name
-                        }
-                    })
-                };
-            }
-        }
-    });
-
-
-    $('#manager').select2({
-        placeholder: "Менеджер",
-        ajax: {
-            url: '/getCollection',
-            dataType: 'json',
-            data: function (params) {
-
-                var queryParameters = {
-                    term: params.term,
-                    collection: 'users'
-                };
-                return queryParameters;
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.name,
-                            id: item.name
-                        }
-                    })
-                };
-            }
         }
     });
 
@@ -426,6 +290,10 @@ $(function(){
     //ДОбавление машин;
     carAdd.click(function(){
         addCar();
+        ajaxSelect($('.typePaper'), 'Тип', 'typepappers');
+        ajaxSelect($('.typePaperGramm'), 'Граммаж', 'grammpappers');
+        ajaxSelect($('.typePaperSize'), 'Размер', 'sizepappers');
+        ajaxSelect($('#manager'), 'Менеджер', 'users');
     });
 
     carRemove.click(function(){
@@ -621,45 +489,63 @@ function addCar(){
         '        <div class="row">\n' +
         '          <div class="col-md-12">\n' +
         '            <div class="form-group">\n' +
-        '              <label class="col-md-5 control-label">На машину</label>\n' +
-        '              <div class="col-md-7">\n' +
-        '                <select class="form-control car-select" required>\n' +
+        '              <label class="col-md-3 control-label">На машину</label>\n' +
+        '              <div class="col-md-3">\n' +
+        '                <select style="margin-top: 10px;" required="required" class="form-control typePaper"></select>\n' +
+        '              </div>\n' +
+        '            </div>\n' +
+        '            <div class="form-group">\n' +
+        '              <div class="col-md-3">\n' +
+        '                <select required="required" class="form-control car-select">\n' +
         '                  <option>A2</option>\n' +
         '                  <option>A3</option>\n' +
         '                </select>\n' +
+        '              </div>\n' +
+        '            </div>\n' +
+        '            <div class="form-group">\n' +
+        '              <div class="col-md-3">\n' +
+        '                <input class="form-control comment-top"/>\n' +
         '              </div>\n' +
         '            </div>\n' +
         '          </div>\n' +
         '        </div>\n' +
         '        <div class="form-group">\n' +
         '          <label class="col-md-5 control-label">Шт.</label>\n' +
-        '          <div class="col-md-7">\n' +
-        '            <input type="text" class="form-control Sht" required/>\n' +
+        '          <div class="col-md-3">\n' +
+        '            <input type="text" required="required" class="form-control Sht"/>\n' +
+        '          </div>\n' +
+        '          <div class="col-md-4">\n' +
+        '            <select required="required" class="form-control typePaperGramm"></select>\n' +
         '          </div>\n' +
         '        </div>\n' +
         '        <div class="form-group">\n' +
         '          <label class="col-md-5 control-label">На</label>\n' +
-        '          <div class="col-md-7">\n' +
-        '            <input type="text" class="form-control on" required/>\n' +
+        '          <div class="col-md-3">\n' +
+        '            <input type="text" required="required" class="form-control on"/>\n' +
+        '          </div>\n' +
+        '        </div>\n' +
+        '        <div class="form-group">\n' +
+        '          <div class="col-md-4">\n' +
+        '            <select required="required" class="form-control typePaperSize"></select>\n' +
         '          </div>\n' +
         '        </div>\n' +
         '        <div class="form-group">\n' +
         '          <label class="col-md-5 control-label">Печ. листов</label>\n' +
         '          <div class="col-md-7">\n' +
-        '            <input type="text" class="form-control printSheet" required/>\n' +
+        '            <input type="text" required="required" class="form-control printSheet"/>\n' +
         '          </div>\n' +
         '        </div>\n' +
         '        <div class="form-group">\n' +
         '          <label class="col-md-5 control-label">Исходных листов</label>\n' +
         '          <div class="col-md-7">\n' +
-        '            <input type="text" class="form-control allSheet" required/>\n' +
+        '            <input type="text" required="required" class="form-control allSheet"/>\n' +
         '          </div>\n' +
         '        </div>\n' +
         '      </td>\n' +
         '    </tr>\n' +
         '    <tr>\n' +
         '      <td>\n' +
-        '        <textarea cols="30" class="signature"></textarea>\n' +
+        '        <textarea cols="40" style="text-align: center;" class="signature"></textarea>\n' +
         '      </td>\n' +
         '    </tr>\n' +
         '  </table>\n' +
@@ -698,6 +584,36 @@ function status(){
         }
         if($(this).data('status') === 'print'){
             $(this).addClass('success');
+        }
+    });
+}
+
+//style, placholder, collection
+function ajaxSelect(style, plachold, collection){
+    //ajax select2
+    style.select2({
+        placeholder: plachold,
+        ajax: {
+            url: '/getCollection',
+            dataType: 'json',
+            data: function (params) {
+
+                var queryParameters = {
+                    term: params.term,
+                    collection: collection
+                };
+                return queryParameters;
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name,
+                            id: item.name
+                        }
+                    })
+                };
+            }
         }
     });
 }
