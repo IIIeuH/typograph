@@ -77,7 +77,8 @@ const Passports = new Schema({
     timeSave: String,
     passportId: String,
     inc: Number,
-    managerId: ObjectId
+    managerId: ObjectId,
+    status: String
 },{versionKey: false});
 
 const Users = new Schema({

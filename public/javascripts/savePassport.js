@@ -38,6 +38,7 @@ $(function(){
         data.decoration = $('.decoration').val() || '';
         data.manager = $('.manager').val() || [];
         data.managerId = $('#managerId').val();
+        data.status = 'new';
 
         $('.car-container').each(function(){
             var obj = {};

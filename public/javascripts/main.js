@@ -171,8 +171,8 @@ $(function(){
         $(this).parents('.childrenBoxD').text()
     });
 
-    $(document).on('click', '.closeBox', function(){
-        $(this).parents('.childrenBox').remove();
+    $(document).on('click', '.closeBoxD', function(){
+        $(this).parents('.childrenBoxD').remove();
     });
 
     $(document).on('click', '.closeCarBoxD', function(){
@@ -551,6 +551,10 @@ $(function(){
         window.print() ;
     });
 
+
+    //status
+    status();
+
 });
 
 function searchPassports(str, field){
@@ -680,4 +684,20 @@ function isInteger(num) {
 function removeCar(){
     var carContainer = $('.car-container');
     if(carContainer.length > 1) carContainer.last().remove();
+}
+
+//Цвета для статусов
+function status(){
+    var el = $('.status');
+    el.each(function(){
+        if($(this).data('status') === 'new'){
+            $(this).addClass('danger');
+        }
+        if($(this).data('status') === 'work'){
+            $(this).addClass('warning');
+        }
+        if($(this).data('status') === 'print'){
+            $(this).addClass('success');
+        }
+    });
 }
