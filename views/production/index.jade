@@ -1,0 +1,78 @@
+extends layout
+
+
+block content
+    include ../error
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Все паспорта
+            span.label.label-danger Не исполнен
+            span.label.label-warning В работе
+            span.label.label-success Исполнен
+            span.label.label-info Отправлен
+        .panel-body.passports-data
+            table.table.table-hover.table-bordered.table-striped.table-condensed
+                thead
+                    tr
+                        th
+                            .form-group
+                                label.col-md-12.control-label(for="searchDate") Дата
+                                .col-md-12
+                                    input.form-control(type="text", id="searchDate", placeholder="Поиск...")
+                        th
+                            .form-group
+                                label.col-md-12.control-label(for="number") №
+                                .col-md-12
+                                    input.form-control(type="text", id="number", placeholder="Поиск...")
+                        th
+                            .form-group
+                                label.col-md-12.control-label(for="searchCustomer") Заказчик
+                                .col-md-12
+                                    input.form-control(type="text", id="searchCustomer", placeholder="Поиск...")
+                        th
+                            .form-group
+                                label.col-md-12.control-label(for="paper") Ф\б
+                                .col-md-12
+                                    input.form-control(type="text", id="paper", placeholder="Поиск...")
+                        th
+                            .form-group
+                                label.col-md-12.control-label(for="circulation") Тираж
+                                .col-md-12
+                                    input.form-control(type="text", id="circulation", placeholder="Поиск...")
+                        th
+                            .form-group
+                                label.col-md-12.control-label(for="id") ИД
+                                .col-md-12
+                                    input.form-control(type="text", id="id", placeholder="Поиск...")
+                        th Не исполнен
+                        th В работе
+                        th Исполнен
+                        th Отправлен
+                        //th
+                tbody
+                    each item in passports
+                        tr.status(data-status=item.status, data-id=item.passportId)
+                            td.passport-date=moment(item.passOn, "YYYY.MM.DD.").format("DD.MM")
+                            td.passport-number=item.inc
+                            td.passport-customer=item.customer
+                            td.passport-paper
+                                strong Тип:
+                                |   #{item.typePaper}
+                                br
+                                strong Размер:
+                                |   #{item.typePaperSize}
+                                br
+                                strong Граммаж:
+                                |   #{item.typePaperGramm}
+                            td.passport-circulation=item.circulationFiled
+                            td.passport-id=item.passportId
+                            td
+                                input.form-control.production-status(type="checkbox", value="notready", data-status=item.status)
+                            td
+                                input.form-control.production-status(type="checkbox", value="job", data-status=item.status)
+                            td
+                                input.form-control.production-status(type="checkbox", value="success", data-status=item.status)
+                            td
+                                input.form-control.production-status(type="checkbox", value="sent", data-status=item.status)
+                            //td
+                            //    i.material-icons.remove(id=item._id, data-name='пасспорт от ' + item.date + ', номер паспорта ' + item.passportId + ', Заказчик: ' + item.customer) delete_forever

@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const ctrl   = require('../ctrl');
 const managerRoutes = require('./manager/index');
+const productionRoutes = require('./production/index');
+const storekeeperRoutes = require('./storekeeper/index');
 const admin = require('./admin');
 
 router.route('/login')
@@ -18,9 +20,11 @@ router.get('/', (req, res) => {
 });
 
 router.use('/manager', ctrl.permission, managerRoutes);
+router.use('/production', ctrl.permission, productionRoutes);
+router.use('/storekeeper', ctrl.permission, storekeeperRoutes);
 router.use('/admin', ctrl.permission, admin);
 
-//router.use(ctrl.error);
+router.use(ctrl.error);
 
 
 

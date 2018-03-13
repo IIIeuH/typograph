@@ -354,8 +354,8 @@ block content
                                     textarea.form-control.comment(type="text", id="comment") #{passport.comment}
                 .ready-btn
                     button.btn.btn-success-green(type="button", id='updatePassportBtn') Сохранить
-                    button.btn.btn-primary-purple Отправить
                     button.btn.btn-info-blue(type="button", id="print") Печать
+                    button.btn.btn-primary-purple(type="button", id="production-sent", data-id=passport.passportId) Отправить на производство
     .wrapperPrint
         table.table.table-bordered.table-condensed
             tr

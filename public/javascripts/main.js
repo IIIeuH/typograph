@@ -8,15 +8,24 @@ $(function(){
     var data              = $('.passport-date');
     var id                = $('.passport-id');
     var customer          = $('.passport-customer');
+    var number            = $('.passport-number');
     var manager           = $('.passport-manager');
+    var paper             = $('.passport-paper');
+    var density           = $('.passport-density');
+    var circulation       = $('.passport-circulation');
+    var color             = $('.passport-color');
+    var sheet             = $('.passport-sheet');
     var strData           = $('#searchDate');
     var strId             = $('#searchId');
     var strCustomer       = $('#searchCustomer');
     var strManager        = $('#searchManager');
+    var strPaper          = $('#paper');
+    var strNumber         = $('#number');
+    var strDensity        = $('#density');
+    var strCirculation    = $('#circulation');
+    var strColor          = $('#color');
+    var strSheet          = $('#sheet');
     var select            = $('select:not(".car-select")');
-    var selectMult        = $('select.mult');
-    var selectPaper       = $('select:not(".size-paper")');
-
 
     var url = window.location;
     $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
@@ -40,11 +49,6 @@ $(function(){
         tags: true,
         tokenSeparators: [',', ' ']
     });
-
-    // $('.checkbox-select').select2({
-    //     tags: true,
-    //     tokenSeparators: [',', ' ']
-    // });
 
     //Значения checkbox в textarea
     var mas = [];
@@ -375,6 +379,9 @@ $(function(){
     strData.keyup(function(){
         searchPassports($(this).val(), data);
     });
+    strNumber.keyup(function(){
+        searchPassports($(this).val(), number);
+    });
     strId.keyup(function(){
         searchPassports($(this).val(), id);
     });
@@ -383,6 +390,21 @@ $(function(){
     });
     strManager.keyup(function(){
         searchPassports($(this).val(), manager);
+    });
+    strPaper.keyup(function(){
+        searchPassports($(this).val(), paper);
+    });
+    strDensity.keyup(function(){
+        searchPassports($(this).val(), density);
+    });
+    strCirculation.keyup(function(){
+        searchPassports($(this).val(), circulation);
+    });
+    strColor.keyup(function(){
+        searchPassports($(this).val(), color);
+    });
+    strSheet.keyup(function(){
+        searchPassports($(this).val(), sheet);
     });
 
     //Убираем чат
@@ -436,49 +458,6 @@ function searchPassports(str, field){
     })
 }
 
-// function addCustomer() {
-//     var clone = '' +
-//         '<div class="col-md-2 customer-container">' +
-//         '<select multiple="multiple" class="form-control customerNumber">' +
-//         '<option>Заказчик 1</option>' +
-//         '<option>Заказчик 2</option>' +
-//         '<option>Заказчик 3</option>' +
-//         '<option>Заказчик 4</option>' +
-//         '</select>' +
-//         '</div>';
-//     var customerContainer = $('.customer-container');
-//     if(customerContainer.length < 5){
-//         customerContainer.last().after(clone);
-//         $('.customerNumber').select2();
-//     }
-// }
-
-// function removeCustomer(){
-//     var customerContainer = $('.customer-container');
-//     if(customerContainer.length > 1) customerContainer.last().remove();
-// }
-
-// function addName(){
-//     var cloneName = '' +
-//         '<div class="col-md-2 name-container">' +
-//         '<select multiple="multiple" class="form-control name">' +
-//         '<option>Наименование 1</option>' +
-//         '<option>Наименование 2</option>' +
-//         '<option>Наименование 3</option>' +
-//         '<option>Наименование 4</option>' +
-//         '</select>' +
-//         '</div>';
-//     var nameContainer = $('.name-container');
-//     if(nameContainer.length < 5){
-//         nameContainer.last().after(cloneName);
-//         $('.name').select2();
-//     }
-// }
-
-// function removeName(){
-//     var nameContainer = $('.name-container');
-//     if(nameContainer.length > 1) nameContainer.last().remove();
-// }
 
 function addCar(){
     var carContainer = $('.car-container');
@@ -579,11 +558,17 @@ function status(){
         if($(this).data('status') === 'new'){
             $(this).addClass('danger');
         }
-        if($(this).data('status') === 'work'){
+        if($(this).data('status') === 'ready'){
+            $(this).addClass('danger');
+        }
+        if($(this).data('status') === 'job'){
             $(this).addClass('warning');
         }
-        if($(this).data('status') === 'print'){
+        if($(this).data('status') === 'success'){
             $(this).addClass('success');
+        }
+        if($(this).data('status') === 'sent'){
+            $(this).addClass('info');
         }
     });
 }

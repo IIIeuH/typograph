@@ -46,5 +46,33 @@ module.exports.init = function(socket){
             return err;
         }
 
-    })
+    });
+
+    socket.on('valStatus', async (data) => {
+        try{
+            await model.passports.update({passportId: data.passportId}, {status: data.status});
+            socket.emit('changeStatus', {status: 200, msg: 'Статус обновлен!'});
+        }catch(err){
+            socket.emit('changeStatus', {status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
+        }
+    });
+
+    socket.on('valPodStatus', async (data) => {
+        try{
+            await model.passports.update({passportId: data.passportId}, {podstatus: data.podstatus});
+            socket.emit('changePodStatus', {status: 200, msg: 'Статус обновлен!'});
+        }catch(err){
+            socket.emit('changePodStatus', {status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
+        }
+    });
+
+    socket.on('production-click', async (data) => {
+        try{
+            console.log(data.id);
+            await model.passports.update({passportId: data.id}, {status: data.status});
+            socket.emit('production-status', {status: 200, msg: 'Статус обновлен!'});
+        }catch(err){
+            socket.emit('production-status', {status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
+        }
+    });
 };

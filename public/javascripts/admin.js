@@ -135,10 +135,11 @@ function removeRow(row){
         success: function(){
             row.parent().parent().hide();
         },
-        error: function(){
+        error: function(data){
+            console.log(data.responseText);
             Snackbar.show({
-                text: 'Что-то пошло не так!',
-                pos: 'bottom-left',
+                text: data.responseText,
+                pos: 'top-center',
                 actionText: null
             });
         }

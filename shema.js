@@ -78,7 +78,8 @@ const Passports = new Schema({
     passportId: String,
     inc: Number,
     managerId: ObjectId,
-    status: String
+    status: String,
+    podstatus: String
 },{versionKey: false});
 
 const Users = new Schema({

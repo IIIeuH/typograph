@@ -21,7 +21,7 @@ exports.permission = (req, res, next) => {
     const access = accesses[req.method];
     if(req.user.main) return next();
     const permission = _.find(req.user.permissions, {name: req.baseUrl});
-    (permission && permission.access >= access) ? next() : next(new Error('У вас нет доступа'));
+    (permission && permission.access >= access) ? next() : next('У вас нет доступа');
 };
 
 
@@ -51,10 +51,6 @@ exports.registration = passport.authenticate('registration', {
 
 exports.error = (err, req, res, next) => {
     res.status(err.status || 500);
-    console.log(123);
-    res.render('error', {
-        message: err.message,
-        error: err,
-        user: req.user
-    });
+    console.log(err);
+    res.status(404).send(err);
 };
