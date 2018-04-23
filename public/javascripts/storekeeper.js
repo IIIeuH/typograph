@@ -17,7 +17,6 @@ function changeStatusKeeper(socket){
             $(this).parents('.status').find(el).removeAttr('disabled', 'disabled');
             $(this).attr('disabled', 'disabled');
             var id = $(this).parents('tr').data('id');
-            console.log($(this).val(), id);
             socket.emit('valPodStatus', {podstatus: $(this).val(), passportId: id}, function (res) {
                 if(res.status === 412){
                     Snackbar.show({

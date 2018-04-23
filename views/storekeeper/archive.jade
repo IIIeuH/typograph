@@ -67,8 +67,8 @@ block content
                             td.passport-circulation(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=item.circulationFiled
                             td.passport-id(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=item.passportId
                             td
-                                input.form-control.production-podstatus(type="checkbox", value="pickup", data-status=item.podstatus)
+                                input.form-control.production-podstatus(type="checkbox", value="pickup", data-status=item.podstatus, data-name="Самовывоз")
                             td
-                                input.form-control.production-podstatus(type="checkbox", value="office", data-status=item.podstatus)
+                                input.form-control.production-podstatus(type="checkbox", value="office", data-status=item.podstatus, data-name="В офис")
                             td
-                                input.form-control.production-podstatus(type="checkbox", value="sending", data-status=item.podstatus)
+                                input.form-control.production-podstatus(type="checkbox", value="sending", data-status=item.podstatus, data-name="Отправка")

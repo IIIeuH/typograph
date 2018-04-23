@@ -4,6 +4,48 @@ $(function(){
     var btnSentCiTiPi = $('#citipi-sent');
     var btnSentstoreKeeper = $('#storekeeper-sent');
 
+    //сообщения всем
+    socket.on('prepress-status', function (res) {
+        Snackbar.show({
+            text: res,
+            pos: 'top-center',
+            actionText: null
+        });
+    });
+
+    socket.on('citipi-status', function (res) {
+        Snackbar.show({
+            text: res,
+            pos: 'top-center',
+            actionText: null
+        });
+    });
+
+    socket.on('storekeeper-status', function (res) {
+        Snackbar.show({
+            text: res,
+            pos: 'top-center',
+            actionText: null
+        });
+    });
+
+    socket.on('success-status', function (res) {
+        Snackbar.show({
+            text: res,
+            pos: 'top-center',
+            actionText: null
+        });
+    });
+
+    socket.on('production-status', function (res) {
+        Snackbar.show({
+            text: res,
+            pos: 'top-center',
+            actionText: null
+        });
+    });
+
+
     btnSent.click(function(){
         var p = confirm("Вы уверены что хотите отправить этот паспорт допечатнику?");
         if(p){

@@ -54,6 +54,7 @@ module.exports.init = function(socket){
             if(data.name === 'Исполнен'){
                 console.log(data.name);
                 await model.passports.updateOne({passportId: data.passportId}, {$set: {status: "success", productionStatus: data.status}});
+                socket.broadcast.emit('success-status', `Паспорт ${data.passportId} исполнен!`);
             }else{
                 await model.passports.updateOne({passportId: data.passportId}, {$set: {status: "production", productionStatus: data.status}});
             }
@@ -66,6 +67,7 @@ module.exports.init = function(socket){
     socket.on('valPodStatus', async (data, cb) => {
         try{
             await model.passports.updateOne({passportId: data.passportId}, {$set: {status: "production", podstatus: data.podstatus}});
+            socket.broadcast.emit('production-status', `Паспорт ${data.passportId} отправлен на производство!`);
             cb({status: 200, msg: 'Статус обновлен!'});
         }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
@@ -77,6 +79,7 @@ module.exports.init = function(socket){
     socket.on('prepress', async (id, cb) => {
         try{
             await model.passports.update({passportId: id}, {$set: {status: "prepress"}});
+            socket.broadcast.emit('prepress-status', `Паспорт ${id} отправлен допечатнику!`);
             cb({status: 200, msg: 'Паспорт отправлен допечатнику!'});
         }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка отправки! ${err}`});
@@ -87,6 +90,7 @@ module.exports.init = function(socket){
     socket.on('citipi', async (id, cb) => {
         try{
             await model.passports.update({passportId: id}, {$set: {status: "citipi"}});
+            socket.broadcast.emit('citipi-status', `Паспорт ${id} отправлен СиТиПи!`);
             cb({status: 200, msg: 'Паспорт отправлен СиТиПи!'});
         }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка отправки! ${err}`});
@@ -97,6 +101,7 @@ module.exports.init = function(socket){
     socket.on('storekeeper', async (id, cb) => {
         try{
             await model.passports.update({passportId: id}, {$set: {status: "keeper"}});
+            socket.broadcast.emit('storekeeper-status', `Паспорт ${id} отправлен на склад!`);
             cb({status: 200, msg: 'Паспорт отправлен на склад!'});
         }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка отправки! ${err}`});
