@@ -7,4 +7,10 @@ router.route('/')
 router.route('/archive')
     .get(ctrl.archive);
 
+router.get('/:id', ctrl.passport);
+
+
+
+
+
 module.exports = router;

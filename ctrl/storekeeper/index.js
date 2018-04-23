@@ -17,3 +17,13 @@ exports.archive = async (req, res) => {
         return err
     }
 };
+
+
+exports.passport = async (req, res) => {
+    try{
+        let passport  = await model.passport(req.params.id);
+        res.render('storekeeper/passport', {title: "Кладовщик - паспорт!", user: req.user, passport: passport});
+    }catch(err){
+        return err
+    }
+};

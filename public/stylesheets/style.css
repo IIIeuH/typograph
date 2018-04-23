@@ -395,6 +395,13 @@ table .form-group{
 }
 /*Кнопки выбора значений*/
 
+/*prepress*/
+.wrap-prepress{
+    background-color: white;
+    padding: 50px;
+}
+/*prepress*/
+
 /*Кнопка Success*/
 .btn-success-green{
     padding: 15px !important;

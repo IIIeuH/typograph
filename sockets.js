@@ -1,7 +1,7 @@
 const model = require('./shema');
 
 module.exports.init = function(socket){
-    socket.on('savePassportBtn', async (data) => {
+    socket.on('savePassportBtn', async (data, cb) => {
         try{
             let inc = await model.passports.aggregate([
                 {
@@ -25,54 +25,81 @@ module.exports.init = function(socket){
             data.passportId += '-' + str;
             let saveData = new model.passports(data);
             await saveData.save();
-            socket.emit('readySavePassport', {status: 200});
+            cb({status: 200, msg: "Паспорт сохранен!"});
         }catch(err){
-            socket.emit('readySavePassport', {status: 412, err: err._message, msg: 'Заполните обязательные поля'});
+            cb({status: 412, err: err._message, msg: 'Заполните обязательные поля'});
             return err;
         }
 
     });
 
 
-    socket.on('updatePassportBtn', async (data) => {
+    socket.on('updatePassportBtn', async (data, cb) => {
         try{
             delete data.data.passportId;
             delete data.data.date;
             delete data.data.timeSave;
             await model.passports.update({_id: data.id}, data.data);
-            socket.emit('readyUpdatePassport', {status: 200, msg: 'Пасспорт обновлен!'});
+            cb({status: 200, msg: 'Пасспорт обновлен!'});
         }catch(err){
-            socket.emit('readyUpdatePassport', {status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
+            cb({status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
             return err;
         }
 
     });
 
-    socket.on('valStatus', async (data) => {
+    socket.on('valStatus', async (data, cb) => {
         try{
-            await model.passports.update({passportId: data.passportId}, {status: data.status});
-            socket.emit('changeStatus', {status: 200, msg: 'Статус обновлен!'});
+            console.log(data.name);
+            if(data.name === 'Исполнен'){
+                console.log(data.name);
+                await model.passports.updateOne({passportId: data.passportId}, {$set: {status: "success", productionStatus: data.status}});
+            }else{
+                await model.passports.updateOne({passportId: data.passportId}, {$set: {status: "production", productionStatus: data.status}});
+            }
+            cb({status: 200, msg: 'Статус обновлен!'});
         }catch(err){
-            socket.emit('changeStatus', {status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
+            cb({status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
         }
     });
 
-    socket.on('valPodStatus', async (data) => {
+    socket.on('valPodStatus', async (data, cb) => {
         try{
-            await model.passports.update({passportId: data.passportId}, {podstatus: data.podstatus});
-            socket.emit('changePodStatus', {status: 200, msg: 'Статус обновлен!'});
+            await model.passports.updateOne({passportId: data.passportId}, {$set: {status: "production", podstatus: data.podstatus}});
+            cb({status: 200, msg: 'Статус обновлен!'});
         }catch(err){
-            socket.emit('changePodStatus', {status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
+            cb({status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
         }
     });
 
-    socket.on('production-click', async (data) => {
+
+    //Отправка допечатнику
+    socket.on('prepress', async (id, cb) => {
         try{
-            console.log(data.id);
-            await model.passports.update({passportId: data.id}, {status: data.status});
-            socket.emit('production-status', {status: 200, msg: 'Статус обновлен!'});
+            await model.passports.update({passportId: id}, {$set: {status: "prepress"}});
+            cb({status: 200, msg: 'Паспорт отправлен допечатнику!'});
         }catch(err){
-            socket.emit('production-status', {status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
+            cb({status: 412, err: err._message, msg: `Ошибка отправки! ${err}`});
+        }
+    });
+
+    //Отправка citipi
+    socket.on('citipi', async (id, cb) => {
+        try{
+            await model.passports.update({passportId: id}, {$set: {status: "citipi"}});
+            cb({status: 200, msg: 'Паспорт отправлен СиТиПи!'});
+        }catch(err){
+            cb({status: 412, err: err._message, msg: `Ошибка отправки! ${err}`});
+        }
+    });
+
+    //Отправка на склад
+    socket.on('storekeeper', async (id, cb) => {
+        try{
+            await model.passports.update({passportId: id}, {$set: {status: "keeper"}});
+            cb({status: 200, msg: 'Паспорт отправлен на склад!'});
+        }catch(err){
+            cb({status: 412, err: err._message, msg: `Ошибка отправки! ${err}`});
         }
     });
 };

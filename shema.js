@@ -79,7 +79,8 @@ const Passports = new Schema({
     inc: Number,
     managerId: ObjectId,
     status: String,
-    podstatus: String
+    podstatus: String,
+    productionStatus: String
 },{versionKey: false});
 
 const Users = new Schema({
@@ -90,13 +91,17 @@ const Users = new Schema({
         type: String,
         default: "manager"
     },
+    nameRole: {
+        type: String,
+        default: "Менеджер"
+    },
     main: {
         type: Boolean,
         default: false
     },
     permissions: {
         type: Array,
-        default: [{name: '/manager', access: 2}]
+        default: [{name: '/manager', group: "Менеджер", access: 2}]
     },
     name: {
         type: String,

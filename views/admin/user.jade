@@ -12,7 +12,14 @@ block content
                     input#email.form-control(type='text', required, value=user.email, name="email")
                 .form-group.label-floating
                     label.control-label(for='role') Роль
-                    input#role.form-control(type='text', required, value=user.role, name="role")
+                    select#role.form-control(type='text', required)
+                        option(value=user.role selected)=user.nameRole
+                        option(value="manager") Менеджер
+                        option(value="prepress") Допечатник
+                        option(value="citipi") СиТиПи
+                        option(value="storekeeper") Кладовщик
+                        option(value="production") Производство
+                    //input.form-control(type='text', required, value=user.role, name="role")
                 .form-group.label-floating
                     label.control-label(for='name') Имя
                     input#name.form-control(type='text', required, value=user.name, name="name")
@@ -25,8 +32,14 @@ block content
                     .wrap
                         .col-md-6
                             .form-group.label-floating
-                                label.control-label Url
-                                input.form-control.name(type='text', required, value=i.name)
+                                label.control-label Группа
+                                select.form-control.name(type='text', required)
+                                    option(value=i.name selected)=i.group
+                                    option(value="/manager") Менеджер
+                                    option(value="/prepress") Допечатник
+                                    option(value="/citipi") СиТиПи
+                                    option(value="/storekeeper") Кладовщик
+                                    option(value="/production") Производство
                         .col-md-6
                             .form-group.label-floating
                                 label.control-label Доступ

@@ -2,15 +2,9 @@ extends layout
 
 
 block content
-    include ../error
     .panel.panel-white
         .panel-heading
             h3.panel-title Все паспорта
-            //span.label.label-danger(style="margin-right: 5px;") Допечатник
-            //span.label.label-warning(style="margin-right: 5px;") СиТиПи
-            //span.label.label-info(style="margin-right: 5px;") Кладовщик
-            //span.label.label-default(style="margin-right: 5px;") Производство
-            //span.label.label-success(style="margin-right: 5px;") Исполнен
         .panel-body.passports-data
             table.table.table-hover.table-bordered.table-striped.table-condensed
                 thead
@@ -45,16 +39,13 @@ block content
                                 label.col-md-12.control-label(for="id") ИД
                                 .col-md-12
                                     input.form-control(type="text", id="id", placeholder="Поиск...")
-                        th Самовывоз
-                        th В офис
-                        th Отправка
                 tbody
                     each item in passports
-                        tr.status-check.hider(data-status=item.status, data-id=item.passportId)
-                            td.passport-date(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=moment(item.passOn, "YYYY.MM.DD.").format("DD.MM")
-                            td.passport-number(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=item.inc
-                            td.passport-customer(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=item.customer
-                            td.passport-paper(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')
+                        tr(data-status=item.status, data-id=item.passportId, onclick='window.location.href="/prepress/'+item._id+'"; return false')
+                            td.passport-date=moment(item.passOn, "YYYY.MM.DD.").format("DD.MM")
+                            td.passport-number=item.inc
+                            td.passport-customer=item.customer
+                            td.passport-paper
                                 strong Тип:
                                 |   #{item.typePaper}
                                 br
@@ -63,11 +54,5 @@ block content
                                 br
                                 strong Граммаж:
                                 |   #{item.typePaperGramm}
-                            td.passport-circulation(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=item.circulationFiled
-                            td.passport-id(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=item.passportId
-                            td
-                                input.form-control.production-podstatus(type="checkbox", value="pickup", data-status=item.podstatus, data-name="Самовывоз")
-                            td
-                                input.form-control.production-podstatus(type="checkbox", value="office", data-status=item.podstatus, data-name="В офис")
-                            td
-                                input.form-control.production-podstatus(type="checkbox", value="sending", data-status=item.podstatus, data-name="Отправка")
+                            td.passport-circulation=item.circulationFiled
+                            td.passport-id=item.passportId

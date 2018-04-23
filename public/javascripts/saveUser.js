@@ -4,13 +4,15 @@ $(function () {
     btn.click(function () {
         var data = {};
         data.email = $('input[name="email"]').val();
-        data.role = $('input[name="role"]').val();
-        data.name = $('input[name="name"]').val();
+        data.role = $('#role').val();
+        data.name = $('#name').val();
+        data.nameRole = $('#role option:selected').text();
         var mas = [];
         $('.permiss').each(function () {
            var obj = {};
            obj.name = $(this).find('.name').val();
            obj.access = +$(this).find('.access').val();
+           obj.group = $(this).find('.name option:selected').text();
            mas.push(obj);
         });
         data.permissions = mas;

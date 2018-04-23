@@ -1,0 +1,34 @@
+doctype html
+html
+    head
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title= title
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Exo')
+        link(rel='stylesheet', href='/app/css/bundleMain.min.css')
+        link(rel='stylesheet', href='/app/css/bundleOther.min.css')
+    body.main-managers
+        script(src="/app/js/other.min.js")
+        script(src="/app/js/main.min.js")
+        .wrapper
+            .header
+                .navbar.navbar-default.navbar-white
+                    .container-fluid
+                        .navbar-header
+                            button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
+                                span.icon-bar
+                                span.icon-bar
+                                span.icon-bar
+                            a.navbar-brand(href="/prepress") Допечатник
+                        .navbar-collapse.collapse.navbar-responsive-collapse
+                            ul.nav.navbar-nav.navbar-right
+                                li
+                                    a.btn.btn-success-green(href="/logout") ВЫХОД
+            .content
+                .menu.noPrint
+                    .menu-wrap
+                        ul.nav.nav-pills.nav-stacked(style='max-width: 300px;')
+                            li
+                                a(href='/prepress') Главная
+                .main
+                    block content

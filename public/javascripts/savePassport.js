@@ -55,11 +55,10 @@ $(function(){
         });
 
         var valid = true;
-        socket.emit('savePassportBtn', data);
-        socket.on('readySavePassport', function(data) {
-            if(data.status === 412){
+        socket.emit('savePassportBtn', data, function(res) {
+            if(res.status === 412){
                 Snackbar.show({
-                    text: data.msg,
+                    text: res.msg,
                     pos: 'top-center',
                     actionText: null
                 });
@@ -129,18 +128,17 @@ $(function(){
         var id = window.location.pathname.split('/')[3];
 
         var valid = true;
-        socket.emit('updatePassportBtn', {data: data, id: id});
-        socket.on('readyUpdatePassport', function(data) {
-            if(data.status === 412){
+        socket.emit('updatePassportBtn', {data: data, id: id}, function (res) {
+            if(res.status === 412){
                 Snackbar.show({
-                    text: data.msg,
+                    text: res.msg,
                     pos: 'top-center',
                     actionText: null
                 });
                 valid = false;
             }else{
                 Snackbar.show({
-                    text: data.msg,
+                    text: res.msg,
                     pos: 'top-center',
                     actionText: null
                 });

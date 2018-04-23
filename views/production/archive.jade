@@ -6,8 +6,13 @@ block content
     .panel.panel-white
         .panel-heading
             h3.panel-title Архив паспартов
+            //span.label.label-danger(style="margin-right: 5px;") Допечатник
+            //span.label.label-warning(style="margin-right: 5px;") СиТиПи
+            //span.label.label-info(style="margin-right: 5px;") Кладовщик
+            //span.label.label-default(style="margin-right: 5px;") Производство
+            //span.label.label-success(style="margin-right: 5px;") Исполнен
         .panel-body.passports-data
-            table.table.table-hover.table-bordered.table-striped.table-condensed
+            table.table.table-hover.table-bordered.table-condensed
                 thead
                     tr
                         th
@@ -40,10 +45,13 @@ block content
                                 label.col-md-12.control-label(for="id") ИД
                                 .col-md-12
                                     input.form-control(type="text", id="id", placeholder="Поиск...")
+                        th Не исполнен
+                        th В работе
+                        th Исполнен
                         th Отправлен
                 tbody
                     each item in passports
-                        tr.status(data-status=item.status, data-id=item.passportId)
+                        tr.status-check(data-status=item.status, data-id=item.passportId)
                             td.passport-date=moment(item.passOn, "YYYY.MM.DD.").format("DD.MM")
                             td.passport-number=item.inc
                             td.passport-customer=item.customer
@@ -59,4 +67,10 @@ block content
                             td.passport-circulation=item.circulationFiled
                             td.passport-id=item.passportId
                             td
-                                input.form-control.production-status(type="checkbox", value="sent", data-status=item.status)
+                                input.form-control.production-status(type="checkbox", value="notready", data-productionStatus=item.productionStatus, data-name="Не готов")
+                            td
+                                input.form-control.production-status(type="checkbox", value="job", data-productionStatus=item.productionStatus, data-name="В работе")
+                            td
+                                input.form-control.production-status(type="checkbox", value="success", data-productionStatus=item.productionStatus, data-name="Исполнен")
+                            td
+                                input.form-control.production-status(type="checkbox", value="sent", data-productionStatus=item.productionStatus, data-name="Отправлен")

@@ -22,7 +22,7 @@ function checkbox(){
     var el = $('.production-status');
     el.each(function(){
         // el.removeAttr('disabled', 'disabled');
-        if($(this).data('status') === $(this).val()){
+        if($(this).data('productionstatus') === $(this).val()){
             $(this).prop('checked', true);
             $(this).attr('disabled', 'disabled');
         }
@@ -32,7 +32,7 @@ function checkbox(){
 
 //Один статус в строке
 function clickCheckbox(){
-    var el = $('.status');
+    var el = $('.status-check');
     el.each(function(){
         var input = $(this).find('.production-status');
         input.click(function(){
@@ -46,58 +46,36 @@ function clickCheckbox(){
 //Сохранение статуса
 function changeStatus(socket){
     var el = $('.production-status');
-    el.click(function(){
+    var number = el.parents('tr').find('.passport-number').text();
+    el.click(function(e){
+        var c = confirm('Вы действительно хотите паспорту № ' + number + ' присвоить статус ' + $(this).data('name'));
         var that = $(this);
-        $(this).parents('.status').find(el).removeAttr('disabled', 'disabled');
-        $(this).attr('disabled', 'disabled');
-        var id = $(this).parents('.status').data('id');
-        socket.emit('valStatus', {status: $(this).val(), passportId: id});
-        socket.on('changeStatus', function(data){
-            if(data.status === 412){
-                Snackbar.show({
-                    text: data.msg,
-                    pos: 'top-center',
-                    actionText: null
-                });
-            }else{
-                Snackbar.show({
-                    text: data.msg,
-                    pos: 'top-center',
-                    actionText: null
-                });
-                that.parents('.status').data('status',  that.val());
-                status();
-            }
-        });
-    });
-}
-
-//Цвета для статусов
-function status(){
-    var el = $('.status');
-    el.each(function(){
-        if($(this).data('status') === 'new'){
-            $(this).attr('class', 'status');
-        }
-        if($(this).data('status') === 'ready'){
-            $(this).attr('class', 'status');
-            $(this).addClass('danger');
-        }
-        if($(this).data('status') === 'notready'){
-            $(this).attr('class', 'status');
-            $(this).addClass('danger');
-        }
-        if($(this).data('status') === 'job'){
-            $(this).attr('class', 'status');
-            $(this).addClass('warning');
-        }
-        if($(this).data('status') === 'success'){
-            $(this).attr('class', 'status');
-            $(this).addClass('success');
-        }
-        if($(this).data('status') === 'sent'){
-            $(this).attr('class', 'status');
-            $(this).addClass('info');
+        if(c){
+            $(this).parents('.status').find(el).removeAttr('disabled', 'disabled');
+            $(this).attr('disabled', 'disabled');
+            var id = $(this).parents('tr').data('id');
+            socket.emit('valStatus', {status: $(this).val(), passportId: id, name: $(this).data('name')}, function (res) {
+                if(res.status === 412){
+                    Snackbar.show({
+                        text: res.msg,
+                        pos: 'top-center',
+                        actionText: null
+                    });
+                }else{
+                    Snackbar.show({
+                        text: res.msg,
+                        pos: 'top-center',
+                        actionText: null
+                    });
+                    that.parents('.status').data('status',  that.val());
+                    if(that.data('name') === 'Исполнен'){
+                        that.parents('tr').hide('fast');
+                    }
+                }
+            });
+        }else{
+            e.preventDefault();
+            e.stopPropagation();
         }
     });
 }

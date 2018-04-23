@@ -9,30 +9,36 @@ $(function(){
 //Сохранение статуса
 function changeStatusKeeper(socket){
     var el = $('.production-podstatus');
-    el.click(function(){
+    var number = el.parents('tr').find('.passport-number').text();
+    el.click(function(e){
+        var c = confirm('Вы действительно хотите паспорту № ' + number + ' присвоить статус ' + $(this).data('name'));
         var that = $(this);
-        console.log( $(this).val());
-        $(this).parents('.status').find(el).removeAttr('disabled', 'disabled');
-        $(this).attr('disabled', 'disabled');
-        var id = $(this).parents('.status').data('id');
-        socket.emit('valPodStatus', {podstatus: $(this).val(), passportId: id});
-        socket.on('changePodStatus', function(data){
-            if(data.status === 412){
-                Snackbar.show({
-                    text: data.msg,
-                    pos: 'top-center',
-                    actionText: null
-                });
-            }else{
-                Snackbar.show({
-                    text: data.msg,
-                    pos: 'top-center',
-                    actionText: null
-                });
-                that.parents('.status').data('status',  that.val());
-                status();
-            }
-        });
+        if(c){
+            $(this).parents('.status').find(el).removeAttr('disabled', 'disabled');
+            $(this).attr('disabled', 'disabled');
+            var id = $(this).parents('tr').data('id');
+            console.log($(this).val(), id);
+            socket.emit('valPodStatus', {podstatus: $(this).val(), passportId: id}, function (res) {
+                if(res.status === 412){
+                    Snackbar.show({
+                        text: res.msg,
+                        pos: 'top-center',
+                        actionText: null
+                    });
+                }else{
+                    Snackbar.show({
+                        text: res.msg,
+                        pos: 'top-center',
+                        actionText: null
+                    });
+                    that.parents('.status').data('status',  that.val());
+                    that.parents('.hider').hide('fast');
+                }
+            });
+        }else{
+            e.preventDefault();
+            e.stopPropagation();
+        }
     });
 }
 
@@ -51,7 +57,7 @@ function checkboxKeeper(){
 
 //Один статус в строке
 function clickCheckboxKeeper(){
-    var el = $('.status');
+    var el = $('.status-check');
     el.each(function(){
         var input = $(this).find('.production-podstatus');
         input.click(function(){

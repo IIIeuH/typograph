@@ -13,7 +13,6 @@ module.exports.findOne = async (collection, id) => {
     try{
         return await shema[collection].findOne({_id: id});
     }catch (err){
-        console.log(err);
         return err;
     }
 };

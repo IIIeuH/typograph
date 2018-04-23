@@ -37,7 +37,7 @@ $(function(){
     $('input[type="tel"]').mask("+7(999) 999-9999");
 
 
-
+    statusManager();
     select.select2();
 
 
@@ -441,10 +441,6 @@ $(function(){
         window.print() ;
     });
 
-
-    //status
-    status();
-
 });
 
 function searchPassports(str, field){
@@ -552,26 +548,50 @@ function removeCar(){
 }
 
 //Цвета для статусов
-function status(){
+// function status(){
+//     var el = $('.status');
+//     el.each(function(){
+//         if($(this).data('status') === 'new'){
+//             $(this).addClass('danger');
+//         }
+//         if($(this).data('status') === 'ready'){
+//             $(this).addClass('danger');
+//         }
+//         if($(this).data('status') === 'job'){
+//             $(this).addClass('warning');
+//         }
+//         if($(this).data('status') === 'success'){
+//             $(this).addClass('success');
+//         }
+//         if($(this).data('status') === 'sent'){
+//             $(this).addClass('info');
+//         }
+//     });
+// }
+
+//Цвета для менеджеры
+function statusManager(){
     var el = $('.status');
     el.each(function(){
-        if($(this).data('status') === 'new'){
+        if($(this).data('status') === 'prepress'){
             $(this).addClass('danger');
         }
-        if($(this).data('status') === 'ready'){
-            $(this).addClass('danger');
-        }
-        if($(this).data('status') === 'job'){
+        if($(this).data('status') === 'citipi'){
             $(this).addClass('warning');
+        }
+        if($(this).data('status') === 'keeper'){
+            $(this).addClass('info');
+        }
+        if($(this).data('status') === 'production'){
+            $(this).addClass('active');
         }
         if($(this).data('status') === 'success'){
             $(this).addClass('success');
         }
-        if($(this).data('status') === 'sent'){
-            $(this).addClass('info');
-        }
     });
 }
+
+
 
 //style, placholder, collection
 function ajaxSelect(style, plachold, collection){

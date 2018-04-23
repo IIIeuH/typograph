@@ -1,0 +1,218 @@
+extends layout
+
+
+block content
+    .noPrint
+        .wrap-prepress
+            table.table.table-bordered.table-condensed
+                tr
+                    th Заказ №
+                    th От
+                    th Сдать на
+                    th День
+                    th Время
+                    th Контактное лицо
+                    th Адрес
+                    td=passport.address
+                tr
+                    td=passport.inc
+                    td=moment(passport.date, "DD.MM.YYYY").format("DD.MM")
+                    td=moment(passport.passOn, "YYYY.MM.DD").format("DD.MM")
+                    td
+                    td=passport.timePassport
+                    td=passport.contactPerson
+                    th Время отправления
+                    td=passport.deliveryFiled
+                tr
+                    th Заказчик
+                    td(colspan="4")=passport.customer
+                    th Телефон #{passport.phone}
+                    th Время Прибытия
+                    td=passport.typeDeliveryFiled
+            table.table.table-bordered.table-condensed
+                tr
+                    th Наименование
+                    td=passport.name
+                    th Отделка
+                    td
+                        //each item in passport.decoration
+                        div(style="float: left; padding-left: 10px")=passport.decoration
+                tr
+                    th Тираж заказчику
+                    td=passport.circulationFiled
+                    th Комлектующие
+                    td
+                        //each item in passport.set
+                        div(style="float: left; padding-left: 10px")=passport.set
+                tr
+                    th Размер
+                    td
+                        each item in passport.sizePaper
+                            div(style="float: left; padding-left: 10px")=item
+                    th Страниц
+                    td=passport.page
+                tr
+                    th Красочность
+                    td=passport.redness
+                    //th Бумага
+                    //td
+                    //    b Тип бумаги:
+                    //    |       #{passport.typePaper}
+                    //    b Размер бумаги:
+                    //    |       #{passport.typePaperSize}
+                    //    b Граммаж бумаги:
+                    //    |       #{passport.typePaperGramm}
+            table.table.table-bordered.table-condensed
+                tr
+                    each item in passport.allCar
+                        td
+                            table.table.table-condensed
+                                tr
+                                    th На машину:
+                                    td=item.typePaper
+                                    td=item.car
+                                    td=item.commentTop
+                                tr
+                                    th Шт.:
+                                    td=item.sht
+                                    td(colspan="2")=item.grammPaper
+                                tr
+                                    th На:
+                                    td=item.on
+                                    td(colspan="2")=item.sizePaper
+                                tr
+                                    th Печ. листов:
+                                    td(colspan="3")=item.printSheet
+                                tr
+                                    th Исходных листов:
+                                    td(colspan="3")=item.allSheet
+                                tr
+                                    td(colspan="4")=item.signature
+            table.table.table-bordered.table-condensed
+                tr
+                    td
+                        table.table
+                            tr
+                                th Менеджер:
+                                td=passport.manager
+                    td
+                        table.table.table-condensed
+                            tr
+                                th Адрес исходного файла:
+                                td=passport.file
+                    td
+                        table.table.table-condensed
+                            tr
+                                th Монтаж выполнил:
+                                td &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                tr
+                    th Комментарий:
+                    td(colspan="2")=passport.comment
+            button.btn.btn-info-blue(type="button", id="print") Печать
+            button.btn.btn-primary-purple(type="button", id="citipi-sent", data-id=passport.passportId) Отправить ситипи
+    .wrapperPrint
+        table.table.table-bordered.table-condensed
+            tr
+                th Заказ №
+                th От
+                th Сдать на
+                th День
+                th Время
+                th Контактное лицо
+                th Адрес
+                td=passport.address
+            tr
+                td=passport.inc
+                td=moment(passport.date, "DD.MM.YYYY").format("DD.MM")
+                td=moment(passport.passOn, "YYYY.MM.DD").format("DD.MM")
+                td
+                td=passport.timePassport
+                td=passport.contactPerson
+                th Время отправления
+                td=passport.deliveryFiled
+            tr
+                th Заказчик
+                td(colspan="4")=passport.customer
+                th Телефон #{passport.phone}
+                th Время Прибытия
+                td=passport.typeDeliveryFiled
+        table.table.table-bordered.table-condensed
+            tr
+                th Наименование
+                td=passport.name
+                th Отделка
+                td
+                    //each item in passport.decoration
+                    div(style="float: left; padding-left: 10px")=passport.decoration
+            tr
+                th Тираж заказчику
+                td=passport.circulationFiled
+                th Комлектующие
+                td
+                    //each item in passport.set
+                    div(style="float: left; padding-left: 10px")=passport.set
+            tr
+                th Размер
+                td
+                    each item in passport.sizePaper
+                        div(style="float: left; padding-left: 10px")=item
+                th Страниц
+                td=passport.page
+            tr
+                th Красочность
+                td=passport.redness
+                //th Бумага
+                //td
+                //    b Тип бумаги:
+                //    |       #{passport.typePaper}
+                //    b Размер бумаги:
+                //    |       #{passport.typePaperSize}
+                //    b Граммаж бумаги:
+                //    |       #{passport.typePaperGramm}
+        table.table.table-bordered.table-condensed
+            tr
+                each item in passport.allCar
+                    td
+                        table.table.table-condensed
+                            tr
+                                th На машину:
+                                td=item.typePaper
+                                td=item.car
+                                td=item.commentTop
+                            tr
+                                th Шт.:
+                                td=item.sht
+                                td(colspan="2")=item.grammPaper
+                            tr
+                                th На:
+                                td=item.on
+                                td(colspan="2")=item.sizePaper
+                            tr
+                                th Печ. листов:
+                                td(colspan="3")=item.printSheet
+                            tr
+                                th Исходных листов:
+                                td(colspan="3")=item.allSheet
+                            tr
+                                td(colspan="4")
+                                    textarea(rows="3", style="width:100%;").signature=item.signature
+        table.table.table-bordered.table-condensed
+            tr
+                td
+                    table.table
+                        tr
+                            th Менеджер:
+                            td=passport.manager
+                td
+                    table.table.table-condensed
+                        tr
+                            th Адрес исходного файла:
+                            td=passport.file
+                td
+                    table.table.table-condensed
+                        tr
+                            th Монтаж выполнил:
+                            td &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+            tr
+                th Комментарий:
+                td(colspan="2")=passport.comment
