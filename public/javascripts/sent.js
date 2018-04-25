@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect();
 $(function(){
     var btnSent = $('#prepress-sent');
     var btnSentCiTiPi = $('#citipi-sent');
