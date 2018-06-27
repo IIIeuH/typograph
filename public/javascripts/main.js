@@ -25,7 +25,7 @@ $(function(){
     var strCirculation    = $('#circulation');
     var strColor          = $('#color');
     var strSheet          = $('#sheet');
-    var select            = $('select:not(".car-select")');
+    var select            = $('select:not(".not-select")');
 
     var url = window.location;
     $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
@@ -471,7 +471,7 @@ function addCar(){
         '            </div>\n' +
         '            <div class="form-group">\n' +
         '              <div class="col-md-3">\n' +
-        '                <select required="required" class="form-control car-select">\n' +
+        '                <select required="required" class="form-control car-select not-select">\n' +
         '                  <option>A2</option>\n' +
         '                  <option>A3</option>\n' +
         '                </select>\n' +
@@ -533,7 +533,7 @@ function sourceSheets(el){
     var printSheet = eval(el.parents('.car-tabel').find('.printSheet').val()) || 0;
     var res = printSheet / del;
     if(!isInteger(res)){
-        res = res.toFixed(2);
+        res = Math.ceil(res.toFixed(2));
     }
     el.parents('.car-tabel').find('.allSheet').val(res);
 }
@@ -547,27 +547,6 @@ function removeCar(){
     if(carContainer.length > 1) carContainer.last().remove();
 }
 
-//Цвета для статусов
-// function status(){
-//     var el = $('.status');
-//     el.each(function(){
-//         if($(this).data('status') === 'new'){
-//             $(this).addClass('danger');
-//         }
-//         if($(this).data('status') === 'ready'){
-//             $(this).addClass('danger');
-//         }
-//         if($(this).data('status') === 'job'){
-//             $(this).addClass('warning');
-//         }
-//         if($(this).data('status') === 'success'){
-//             $(this).addClass('success');
-//         }
-//         if($(this).data('status') === 'sent'){
-//             $(this).addClass('info');
-//         }
-//     });
-// }
 
 //Цвета для менеджеры
 function statusManager(){

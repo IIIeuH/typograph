@@ -54,32 +54,26 @@ block content
                 tr
                     th Красочность
                     td=passport.redness
-                    //th Бумага
-                    //td
-                    //    b Тип бумаги:
-                    //    |       #{passport.typePaper}
-                    //    b Размер бумаги:
-                    //    |       #{passport.typePaperSize}
-                    //    b Граммаж бумаги:
-                    //    |       #{passport.typePaperGramm}
             table.table.table-bordered.table-condensed
                 tr
                     each item in passport.allCar
                         td
                             table.table.table-condensed
                                 tr
-                                    th На машину:
+                                    th Тип бумаги:
                                     td=item.typePaper
+                                    td=item.grammPaper
+                                    td=item.sizePaper
+                                tr
+                                    th На машину:
                                     td=item.car
                                     td=item.commentTop
                                 tr
                                     th Шт.:
                                     td=item.sht
-                                    td(colspan="2")=item.grammPaper
                                 tr
                                     th На:
                                     td=item.on
-                                    td(colspan="2")=item.sizePaper
                                 tr
                                     th Печ. листов:
                                     td(colspan="3")=item.printSheet
@@ -104,7 +98,7 @@ block content
                         table.table.table-condensed
                             tr
                                 th Монтаж выполнил:
-                                td &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                                td=passport.installation
                 tr
                     th Комментарий:
                     td(colspan="2")=passport.comment
@@ -160,32 +154,26 @@ block content
             tr
                 th Красочность
                 td=passport.redness
-                //th Бумага
-                //td
-                //    b Тип бумаги:
-                //    |       #{passport.typePaper}
-                //    b Размер бумаги:
-                //    |       #{passport.typePaperSize}
-                //    b Граммаж бумаги:
-                //    |       #{passport.typePaperGramm}
         table.table.table-bordered.table-condensed
             tr
                 each item in passport.allCar
                     td
                         table.table.table-condensed
                             tr
-                                th На машину:
+                                th Тип бумаги:
                                 td=item.typePaper
+                                td=item.grammPaper
+                                td=item.sizePaper
+                            tr
+                                th На машину:
                                 td=item.car
                                 td=item.commentTop
                             tr
                                 th Шт.:
                                 td=item.sht
-                                td(colspan="2")=item.grammPaper
                             tr
                                 th На:
                                 td=item.on
-                                td(colspan="2")=item.sizePaper
                             tr
                                 th Печ. листов:
                                 td(colspan="3")=item.printSheet
@@ -211,7 +199,10 @@ block content
                     table.table.table-condensed
                         tr
                             th Монтаж выполнил:
-                            td &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                            td=passport.installation
             tr
                 th Комментарий:
                 td(colspan="2")=passport.comment
+            tr
+                th Комментарий допечатника:
+                td(colspan="2")=passport.prepressComment

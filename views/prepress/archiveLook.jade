@@ -103,14 +103,10 @@ block content
                 tr
                     th Комментарий:
                     td(colspan="2")=passport.comment
-            .form-group
-                label.col-md-2.control-label(for="commentPrep") Комментарий допечатника
-                .col-md-8
-                    textarea.form-control.comment(type="text", id="commentPrep")=passport.prepressComment
-                .col-md-2
-                    button.btn.btn-success-green(type="button", id="saveCommentPrepress", data-id=passport.passportId) Сохранить
+                tr
+                    th Комментарий допечатника:
+                    td(colspan="2")=passport.prepressComment
             button.btn.btn-info-blue(type="button", id="print") Печать
-            button.btn.btn-primary-purple(type="button", id="citipi-sent", data-id=passport.passportId) Отправить ситипи
     .wrapperPrint
         table.table.table-bordered.table-condensed
             tr

@@ -2,6 +2,7 @@ extends index
 
 block content
     .noPrint
+        .userName.hidden=user.name
         .panel.panel-white
             .panel-heading
                 h3.h3 Заказ № #{passport.inc} от #{moment(passport.date, "DD.MM.YYYY").format("DD.MM")}
@@ -66,11 +67,10 @@ block content
                     .row
                         .col-md-12
                             .form-group
-                                label.col-md-2.control-label(for="select7") Размер
-                                .col-md-10
-                                    select.form-control.size-paper(style="width: 100%", id="select7", multiple="multiple", required)
-                                        each item in passport.sizePaper
-                                            option(selected) #{item}
+                                label.col-md-2.control-label Размер
+                                .col-md-1
+                                    select.form-control.size-paper.not-select
+                                        option
                                         option А0
                                         option А1
                                         option А2
@@ -78,6 +78,10 @@ block content
                                         option А4
                                         option А5
                                         option А6
+                                .col-md-9
+                                    .size-paper-input
+                                        each item in passport.sizePaper
+                                            .itemPaper=item
                     .row
                         .col-md-12
                             .form-group
@@ -90,25 +94,7 @@ block content
                                 label.col-md-2.control-label Красочность
                                 .col-md-10
                                     input.form-control.patter.redness(required, value=passport.redness)
-                    //.row
-                    //    .col-md-12
-                    //        .form-group
-                    //            label.col-md-2.control-label Бумага
-                    //            .col-md-2
-                    //                textarea.form-control.typePaper(rows="3")=passport.typePaper
-                    //            .col-md-1
-                    //                button.btn.btn-success-green.addSetType(type="button" data-toggle="modal" data-target="#modalType") Добавить
-                    //                include ../modal/modalType
-                    //            .col-md-2
-                    //                textarea.form-control.typePaperSize(rows="3")=passport.typePaperSize
-                    //            .col-md-1
-                    //                button.btn.btn-success-green.addSetSize(type="button" data-toggle="modal" data-target="#modalSize") Добавить
-                    //                include ../modal/modalSize
-                    //            .col-md-2
-                    //                textarea.form-control.typePaperGramm(rows="3")=passport.typePaperGramm
-                    //            .col-md-1
-                    //                button.btn.btn-success-green.addSetGramm(type="button" data-toggle="modal" data-target="#modalGramm") Добавить
-                    //                include ../modal/modalGramm
+
                     .row
                         .col-md-6
                             .form-group
@@ -228,7 +214,7 @@ block content
                                                                     option(selected) #{item.typePaper}
                                                         .form-group
                                                             .col-md-3
-                                                                select.form-control.car-select(required)
+                                                                select.form-control.car-select.not-select(required)
                                                                     if item.car === 'A2'
                                                                         option(selected) A2
                                                                         option A3
@@ -407,32 +393,26 @@ block content
             tr
                 th Красочность
                 td=passport.redness
-                //th Бумага
-                //td
-                //    b Тип бумаги:
-                //    |       #{passport.typePaper}
-                //    b Размер бумаги:
-                //    |       #{passport.typePaperSize}
-                //    b Граммаж бумаги:
-                //    |       #{passport.typePaperGramm}
         table.table.table-bordered.table-condensed
             tr
                 each item in passport.allCar
                     td
                         table.table.table-condensed
                             tr
-                                th На машину:
+                                th Тип бумаги:
                                 td=item.typePaper
+                                td=item.grammPaper
+                                td=item.sizePaper
+                            tr
+                                th На машину:
                                 td=item.car
                                 td=item.commentTop
                             tr
                                 th Шт.:
                                 td=item.sht
-                                td(colspan="2")=item.grammPaper
                             tr
                                 th На:
                                 td=item.on
-                                td(colspan="2")=item.sizePaper
                             tr
                                 th Печ. листов:
                                 td(colspan="3")=item.printSheet
@@ -458,7 +438,10 @@ block content
                     table.table.table-condensed
                         tr
                             th Монтаж выполнил:
-                            td &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                            td=passport.installation
             tr
                 th Комментарий:
                 td(colspan="2")=passport.comment
+            tr
+                th Комментарий допечатника:
+                td(colspan="2")=passport.prepressComment

@@ -2,6 +2,7 @@ extends index
 
 block content
     form(method="POST", id="formPassport")
+        .userName.hidden=user.name
         .panel.panel-white
             .panel-heading
                 h3.h3 Заказ от #{moment(new Date()).format("DD.MM")}
@@ -57,9 +58,10 @@ block content
                     .row
                         .col-md-12
                             .form-group
-                                label.col-md-2.control-label(for="select7") Размер
-                                .col-md-10
-                                    select.form-control.size-paper(style="width: 100%", id="select7", multiple="multiple", required)
+                                label.col-md-2.control-label Размер
+                                .col-md-1
+                                    select.form-control.size-paper.not-select
+                                        option
                                         option А0
                                         option А1
                                         option А2
@@ -67,6 +69,8 @@ block content
                                         option А4
                                         option А5
                                         option А6
+                                .col-md-9
+                                    .size-paper-input
                     .row
                         .col-md-12
                             .form-group
@@ -79,25 +83,6 @@ block content
                                 label.col-md-2.control-label Красочность
                                 .col-md-10
                                     input.form-control.patter.redness(required)
-                    //.row
-                    //    .col-md-12
-                    //        .form-group
-                    //            label.col-md-2.control-label Бумага
-                    //            .col-md-2
-                    //                textarea.form-control.typePaper(rows="3", required)
-                    //            .col-md-1
-                    //                button.btn.btn-success-green.addSetType(type="button" data-toggle="modal" data-target="#modalType") Добавить
-                    //                include ../modal/modalType
-                    //            .col-md-2
-                    //                textarea.form-control.typePaperSize(rows="3", required)
-                    //            .col-md-1
-                    //                button.btn.btn-success-green.addSetSize(type="button" data-toggle="modal" data-target="#modalSize") Добавить
-                    //                include ../modal/modalSize
-                    //            .col-md-2
-                    //                textarea.form-control.typePaperGramm(rows="3", required)
-                    //            .col-md-1
-                    //                button.btn.btn-success-green.addSet(type="button" data-toggle="modal" data-target="#modalGramm") Добавить
-                    //                include ../modal/modalGramm
                     .row
                         .col-md-6
                             .form-group
@@ -215,7 +200,7 @@ block content
                                                             select.form-control.typePaper(style="margin-top: 10px;", required)
                                                     .form-group
                                                         .col-md-3
-                                                            select.form-control.car-select(required)
+                                                            select.form-control.car-select.not-select(required)
                                                                 option A2
                                                                 option A3
                                                     .form-group

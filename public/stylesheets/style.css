@@ -402,6 +402,28 @@ table .form-group{
 }
 /*prepress*/
 
+/*
+    Тип бумаги селект
+*/
+
+.size-paper-input{
+    white-space:nowrap;
+}
+.itemPaper{
+    padding: 10px;
+    border: 1px solid;
+    margin: 2px;
+    display:inline-block
+}
+
+.itemPaper:hover{
+    cursor: pointer;
+}
+
+/*
+    Тип бумаги селект
+*/
+
 /*Кнопка Success*/
 .btn-success-green{
     padding: 15px !important;

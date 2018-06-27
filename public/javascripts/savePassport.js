@@ -3,6 +3,15 @@ $(function(){
     var form = $('#formPassport');
     var socket = io();
 
+    socket.on('updatePassport', function (res) {
+        Snackbar.show({
+            text: res,
+            pos: 'top-center',
+            actionText: 'OK',
+            duration: null
+        });
+    });
+
     form.on("submit", function( event ) {
     //btn.click(function(){
         var data = {};
@@ -30,7 +39,10 @@ $(function(){
         data.passportId = moment().format("DDMMYYYY") || '';
         data.deliveryFiled = $('input[name="delivery"]:checked').val() || '';
         data.typeDeliveryFiled = $('input[name="type-delivery"]:checked').val() || '';
-        data.sizePaper = $('.size-paper').val() || [];
+        data.sizePaper = [];
+        $('.itemPaper').map(function () {
+            data.sizePaper.push($(this).text());
+        });
         data.typePaperSize = $('.typePaperSize').val() || '';
         data.typePaperGramm = $('.typePaperGramm').val() || '';
         data.set = $('.set').val() || '';
@@ -38,6 +50,14 @@ $(function(){
         data.manager = $('.manager').val() || [];
         data.managerId = $('#managerId').val();
         data.status = 'new';
+
+        if(!data.sizePaper.length){
+            Snackbar.show({
+                text: 'Размер бумаги не выбран!',
+                pos: 'top-center',
+            });
+            return false;
+        }
 
         $('.car-container').each(function(){
             var obj = {};
@@ -100,7 +120,10 @@ $(function(){
         data.passportId = moment().format("DDMMYYYY") || '';
         data.deliveryFiled = $('input[name="delivery"]:checked').val() || '';
         data.typeDeliveryFiled = $('input[name="type-delivery"]:checked').val() || '';
-        data.sizePaper = $('.size-paper').val() || [];
+        data.sizePaper = [];
+        $('.itemPaper').map(function () {
+            data.sizePaper.push($(this).text());
+        });
         data.typePaper = $('.typePaper').val() || '';
         data.typePaperSize = $('.typePaperSize').val() || '';
         data.typePaperGramm = $('.typePaperGramm').val() || '';
@@ -108,7 +131,16 @@ $(function(){
         data.decoration = $('.decoration').val() || '';
         data.manager = $('.manager').val() || [];
         data.managerId = $('.managerId').val();
+        data.userUpdate = $('.userName').text();
 
+
+        if(!data.sizePaper.length){
+            Snackbar.show({
+                text: 'Размер бумаги не выбран!',
+                pos: 'top-center',
+            });
+            return false;
+        }
 
         $('.car-container').each(function(){
             var obj = {};

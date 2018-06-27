@@ -3,6 +3,7 @@ $(function(){
     var btnSent = $('#prepress-sent');
     var btnSentCiTiPi = $('#citipi-sent');
     var btnSentstoreKeeper = $('#storekeeper-sent');
+    var btnSaveComment = $('#saveCommentPrepress');
 
     //сообщения всем
     socket.on('prepress-status', function (res) {
@@ -72,7 +73,8 @@ $(function(){
     btnSentCiTiPi.click(function(){
         var p = confirm("Вы уверены что хотите отправить этот паспорт СиТиПи?");
         if(p) {
-            socket.emit('citipi', $(this).data('id'), function (res) {
+            console.log($('.userName').text());
+            socket.emit('citipi', $(this).data('id'), $('.userName').text(), function (res) {
                 if (res.status === 200) {
                     Snackbar.show({
                         text: res.msg,
@@ -113,5 +115,19 @@ $(function(){
         }
     });
 
+
+
+    btnSaveComment.click(function(){
+        var data = {};
+        data.id = $(this).data('id');
+        data.prepressComment = $('#commentPrep').val();
+        socket.emit('saveCommentPrepress', data, function (res) {
+            Snackbar.show({
+                text: res.msg,
+                pos: 'top-center',
+                actionText: null
+            });
+        });
+    });
 
 });

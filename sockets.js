@@ -36,10 +36,12 @@ module.exports.init = function(socket){
 
     socket.on('updatePassportBtn', async (data, cb) => {
         try{
+            let idPassport = data.data.passportId;
             delete data.data.passportId;
             delete data.data.date;
             delete data.data.timeSave;
             await model.passports.update({_id: data.id}, data.data);
+            socket.broadcast.emit('updatePassport', `Паспорт ${idPassport} изменен пользователем ${data.data.userUpdate}!`);
             cb({status: 200, msg: 'Пасспорт обновлен!'});
         }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
@@ -87,9 +89,9 @@ module.exports.init = function(socket){
     });
 
     //Отправка citipi
-    socket.on('citipi', async (id, cb) => {
+    socket.on('citipi', async (id,name, cb) => {
         try{
-            await model.passports.update({passportId: id}, {$set: {status: "citipi"}});
+            await model.passports.update({passportId: id}, {$set: {status: "citipi", installation: name}});
             socket.broadcast.emit('citipi-status', `Паспорт ${id} отправлен СиТиПи!`);
             cb({status: 200, msg: 'Паспорт отправлен СиТиПи!'});
         }catch(err){
@@ -107,4 +109,16 @@ module.exports.init = function(socket){
             cb({status: 412, err: err._message, msg: `Ошибка отправки! ${err}`});
         }
     });
+
+    //Комментарий Допечатник
+    socket.on('saveCommentPrepress', async (data, cb) => {
+        try{
+            console.log(data);
+            await model.passports.update({passportId: data.id}, {$set: {prepressComment: data.prepressComment}});
+            cb({status: 200, msg: 'Обновлено!'});
+        }catch(err){
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
 };

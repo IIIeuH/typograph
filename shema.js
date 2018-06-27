@@ -80,7 +80,10 @@ const Passports = new Schema({
     managerId: ObjectId,
     status: String,
     podstatus: String,
-    productionStatus: String
+    productionStatus: String,
+    installation: String,
+    userUpdate: String,
+    prepressComment: String
 },{versionKey: false});
 
 const Users = new Schema({
