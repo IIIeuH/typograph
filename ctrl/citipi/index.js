@@ -9,6 +9,25 @@ exports.main = async (req, res) => {
     }
 };
 
+exports.all = async (req, res) => {
+    try{
+        let data  = await model.all();
+        res.render('citipi/all', {title: "СиТиПи", user: req.user, passports: data});
+    }catch(err){
+        return err
+    }
+};
+
+exports.allId = async (req, res) => {
+    try{
+        let passport  = await model.allId(req.params.id);
+        console.log(passport);
+        res.render('citipi/allId', {title: "СиТиПи", user: req.user, passport: passport});
+    }catch(err){
+        return err
+    }
+};
+
 exports.passport = async (req, res) => {
     try{
         let passport  = await model.passport(req.params.id);

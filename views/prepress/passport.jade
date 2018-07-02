@@ -61,20 +61,20 @@ block content
                         td
                             table.table.table-condensed
                                 tr
-                                    th Тип бумаги:
-                                    td=item.typePaper
-                                    td=item.grammPaper
-                                    td=item.sizePaper
-                                tr
                                     th На машину:
                                     td=item.car
                                     td=item.commentTop
+                                tr
+                                    th Тип бумаги:
+                                    td=item.typePaper
+                                    td=item.grammPaper
                                 tr
                                     th Шт.:
                                     td=item.sht
                                 tr
                                     th На:
                                     td=item.on
+                                    td=item.sizePaper
                                 tr
                                     th Печ. листов:
                                     td(colspan="3")=item.printSheet
@@ -168,20 +168,20 @@ block content
                     td
                         table.table.table-condensed
                             tr
-                                th Тип бумаги:
-                                td=item.typePaper
-                                td=item.grammPaper
-                                td=item.sizePaper
-                            tr
                                 th На машину:
                                 td=item.car
                                 td=item.commentTop
+                            tr
+                                th Тип бумаги:
+                                td=item.typePaper
+                                td=item.grammPaper
                             tr
                                 th Шт.:
                                 td=item.sht
                             tr
                                 th На:
                                 td=item.on
+                                td=item.sizePaper
                             tr
                                 th Печ. листов:
                                 td(colspan="3")=item.printSheet
