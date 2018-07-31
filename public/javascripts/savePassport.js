@@ -34,6 +34,7 @@ $(function(){
         data.file = $('.fileText').val() || '';
         data.comment = $('.comment').val() || '';
         data.address = $('.address').val() || '';
+        data.price = $('.price').val() || 0;
         data.date = moment().format("DD.MM.YYYY") || '';
         data.timeSave = moment().format("hh:mm") || '';
         data.passportId = moment().format("DDMMYYYY") || '';
@@ -50,6 +51,7 @@ $(function(){
         data.manager = $('.manager').val() || [];
         data.managerId = $('#managerId').val();
         data.status = 'new';
+        data.createdAt = new Date();
 
         if(!data.sizePaper.length){
             Snackbar.show({
@@ -115,6 +117,7 @@ $(function(){
         data.file = $('.fileText').val() || '';
         data.comment = $('.comment').val() || '';
         data.address = $('.address').val() || '';
+        data.price = $('.price').val() || 0;
         data.date = moment().format("DD.MM.YYYY") || '';
         data.timeSave = moment().format("hh:mm") || '';
         data.passportId = moment().format("DDMMYYYY") || '';
@@ -132,6 +135,8 @@ $(function(){
         data.manager = $('.manager').val() || [];
         data.managerId = $('.managerId').val();
         data.userUpdate = $('.userName').text();
+        data.updatedAt = new Date();
+        data.managerCreated = new Date();
 
 
         if(!data.sizePaper.length){

@@ -83,7 +83,10 @@ const Passports = new Schema({
     productionStatus: String,
     installation: String,
     userUpdate: String,
-    prepressComment: String
+    prepressComment: String,
+    price: Number,
+    createdAt: Date,
+    updatedAt: Date
 },{versionKey: false});
 
 const Users = new Schema({
@@ -123,3 +126,4 @@ module.exports.grammpappers = grammpappers;
 module.exports.sizepappers = sizepappers;
 module.exports.passports = passports;
 module.exports.users = users;
+module.exports.ObjectId = ObjectId;

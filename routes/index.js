@@ -6,6 +6,7 @@ const storekeeperRoutes = require('./storekeeper/index');
 const prepressRoutes = require('./prepress/index');
 const ticipiRoutes = require('./citipi/index');
 const admin = require('./admin');
+const administrator = require('./administrator');
 
 router.route('/login')
     .get(ctrl.login)
@@ -27,6 +28,7 @@ router.use('/storekeeper', ctrl.permission, storekeeperRoutes);
 router.use('/prepress', ctrl.permission, prepressRoutes);
 router.use('/citipi', ctrl.permission, ticipiRoutes);
 router.use('/admin', ctrl.permission, admin);
+router.use('/administrator', ctrl.permission, administrator);
 
 router.use(ctrl.error);
 

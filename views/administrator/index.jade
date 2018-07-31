@@ -1,0 +1,37 @@
+extends layout
+
+
+block content
+    .panel.panel-white
+        .panel-heading
+            h3.h3 Отчет
+        .panel-body
+            .row
+                .col-md-12
+                    .form-group
+                        label.col-md-2.control-label(for='managers-name') Менеджеры
+                        .col-md-10
+                            select#managers-name(multiple, style="width: 100%")
+                                each manager in managers
+                                    option(selected, value=manager._id)=manager.name
+            .row
+                .col-md-6
+                    .form-group
+                        label.col-md-2.control-label(for='start-date') Дата начала
+                        .col-md-10
+                            input#start-date.form-control(type='date')
+                .col-md-6
+                    .form-group
+                        label.col-md-2.control-label(for='end-date') Дата конец
+                        .col-md-10
+                            input#end-date.form-control(type='date')
+            .row
+                .col-md-12
+                    table.table
+                        thead
+                            th Менеджер
+                            th Сумма
+                        tbody.report
+            .row
+                .col-md-12
+                    button.btn.btn-info-blue(type="button", id="report") Отчет

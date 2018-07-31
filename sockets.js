@@ -1,4 +1,6 @@
 const model = require('./shema');
+const mongoose = require('mongoose');
+const moment = require('moment');
 
 module.exports.init = function(socket){
     socket.on('savePassportBtn', async (data, cb) => {
@@ -116,6 +118,32 @@ module.exports.init = function(socket){
             console.log(data);
             await model.passports.update({passportId: data.id}, {$set: {prepressComment: data.prepressComment}});
             cb({status: 200, msg: 'Обновлено!'});
+        }catch(err){
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
+    //отчет по менеджерам
+    socket.on('report', async (data, cb) => {
+        try{
+            let start = moment(data.startDate, 'YYYY-MM-DD').add(1, 'days').toDate();
+            let end =  moment(data.endDate, 'YYYY-MM-DD').add(1, 'days').toDate();
+
+            let managersId = data.managers.map((o) => {
+                return mongoose.Types.ObjectId(o);
+            });
+            let report = await model.passports.aggregate([
+                {
+                    $match: {managerId: {$in: managersId}, $and: [{createdAt: {$gte: start}}, {createdAt: {$lte: end}}]}
+                },
+                {
+                  $project: {_id: 1, manager: "$manager", price: {$sum: '$price'}}
+                },
+                {
+                    $group: {_id: "$manager", price: {$sum: '$price'}}
+                }
+            ]);
+            cb({status: 200, msg: 'Обновлено!', report: report});
         }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
         }
