@@ -86,7 +86,8 @@ const Passports = new Schema({
     prepressComment: String,
     price: Number,
     createdAt: Date,
-    updatedAt: Date
+    updatedAt: Date,
+    priceArray: Array
 },{versionKey: false});
 
 const Users = new Schema({

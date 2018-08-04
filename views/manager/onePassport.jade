@@ -33,13 +33,35 @@ block content
                                             | Время
                                     .col-md-8
                                         input.form-control.time(type="time", disabled, id="timeInput", required, value=passport.timePassport)
+                    //.row
+                    //    .col-md-12
+                    //        .form-group
+                    //            .col-md-2
+                    //                label.control-label Цена
+                    //            .col-md-10
+                    //                input.form-control.price(type="number", min="0", required, value=passport.price)
                     .row
                         .col-md-12
                             .form-group
-                                .col-md-2
-                                    label.control-label Цена
-                                .col-md-10
-                                    input.form-control.price(type="number", min="0", required, value=passport.price)
+                                .col-md-4
+                                    label.control-label(style="margin-right: 10px;") Цена
+                                    button.btn(type="button", id="price-remove")
+                                        i.material-icons remove
+                                    button.btn(type="button", id="price-add")
+                                        i.material-icons add
+                    .row
+                        each item in passport.priceArray
+                            .col-md-3.form-price
+                                .form-group
+                                    .col-md-4
+                                        label.control-label Название
+                                    .col-md-8
+                                        input.form-control.price-name(type="text", value=item.name, required)
+                                .form-group
+                                    .col-md-4
+                                        label.control-label Сумма
+                                    .col-md-8
+                                        input.form-control.price-number(type="number", min="0", value=item.number, required)
                     .row
                         .col-md-6
                             .form-group.has-error

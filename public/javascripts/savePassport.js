@@ -34,7 +34,6 @@ $(function(){
         data.file = $('.fileText').val() || '';
         data.comment = $('.comment').val() || '';
         data.address = $('.address').val() || '';
-        data.price = $('.price').val() || 0;
         data.date = moment().format("DD.MM.YYYY") || '';
         data.timeSave = moment().format("hh:mm") || '';
         data.passportId = moment().format("DDMMYYYY") || '';
@@ -52,6 +51,20 @@ $(function(){
         data.managerId = $('#managerId').val();
         data.status = 'new';
         data.createdAt = new Date();
+
+        data.priceArray = [];
+
+        var count = 0;
+
+        $('.form-price').each(function(){
+            var obj = {};
+            obj.name = $(this).find('.price-name').val();
+            obj.number = +$(this).find('.price-number').val();
+            data.priceArray.push(obj);
+            count += obj.number;
+        });
+
+        data.price = count;
 
         if(!data.sizePaper.length){
             Snackbar.show({
@@ -117,7 +130,6 @@ $(function(){
         data.file = $('.fileText').val() || '';
         data.comment = $('.comment').val() || '';
         data.address = $('.address').val() || '';
-        data.price = $('.price').val() || 0;
         data.date = moment().format("DD.MM.YYYY") || '';
         data.timeSave = moment().format("hh:mm") || '';
         data.passportId = moment().format("DDMMYYYY") || '';
@@ -138,6 +150,20 @@ $(function(){
         data.updatedAt = new Date();
         data.managerCreated = new Date();
 
+
+        data.priceArray = [];
+
+        var count = 0;
+
+        $('.form-price').each(function(){
+            var obj = {};
+            obj.name = $(this).find('.price-name').val();
+            obj.number = +$(this).find('.price-number').val();
+            data.priceArray.push(obj);
+            count += obj.number;
+        });
+
+        data.price = count;
 
         if(!data.sizePaper.length){
             Snackbar.show({
