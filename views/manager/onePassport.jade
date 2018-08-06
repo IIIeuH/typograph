@@ -50,18 +50,31 @@ block content
                                     button.btn(type="button", id="price-add")
                                         i.material-icons add
                     .row
-                        each item in passport.priceArray
+                        if(passport.priceArray.length)
+                            each item in passport.priceArray
+                                .col-md-3.form-price
+                                    .form-group
+                                        .col-md-4
+                                            label.control-label Название
+                                        .col-md-8
+                                            input.form-control.price-name(type="text", value=item.name, required)
+                                    .form-group
+                                        .col-md-4
+                                            label.control-label Сумма
+                                        .col-md-8
+                                            input.form-control.price-number(type="number", min="0", value=item.number, required)
+                        else
                             .col-md-3.form-price
                                 .form-group
                                     .col-md-4
                                         label.control-label Название
                                     .col-md-8
-                                        input.form-control.price-name(type="text", value=item.name, required)
+                                        input.form-control.price-name(type="text", required)
                                 .form-group
                                     .col-md-4
                                         label.control-label Сумма
                                     .col-md-8
-                                        input.form-control.price-number(type="number", min="0", value=item.number, required)
+                                        input.form-control.price-number(type="number", min="0", required)
                     .row
                         .col-md-6
                             .form-group.has-error
