@@ -1,0 +1,26 @@
+extends layout
+
+
+block content
+    .panel.panel-white
+        .panel-heading
+            h3.h3 История цены в паспортах
+        .panel-body
+            .row
+                .col-md-12
+                    .form-group
+                        label.col-md-2.control-label(for='history') Пасспорт
+                        .col-md-10
+                            select#history(style="width: 100%")
+                                option(selected, disabled, value="") Выберете паспорт
+                                each passport in passports
+                                    option(value=passport.passportId)=passport.passportId
+            .row(style="margin-top:30px;")
+                .col-md-12
+                    table.table.table-bordered
+                        thead
+                            th Дата
+                            th Менеджер
+                            th Действие
+                            th Данные
+                        tbody.history-body

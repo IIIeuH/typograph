@@ -5,3 +5,9 @@ exports.main = async (req, res) => {
     let managers = await model.getManagers();
     res.render('administrator/index', {managers});
 };
+
+exports.history = async (req, res) => {
+    let passports = await model.getPassports();
+    console.log(passports);
+    res.render('administrator/history', {passports});
+};

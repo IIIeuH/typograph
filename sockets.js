@@ -1,9 +1,10 @@
 const model = require('./shema');
 const mongoose = require('mongoose');
 const moment = require('moment');
+const _ = require('lodash');
 
 module.exports.init = function(socket){
-    socket.on('savePassportBtn', async (data, cb) => {
+    socket.on('savePassportBtn', async (data, priceLog, cb) => {
         try{
             let inc = await model.passports.aggregate([
                 {
@@ -25,10 +26,14 @@ module.exports.init = function(socket){
             let number = +String(data.inc).length;
             str = str.slice(number) + String(data.inc);
             data.passportId += '-' + str;
+            priceLog.passportId = data.passportId;
             let saveData = new model.passports(data);
+            let saveLogs = new model.pricelogs(priceLog);
             await saveData.save();
+            await saveLogs.save();
             cb({status: 200, msg: "Паспорт сохранен!"});
         }catch(err){
+            console.log(err);
             cb({status: 412, err: err._message, msg: 'Заполните обязательные поля'});
             return err;
         }
@@ -39,10 +44,13 @@ module.exports.init = function(socket){
     socket.on('updatePassportBtn', async (data, cb) => {
         try{
             let idPassport = data.data.passportId;
+
             delete data.data.passportId;
             delete data.data.date;
             delete data.data.timeSave;
             await model.passports.update({_id: data.id}, data.data);
+            let saveLogs = new model.pricelogs(data.priceLog);
+            await saveLogs.save();
             socket.broadcast.emit('updatePassport', `Паспорт ${idPassport} изменен пользователем ${data.data.userUpdate}!`);
             cb({status: 200, msg: 'Пасспорт обновлен!'});
         }catch(err){
@@ -144,6 +152,17 @@ module.exports.init = function(socket){
                 }
             ]);
             cb({status: 200, msg: 'Обновлено!', report: report});
+        }catch(err){
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
+    //Отчет по истории цен
+    socket.on('history', async (data, cb) => {
+        try{
+            console.log(data);
+            let history = await model.pricelogs.find(data, {});
+            cb({status: 200, msg: 'Обновлено!', history});
         }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
         }

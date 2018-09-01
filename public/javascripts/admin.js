@@ -5,6 +5,7 @@ $(function(){
     var rowPapper    = $('.row-papper');
     var btlDelRow = $('.removeRow');
 
+
     $('.text').on("select2:select", function (evt) {
         var element = evt.params.data.element;
         var $element = $(element);

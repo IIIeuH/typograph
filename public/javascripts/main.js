@@ -25,7 +25,7 @@ $(function(){
     var strCirculation    = $('#circulation');
     var strColor          = $('#color');
     var strSheet          = $('#sheet');
-    var select            = $('select:not(".not-select")');
+    var select            = $('select:not(".not-select"):not("#history")');
 
     var url = window.location;
     $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
@@ -46,8 +46,6 @@ $(function(){
         tokenSeparators: [',', ' ']
     });
     $('.size-paper').select2({
-        tags: true,
-        tokenSeparators: [',', ' ']
     });
 
     //Значения checkbox в textarea

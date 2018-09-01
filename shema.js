@@ -116,15 +116,29 @@ const Users = new Schema({
     }
 },{versionKey: false});
 
+
+const PriceLogs = new Schema({
+    meta: String,
+    date: {
+        type: Date,
+        default: new Date()
+    },
+    manager: String,
+    price: Array,
+    passportId: String
+},{versionKey: false});
+
 const typepappers = mongoose.model('typepappers', Typepappers);
 const grammpappers = mongoose.model('grammpappers', Grammpappers);
 const sizepappers = mongoose.model('sizepappers', Sizepappers);
 const passports = mongoose.model('passports', Passports);
 const users = mongoose.model('users', Users);
+const pricelogs = mongoose.model('pricelogs', PriceLogs);
 
 module.exports.typepappers = typepappers;
 module.exports.grammpappers = grammpappers;
 module.exports.sizepappers = sizepappers;
 module.exports.passports = passports;
 module.exports.users = users;
+module.exports.pricelogs = pricelogs;
 module.exports.ObjectId = ObjectId;

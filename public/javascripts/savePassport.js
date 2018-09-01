@@ -64,6 +64,12 @@ $(function(){
             count += obj.number;
         });
 
+        var priceLog = {
+            meta: 'Создано',
+            manager: data.manager[0] || '',
+            price: data.priceArray
+        };
+
         data.price = count;
 
         if(!data.sizePaper.length){
@@ -90,7 +96,8 @@ $(function(){
         });
 
         var valid = true;
-        socket.emit('savePassportBtn', data, function(res) {
+
+        socket.emit('savePassportBtn', data, priceLog, function(res) {
             if(res.status === 412){
                 Snackbar.show({
                     text: res.msg,
@@ -132,7 +139,7 @@ $(function(){
         data.address = $('.address').val() || '';
         data.date = moment().format("DD.MM.YYYY") || '';
         data.timeSave = moment().format("hh:mm") || '';
-        data.passportId = moment().format("DDMMYYYY") || '';
+        data.passportId = $('.passportId').text();
         data.deliveryFiled = $('input[name="delivery"]:checked').val() || '';
         data.typeDeliveryFiled = $('input[name="type-delivery"]:checked').val() || '';
         data.sizePaper = [];
@@ -163,6 +170,13 @@ $(function(){
             count += obj.number;
         });
 
+        var priceLog = {
+            meta: 'Обновлено',
+            manager: data.manager[0] || '',
+            price: data.priceArray,
+            passportId: data.passportId
+        };
+
         data.price = count;
 
         if(!data.sizePaper.length){
@@ -191,7 +205,7 @@ $(function(){
         var id = window.location.pathname.split('/')[3];
 
         var valid = true;
-        socket.emit('updatePassportBtn', {data: data, id: id}, function (res) {
+        socket.emit('updatePassportBtn', {data: data, id: id, priceLog: priceLog}, function (res) {
             if(res.status === 412){
                 Snackbar.show({
                     text: res.msg,
