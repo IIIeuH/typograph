@@ -48,3 +48,8 @@ exports.getPassport =  async function(req, res, next) {
     let data = await model.getPassportById(req.params.id);
     res.render('manager/onePassport', { title: 'Паспорт', passport: data[0],user: req.user});
 };
+
+exports.orderPapers =  async function(req, res, next) {
+    let order = await model.getOrder();
+    res.render('manager/orderpapers', { title: 'Паспорт', order:order});
+};

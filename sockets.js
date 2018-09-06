@@ -29,6 +29,11 @@ module.exports.init = function(socket){
             priceLog.passportId = data.passportId;
             let saveData = new model.passports(data);
             let saveLogs = new model.pricelogs(priceLog);
+
+
+
+
+
             await saveData.save();
             await saveLogs.save();
             cb({status: 200, msg: "Паспорт сохранен!"});
@@ -48,16 +53,88 @@ module.exports.init = function(socket){
             delete data.data.passportId;
             delete data.data.date;
             delete data.data.timeSave;
-            await model.passports.update({_id: data.id}, data.data);
-            let saveLogs = new model.pricelogs(data.priceLog);
-            await saveLogs.save();
-            socket.broadcast.emit('updatePassport', `Паспорт ${idPassport} изменен пользователем ${data.data.userUpdate}!`);
-            cb({status: 200, msg: 'Пасспорт обновлен!'});
+
+            function groupBy( array , f )
+            {
+                var groups = {};
+                array.forEach( function( o )
+                {
+                    var group = JSON.stringify( f(o) );
+                    groups[group] = groups[group] || [];
+                    groups[group].push( o );
+                });
+                return Object.keys(groups).map( function( group )
+                {
+                    return groups[group];
+                })
+            }
+
+            var result = groupBy(data.data.allCar, function(item){
+                return [item.typePaper, item.grammPaper, item.sizePaper];
+            });
+
+            let arrayNoPapers = [];
+
+            let res = result.map( async(o) => {
+                let count = 0;
+                let type = null;
+                let gramm = null;
+                let size = null;
+                o.forEach( (item)  => {
+                    count += +item.allSheet;
+                    type = item.typePaper;
+                    gramm = item.grammPaper;
+                    size = item.sizePaper;
+                });
+
+                let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
+
+                if(stock && stock.count >= count){
+                    console.log(1);
+                    await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+                }else if(stock && stock.count < count){
+                    console.log(2);
+                    arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
+                }else if(!stock){
+                    console.log(3);
+                    arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
+                    //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
+                    //let confirm = confirm(`На складе нет бумаги тип: ${type} граммаж: ${gramm} формат: ${size}, хотите оставить заявку?`)
+                }
+
+                return {typePaper: type, grammPaper: gramm, sizePaper: size, count: count};
+            });
+
+            Promise.all(res).then( async() =>{
+                if(arrayNoPapers.length){
+                    await model.passports.update({_id: data.id}, data.data);
+                    let saveLogs = new model.pricelogs(data.priceLog);
+                    await saveLogs.save();
+                    socket.broadcast.emit('updatePassport', `Паспорт ${idPassport} изменен пользователем ${data.data.userUpdate}!`);
+                    cb({status: 201, arr: arrayNoPapers});
+                }else{
+                    await model.passports.update({_id: data.id}, data.data);
+                    let saveLogs = new model.pricelogs(data.priceLog);
+                    await saveLogs.save();
+                    socket.broadcast.emit('updatePassport', `Паспорт ${idPassport} изменен пользователем ${data.data.userUpdate}!`);
+                    cb({status: 200, msg: 'Пасспорт обновлен!'});
+                }
+            });
         }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
             return err;
         }
 
+    });
+
+
+    socket.on('stockOrder', async (data, cb) => {
+       try{
+           await model.stockorders(data).save();
+           cb({status: 200});
+       }catch (e) {
+           cb({status: 412, err: err._message, msg: `Ошибка сохранения! ${e}`});
+       }
     });
 
     socket.on('valStatus', async (data, cb) => {
@@ -164,6 +241,41 @@ module.exports.init = function(socket){
             let history = await model.pricelogs.find(data, {});
             cb({status: 200, msg: 'Обновлено!', history});
         }catch(err){
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
+    //Добавление бумаги на склад
+    socket.on('addPaper', async (data, cb) => {
+        try{
+            let res = null;
+            let paper = await model.stockpapers.findOne({typePaperId: data.typePaperId, grammPaperId: data.grammPaperId, sizePaperId: data.sizePaperId});
+
+            if(paper){
+                res =  await model.stockpapers.update({typePaperId: data.typePaperId, grammPaperId: data.grammPaperId, sizePaperId: data.sizePaperId}, {$inc: {count: data.count}});
+            }else{
+                res = await new model.stockpapers(data).save();
+            }
+            cb({status: 200, msg: 'Обновлено!', res:res});
+        }catch(err){
+            console.log(err);
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+    //Списание бумаги на склад
+    socket.on('removePaper', async (data, cb) => {
+        try{
+
+            let paper = await model.stockpapers.findOne({typePaperId: data.typePaperId, grammPaperId: data.grammPaperId, sizePaperId: data.sizePaperId});
+
+            if(paper.count < data.count){
+                cb({status: 412, msg: 'Вы не можете списать больше чем есть на складе!'});
+            }else{
+                await model.stockpapers.update({typePaperId: data.typePaperId, grammPaperId: data.grammPaperId, sizePaperId: data.sizePaperId}, {$inc: {count: -data.count}});
+                cb({status: 200, msg: 'Обновлено!'});
+            }
+        }catch(err){
+            console.log(err);
             cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
         }
     });

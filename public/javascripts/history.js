@@ -31,9 +31,6 @@ $(function(){
                         '</tr>'
                     );
 
-                    console.log($('.tr'));
-                    console.log($('.tr')[i]);
-
                     var tr =$('.tr').last();
 
 

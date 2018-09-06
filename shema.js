@@ -128,12 +128,44 @@ const PriceLogs = new Schema({
     passportId: String
 },{versionKey: false});
 
+const StockPapers = new Schema({
+    typePaperId: ObjectId,
+    grammPaperId: ObjectId,
+    sizePaperId: ObjectId,
+    typePaper: String,
+    grammPaper: String,
+    sizePaper: String,
+    count: Number,
+    person: String
+},{versionKey: false});
+
+const StockOrder = new Schema({
+    order: [],
+    date: {
+        type: Date,
+        default: new Date()
+    },
+    status: {
+        type: String,
+        default: 'await'
+    },
+    person: String
+},{versionKey: false});
+
+
+function countCheck(val) {
+    console.log(val);
+    return val >= 0;
+}
+
 const typepappers = mongoose.model('typepappers', Typepappers);
 const grammpappers = mongoose.model('grammpappers', Grammpappers);
 const sizepappers = mongoose.model('sizepappers', Sizepappers);
 const passports = mongoose.model('passports', Passports);
 const users = mongoose.model('users', Users);
 const pricelogs = mongoose.model('pricelogs', PriceLogs);
+const stockpapers = mongoose.model('stockpapers', StockPapers);
+const stockorders = mongoose.model('stockorders', StockOrder);
 
 module.exports.typepappers = typepappers;
 module.exports.grammpappers = grammpappers;
@@ -141,4 +173,6 @@ module.exports.sizepappers = sizepappers;
 module.exports.passports = passports;
 module.exports.users = users;
 module.exports.pricelogs = pricelogs;
+module.exports.stockpapers = stockpapers;
+module.exports.stockorders = stockorders;
 module.exports.ObjectId = ObjectId;

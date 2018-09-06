@@ -12,6 +12,7 @@ router.route('/allpassport')
     .delete(ctrl.deleteItem);
 router.get('/passport', ctrl.renderPassport);
 router.get('/passport/:id', ctrl.getPassport);
+router.get('/orderpapers', ctrl.orderPapers);
 router.post('/passport', ctrl.savePassport);
 
 

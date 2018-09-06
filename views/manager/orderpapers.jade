@@ -1,0 +1,34 @@
+extends layout
+
+
+block content
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Заказ бумаги
+        .panel-body
+            .row
+                .col-md-12
+                    table.table
+                        thead
+                            th Дата
+                            th Заявка
+                            th Менеджер
+                        tbody
+                            each item in order
+                                tr
+                                    td=moment(item.date).format('YYYY.MM.DD')
+                                    td
+                                        each order in item.order
+                                            table.table.table-bordered.table-condensed.table-striped
+                                                thead
+                                                    th Тип
+                                                    th Граммаж
+                                                    th Формат
+                                                    th Кол-во
+                                                tbody
+                                                    tr
+                                                        td=order.typePaper
+                                                        td=order.grammPaper
+                                                        td=order.sizePaper
+                                                        td=order.count
+                                    td=item.person

@@ -444,7 +444,7 @@ $(function(){
 function searchPassports(str, field){
     $.each(field, function () {
         var tr = $(this).parent();
-        if(!!~$(this).text().indexOf(str) || str === ''){
+        if(!!~$(this).text().toLowerCase().indexOf(str.toLowerCase()) || str.toLowerCase() === ''){
             tr.show();
         }else{
             tr.hide();

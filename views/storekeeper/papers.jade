@@ -1,0 +1,46 @@
+extends layout
+
+
+block content
+    include ../error
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Склад бумаги
+        .panel-body
+            .row
+                .col-md-12
+                    .row
+                        .col-md-2
+                            select.form-control.stockTypePaper(required)
+                                option(disabled, selected, value="") Тип бумаги
+                                each item in type
+                                    option(value=item._id)=item.name
+                        .col-md-2
+                            select.form-control.stockGrammPaper(required)
+                                option(disabled, selected, value="") Граммаж бумаги
+                                each item in gramm
+                                    option(value=item._id)=item.name
+                        .col-md-2
+                            select.form-control.stockSizePaper(required)
+                                option(disabled, selected, value="") Формат бумаги
+                                each item in size
+                                    option(value=item._id)=item.name
+                        .col-md-2
+                            input.form-control.stockPaperCount(required, type="number", placeholder="Кол-во", min="0")
+                        button.btn.btn-info-blue.addPapers(type="button") Добавить на склад
+                        button.btn.btn-danger-red.removePapers(type="button") Списать со склада
+            .row
+                .col-md-12
+                    table.table
+                        thead
+                            th Тип бумаги
+                            th Граммаж бумаги
+                            th Формат бумаги
+                            th Кол-во
+                        tbody.papers-stock
+                            each item in papers
+                                tr
+                                    td=item.typePaper
+                                    td=item.grammPaper
+                                    td=item.sizePaper
+                                    td=item.count

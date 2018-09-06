@@ -13,6 +13,10 @@ module.exports.getPassportById = async (id) => {
     return await model.passports.find({_id: id});
 };
 
+module.exports.getOrder = async () => {
+    return await model.stockorders.find({});
+};
+
 module.exports.update = async (collection, query, field) => {
     return await model[collection].update(query, field);
 };

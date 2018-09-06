@@ -27,3 +27,15 @@ exports.passport = async (req, res) => {
         return err
     }
 };
+
+exports.paper = async (req, res) => {
+    try{
+        let gramm = await model.getPapperType('grammpappers');
+        let size = await model.getPapperType('sizepappers');
+        let type = await model.getPapperType('typepappers');
+        let papers = await model.getPapers();
+        res.render('storekeeper/papers', {title: "Кладовщик - Склад!", user: req.user, gramm: gramm, size: size, type: type, papers:papers});
+    }catch(err){
+        return err
+    }
+};

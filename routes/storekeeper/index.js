@@ -7,7 +7,10 @@ router.route('/')
 router.route('/archive')
     .get(ctrl.archive);
 
+router.get('/papers', ctrl.paper);
+
 router.get('/:id', ctrl.passport);
+
 
 
 

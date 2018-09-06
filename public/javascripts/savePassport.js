@@ -213,6 +213,24 @@ $(function(){
                     actionText: null
                 });
                 valid = false;
+            }else if(res.status === 201){
+                var text = '';
+                res.arr.forEach(function (item){
+                    text += 'На складе не хватает бумаги тип: '+item.typePaper+' граммаж: '+item.grammPaper+' формат: '+item.sizePaper+' '+item.count+' штук.\n'
+                });
+                var confirmer = confirm(text + 'Хотите оставить заявку?');
+                if(confirmer){
+                    var obj = {
+                        order: res.arr,
+                        person: data.manager[0]
+                    };
+                    socket.emit('stockOrder', obj, function(res) {
+                        window.location.replace('/manager/orderpapers')
+                    });
+                }else{
+
+                }
+                valid = true;
             }else{
                 Snackbar.show({
                     text: res.msg,

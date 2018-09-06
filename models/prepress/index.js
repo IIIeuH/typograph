@@ -1,7 +1,7 @@
 const model = require('../../shema');
 
 module.exports.main = async() => {
-    return await model.passports.find({status: "prepress"});
+    return await model.passports.find({status: "prepress"}).sort([['_id', -1]]);
 };
 
 module.exports.passport = async(id) => {
