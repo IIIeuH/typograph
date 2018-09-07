@@ -137,6 +137,16 @@ module.exports.init = function(socket){
        }
     });
 
+    //Изменения статуса заказа
+    socket.on('change-status-order-paper', async (data, cb) => {
+       try{
+           await model.stockorders.update({_id: data._id}, {$set: {status: data.status}});
+           cb({status: 200, msg: 'Сохранено'});
+       }catch (e) {
+           cb({status: 412, err: err._message, msg: `Ошибка сохранения! ${e}`});
+       }
+    });
+
     socket.on('valStatus', async (data, cb) => {
         try{
             console.log(data.name);

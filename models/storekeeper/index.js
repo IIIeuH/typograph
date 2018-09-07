@@ -19,3 +19,8 @@ module.exports.getPapperType = async(table) => {
 module.exports.getPapers = async() => {
     return await model.stockpapers.find({});
 };
+
+
+module.exports.getOrder = async () => {
+    return await model.stockorders.find({status: 'order'});
+};

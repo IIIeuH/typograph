@@ -6,6 +6,45 @@ block content
         .panel-heading
             h3.panel-title Заказ бумаги
         .panel-body
+            //.row
+            //    .col-md-12
+            //        .col-md-4
+            //            label.control-label(style="margin-right: 10px;") Добавить
+            //            button.btn(type="button", id="paper-remove")
+            //                i.material-icons remove
+            //            button.btn(type="button", id="paper-add")
+            //                i.material-icons add
+
+            if(getOrder)
+                .row.block-paper(data-id=getOrder._id)
+                    .col-md-12
+                        table.table.table-bordered
+                            thead
+                                th Тип бумаги
+                                th Граммаж бумаги
+                                th Формат бумаги
+                                th Кол-во
+                            tbody
+                                each item in getOrder.order
+                                    tr
+                                        td=item.typePaper
+                                        td=item.grammPaper
+                                        td=item.sizePaper
+                                        td=item.count
+                        //.col-md-2.right-border
+                            //select.form-control
+                            //    option(disabled selected value="") Тип бумаги
+                            //    option(value=item.typePaper selected)=item.typePaper
+                            //select.form-control
+                            //    option(disabled selected value="") Граммаж бумаги
+                            //    option(value=item.grammPaper selected)=item.grammPaper
+                            //select.form-control
+                            //    option(disabled selected value="") Формат бумаги
+                            //    option(value=item.sizePaper selected)=item.sizePaper
+                            //label.control-label(style="margin-right: 10px;") Кол-во
+                            //input.form-control(type="number", value=item.count)
+                    .col-md-12
+                        button.btn-info-blue(type="button", id="status-paper") Заказать
             .row
                 .col-md-12
                     table.table

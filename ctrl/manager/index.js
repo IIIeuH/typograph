@@ -50,6 +50,8 @@ exports.getPassport =  async function(req, res, next) {
 };
 
 exports.orderPapers =  async function(req, res, next) {
+    console.log(req.user);
     let order = await model.getOrder();
-    res.render('manager/orderpapers', { title: 'Паспорт', order:order});
+    let getOrder = await model.getOrderManager(req.user.name);
+    res.render('manager/orderpapers', { title: 'Паспорт', order:order, getOrder:getOrder});
 };

@@ -34,7 +34,8 @@ exports.paper = async (req, res) => {
         let size = await model.getPapperType('sizepappers');
         let type = await model.getPapperType('typepappers');
         let papers = await model.getPapers();
-        res.render('storekeeper/papers', {title: "Кладовщик - Склад!", user: req.user, gramm: gramm, size: size, type: type, papers:papers});
+        let order = await model.getOrder();
+        res.render('storekeeper/papers', {title: "Кладовщик - Склад!", user: req.user, gramm: gramm, size: size, type: type, papers:papers, order:order});
     }catch(err){
         return err
     }
