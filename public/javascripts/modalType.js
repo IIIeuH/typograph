@@ -76,7 +76,6 @@ $(document).on('click','.addSetType', function(){
     var text = $('.typePaper').val().split('//');
     var subText = '';
     var mas = [];
-    console.log(text);
     for(var i =0; i < text.length; i++){
         $('.type-modal-body').append(
             '<div class="carBoxType">' +

@@ -28,6 +28,5 @@ exports.passport = async (req, res) => {
 };
 
 exports.deleteItem = async (req, res, next) => {
-    console.log(req.body.id);
     res.json(await model.deleteItem(req.body.id, 'passports'));
 };

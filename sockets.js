@@ -32,11 +32,65 @@ module.exports.init = function(socket){
 
 
 
+            function groupBy( array , f )
+            {
+                var groups = {};
+                array.forEach( function( o )
+                {
+                    var group = JSON.stringify( f(o) );
+                    groups[group] = groups[group] || [];
+                    groups[group].push( o );
+                });
+                return Object.keys(groups).map( function( group )
+                {
+                    return groups[group];
+                })
+            }
 
+            var result = groupBy(data.allCar, function(item){
+                return [item.typePaper, item.grammPaper, item.sizePaper];
+            });
 
-            await saveData.save();
-            await saveLogs.save();
-            cb({status: 200, msg: "Паспорт сохранен!"});
+            let arrayNoPapers = [];
+
+            let res = result.map( async(o) => {
+                let count = 0;
+                let type = null;
+                let gramm = null;
+                let size = null;
+                o.forEach( (item)  => {
+                    count += +item.allSheet;
+                    type = item.typePaper;
+                    gramm = item.grammPaper;
+                    size = item.sizePaper;
+                });
+
+                let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
+
+                if(stock && stock.count >= count){
+                    await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+                }else if(stock && stock.count < count){
+                    arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
+                }else if(!stock){
+                    arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
+                    //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
+                    //let confirm = confirm(`На складе нет бумаги тип: ${type} граммаж: ${gramm} формат: ${size}, хотите оставить заявку?`)
+                }
+
+                return {typePaper: type, grammPaper: gramm, sizePaper: size, count: count};
+            });
+
+            Promise.all(res).then( async() =>{
+                if(arrayNoPapers.length){
+                    await saveData.save();
+                    await saveLogs.save();
+                    cb({status: 201, arr: arrayNoPapers});
+                }else{
+                    await saveData.save();
+                    await saveLogs.save();
+                    cb({status: 200, msg: "Паспорт сохранен!"});
+                }
+            });
         }catch(err){
             console.log(err);
             cb({status: 412, err: err._message, msg: 'Заполните обязательные поля'});
@@ -90,13 +144,10 @@ module.exports.init = function(socket){
                 let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
 
                 if(stock && stock.count >= count){
-                    console.log(1);
                     await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
                 }else if(stock && stock.count < count){
-                    console.log(2);
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
                 }else if(!stock){
-                    console.log(3);
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
                     //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
                     //let confirm = confirm(`На складе нет бумаги тип: ${type} граммаж: ${gramm} формат: ${size}, хотите оставить заявку?`)
@@ -151,7 +202,6 @@ module.exports.init = function(socket){
         try{
             console.log(data.name);
             if(data.name === 'Исполнен'){
-                console.log(data.name);
                 await model.passports.updateOne({passportId: data.passportId}, {$set: {status: "success", productionStatus: data.status}});
                 socket.broadcast.emit('success-status', `Паспорт ${data.passportId} исполнен!`);
             }else{
@@ -247,7 +297,6 @@ module.exports.init = function(socket){
     //Отчет по истории цен
     socket.on('history', async (data, cb) => {
         try{
-            console.log(data);
             let history = await model.pricelogs.find(data, {});
             cb({status: 200, msg: 'Обновлено!', history});
         }catch(err){

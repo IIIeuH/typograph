@@ -40,9 +40,9 @@ exports.renderPassport = function(req, res, next) {
     res.render('manager/passport', { title: 'Passport form', user: req.user});
 };
 
-exports.savePassport =  async function(req, res, next) {
-    res.redirect('/manager/allpassport');
-};
+// exports.savePassport =  async function(req, res, next) {
+//     res.redirect('/manager/allpassport');
+// };
 
 exports.getPassport =  async function(req, res, next) {
     let data = await model.getPassportById(req.params.id);
@@ -50,7 +50,6 @@ exports.getPassport =  async function(req, res, next) {
 };
 
 exports.orderPapers =  async function(req, res, next) {
-    console.log(req.user);
     let order = await model.getOrder();
     let getOrder = await model.getOrderManager(req.user.name);
     res.render('manager/orderpapers', { title: 'Паспорт', order:order, getOrder:getOrder});

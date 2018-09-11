@@ -137,7 +137,6 @@ function removeRow(row){
             row.parent().parent().hide();
         },
         error: function(data){
-            console.log(data.responseText);
             Snackbar.show({
                 text: data.responseText,
                 pos: 'top-center',
