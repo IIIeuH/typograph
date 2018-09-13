@@ -3,14 +3,14 @@ $(function(){
     var form = $('#formPassport');
     var socket = io();
 
-    socket.on('updatePassport', function (res) {
-        Snackbar.show({
-            text: res,
-            pos: 'top-center',
-            actionText: 'OK',
-            duration: null
-        });
-    });
+    // socket.on('updatePassport', function (res) {
+    //     Snackbar.show({
+    //         text: res,
+    //         pos: 'top-center',
+    //         actionText: 'OK',
+    //         duration: null
+    //     });
+    // });
 
     form.on("submit", function( e ) {
         e.preventDefault();
@@ -67,7 +67,7 @@ $(function(){
 
         var priceLog = {
             meta: 'Создано',
-            manager: data.manager[0] || '',
+            manager: get_cookie('manager') || '',
             price: data.priceArray
         };
 
@@ -115,7 +115,7 @@ $(function(){
                 if(confirmer){
                     var obj = {
                         order: res.arr,
-                        person: data.manager[0]
+                        person: get_cookie('manager')
                     };
                     socket.emit('stockOrder', obj, function(res) {
                         window.location.replace('/manager/orderpapers')
@@ -192,7 +192,7 @@ $(function(){
 
         var priceLog = {
             meta: 'Обновлено',
-            manager: data.manager[0] || '',
+            manager: get_cookie('manager') || '',
             price: data.priceArray,
             passportId: data.passportId
         };
@@ -242,7 +242,7 @@ $(function(){
                 if(confirmer){
                     var obj = {
                         order: res.arr,
-                        person: data.manager[0]
+                        person: get_cookie('manager')
                     };
                     socket.emit('stockOrder', obj, function(res) {
                         window.location.replace('/manager/orderpapers')
@@ -267,3 +267,14 @@ $(function(){
 
 
 });
+
+
+function get_cookie ( cookie_name )
+{
+    var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+
+    if ( results )
+        return ( decodeURI ( results[2] ) );
+    else
+        return null;
+}

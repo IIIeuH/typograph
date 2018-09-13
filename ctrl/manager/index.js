@@ -5,6 +5,8 @@ exports.main = (req, res) => {
     if(req.user.name === 'Anonymous'){
         res.redirect('manager/profile');
     }else{
+        res.cookie('manager', '');
+        res.cookie('manager', req.user.name);
         res.render('manager/index', {title: "manager", user: req.user});
     }
 
@@ -52,5 +54,11 @@ exports.getPassport =  async function(req, res, next) {
 exports.orderPapers =  async function(req, res, next) {
     let order = await model.getOrder();
     let getOrder = await model.getOrderManager(req.user.name);
+    console.log(getOrder);
     res.render('manager/orderpapers', { title: 'Паспорт', order:order, getOrder:getOrder});
+};
+
+exports.stockOrders =  async function(req, res, next) {
+    let papers = await model.getPapers();
+    res.render('manager/stockOrders', { title: 'Склад бумаги', papers:papers});
 };

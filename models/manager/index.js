@@ -36,3 +36,7 @@ module.exports.deleteItem = async (id, collection) => {
     }
 };
 
+
+module.exports.getPapers = async() => {
+    return await model.stockpapers.find({});
+};
