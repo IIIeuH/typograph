@@ -248,7 +248,11 @@ $(function(){
                         window.location.replace('/manager/orderpapers')
                     });
                 }else{
-
+                    Snackbar.show({
+                        text: 'Паспорт сохранен!',
+                        pos: 'top-center',
+                        actionText: null
+                    });
                 }
                 valid = true;
             }else{
