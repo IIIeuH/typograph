@@ -221,8 +221,8 @@ module.exports.init = function(socket){
     //отчет по менеджерам
     socket.on('report', async (data, cb) => {
         try{
-            let start = moment(data.startDate, 'YYYY-MM-DD').add(1, 'days').toDate();
-            let end =  moment(data.endDate, 'YYYY-MM-DD').add(1, 'days').toDate();
+            let start = moment(data.startDate, 'YYYY-MM-DD').startOf('day').toDate();
+            let end =  moment(data.endDate, 'YYYY-MM-DD').endOf('day').toDate();
 
             let managersId = data.managers.map((o) => {
                 return mongoose.Types.ObjectId(o);
@@ -244,12 +244,58 @@ module.exports.init = function(socket){
         }
     });
 
+    //полный отчет по менеджерам
+    socket.on('adminReportPassports', async (data, cb) => {
+        try{
+
+            let start = moment(data.startDate, 'YYYY-MM-DD').startOf('day').toDate();
+            let end =  moment(data.endDate, 'YYYY-MM-DD').endOf('day').toDate();
+
+
+            let passports = await model.passports.aggregate([
+                {
+                    $match: {managerId: mongoose.Types.ObjectId(data.manager), $and: [{createdAt: {$gte: start}}, {createdAt: {$lte: end}}]}
+                },
+                {
+                    $project: {id: 1, passportId: 1, inc: 1, date: 1}
+                }
+            ]);
+
+            let price = await model.passports.aggregate([
+                {
+                    $match: {managerId: mongoose.Types.ObjectId(data.manager), $and: [{createdAt: {$gte: start}}, {createdAt: {$lte: end}}]}
+                },
+                {
+                    $project: {_id: 1, price: {$sum: '$price'}}
+                },
+                {
+                    $group: {_id: null, price: {$sum: '$price'}}
+                }
+            ]);
+
+
+            cb({status: 200, msg: 'Обновлено!', passports: passports, price: price});
+        }catch(err){
+            console.log(err);
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
     //Отчет по истории цен
     socket.on('history', async (data, cb) => {
         try{
-            console.log(data);
             let history = await model.pricelogs.find(data, {});
             cb({status: 200, msg: 'Обновлено!', history});
+        }catch(err){
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
+    //получить Id менеджера
+    socket.on('getManager', async (data, cb) => {
+        try{
+            let manager = await model.users.find({name: data}, {id: 1});
+            cb({status: 200, msg: 'Обновлено!', manager: manager});
         }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
         }

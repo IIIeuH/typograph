@@ -27,6 +27,7 @@ $(function(){
     var strSheet          = $('#sheet');
     var select            = $('select:not(".not-select"):not("#history")');
 
+    $('.collapse').collapse();
     var url = window.location;
     $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
 

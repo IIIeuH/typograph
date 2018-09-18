@@ -5,5 +5,6 @@ const ctrl   = require('../../ctrl/administrator');
 
 router.get('/', ctrl.main);
 router.get('/history', ctrl.history);
+router.get('/report', ctrl.report);
 
 module.exports = router;

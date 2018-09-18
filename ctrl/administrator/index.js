@@ -11,3 +11,7 @@ exports.history = async (req, res) => {
     console.log(passports);
     res.render('administrator/history', {passports});
 };
+exports.report = async (req, res) => {
+    let managers = await model.getManagers();
+    res.render('administrator/report', {managers});
+};

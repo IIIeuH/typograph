@@ -1,0 +1,36 @@
+extends layout
+
+
+block content
+    .panel.panel-white
+        .panel-heading
+            h3.h3 Отчет
+        .panel-body
+            .row
+                .col-md-12
+                    #accordion.panel-group(role='tablist', aria-multiselectable='true')
+                        each item, i in managers
+                            .panel.panel-default
+                                div.panel-heading(role='tab' id='headingOne-' + i)
+                                    h4.panel-title
+                                        a(role='button', data-toggle='collapse', data-parent='#accordion', href='#collapseOne-' + i, aria-expanded='false', aria-controls='collapseOne-' + i)
+                                            | #{item.name}
+                                .panel-collapse.collapse.in(role='tabpanel', aria-labelledby='headingOne-' + i, id='collapseOne-' + i)
+                                    .panel-body
+                                        .row
+                                            .col-md-3
+                                                .form-group
+                                                    label.col-md-4.control-label(for='start-date') Дата начала
+                                                    .col-md-8
+                                                        input.start-date.form-control(type='date')
+                                            .col-md-3
+                                                .form-group
+                                                    label.col-md-4.control-label(for='end-date') Дата конец
+                                                    .col-md-8
+                                                        input.end-date.form-control(type='date')
+                                            .col-md-3
+                                                button.passportList.btn.btn-info-blue(type="button") Отчет
+                                        .row
+                                            .col-md-12
+                                                .setPassportPrice
+                                                .setPassportList
