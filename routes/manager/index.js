@@ -13,7 +13,8 @@ router.route('/allpassport')
 router.get('/passport', ctrl.renderPassport);
 router.get('/passport/:id', ctrl.getPassport);
 router.get('/orderpapers', ctrl.orderPapers);
-router.post('/passport', ctrl.savePassport);
+router.get('/stockorders', ctrl.stockOrders);
+//router.post('/passport', ctrl.savePassport);
 
 
 

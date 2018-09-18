@@ -21,7 +21,6 @@ exports.all = async (req, res) => {
 exports.allId = async (req, res) => {
     try{
         let passport  = await model.allId(req.params.id);
-        console.log(passport);
         res.render('citipi/allId', {title: "СиТиПи", user: req.user, passport: passport});
     }catch(err){
         return err

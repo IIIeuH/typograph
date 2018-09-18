@@ -1,0 +1,23 @@
+extends layout
+
+
+block content
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Склад бумаги
+        .panel-body
+                .row
+                    .col-md-12
+                        table.table.table-bordered
+                            thead
+                                th Тип бумаги
+                                th Граммаж бумаги
+                                th Формат бумаги
+                                th Кол-во
+                            tbody.papers-stock
+                                each item in papers
+                                    tr
+                                        td=item.typePaper
+                                        td=item.grammPaper
+                                        td=item.sizePaper
+                                        td=item.count

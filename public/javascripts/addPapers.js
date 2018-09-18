@@ -48,7 +48,6 @@ $(function (){
             flag = true;
         }
 
-        console.log(flag);
 
         if(flag){
             socket.emit('addPaper', form, function (res) {

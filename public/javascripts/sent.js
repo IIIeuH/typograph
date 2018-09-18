@@ -73,7 +73,6 @@ $(function(){
     btnSentCiTiPi.click(function(){
         var p = confirm("Вы уверены что хотите отправить этот паспорт СиТиПи?");
         if(p) {
-            console.log($('.userName').text());
             socket.emit('citipi', $(this).data('id'), $('.userName').text(), function (res) {
                 if (res.status === 200) {
                     Snackbar.show({

@@ -10,78 +10,48 @@ block content
             span.label.label-default(style="margin-right: 5px;") Производство
             span.label.label-success(style="margin-right: 5px;") Исполнен
         .panel-body.passports-data
-            table.table.table-hover.table-bordered
-                tr
-                    th
-                        .form-group
-                            label.col-md-12.control-label(for="searchDate") Дата
-                            .col-md-12
-                                input.form-control(type="text", id="searchDate", placeholder="Поиск...", style="width: 100%")
-                    th
-                        .form-group
-                            label.col-md-12.control-label(for="number") №
-                            .col-md-12
-                                input.form-control(type="text", id="number", placeholder="Поиск...", style="width: 100%")
-                    th
-                        .form-group
-                            label.col-md-12.control-label(for="searchCustomer") Заказчик
-                            .col-md-12
-                                input.form-control(type="text", id="searchCustomer", placeholder="Поиск...", style="width: 100%")
-                    th
-                        .form-group
-                            label.col-md-12.control-label(for="paper") Ф\б
-                            .col-md-12
-                                input.form-control(type="text", id="paper", placeholder="Поиск...", style="width: 100%")
-                    th
-                        .form-group
-                            label.col-md-12.control-label(for="density") Цена
-                            .col-md-12
-                                input.form-control(type="text", id="density", placeholder="Поиск...", style="width: 100%")
-                    th
-                        .form-group
-                            label.col-md-12.control-label(for="circulation") Тираж
-                            .col-md-12
-                                input.form-control(type="text", id="circulation", placeholder="Поиск...", style="width: 100%")
-                    th
-                        .form-group
-                            label.col-md-12.control-label(for="color") Цвет
-                            .col-md-12
-                                input.form-control(type="text", id="color", placeholder="Поиск...", style="width: 100%")
-                    th
-                        .form-group
-                            label.col-md-12.control-label(for="sheet") Б. листов
-                            .col-md-12
-                                input.form-control(type="text", id="sheet", placeholder="Поиск...", style="width: 100%")
-                    //th
-                    //    .form-group
-                    //        label.col-md-2.control-label(for="searchManager") Менеджер
-                    //        .col-md-10
-                    //            input.form-control(type="text", id="searchManager", placeholder="Поиск...")
-                    th
-                        .form-group
-                            label.col-md-12.control-label(for="searchId") Номер паспорта
-                            .col-md-12
-                                input.form-control(type="text", id="searchId", placeholder="Поиск...", style="width: 100%")
-                    th
-                each item in data
-                    tr.status(data-status=item.status)
-                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-date=moment(item.passOn, "YYYY.MM.DD.").format("DD.MM")
-                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-number=item.inc
-                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-customer=item.customer
-                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-paper
-                            strong Тип:
-                            |   #{item.typePaper}
-                            br
-                            strong Размер:
-                            |   #{item.typePaperSize}
-                            br
-                            strong Граммаж:
-                            |   #{item.typePaperGramm}
-                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-price=item.price
-                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-circulation=item.circulationFiled
-                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-color
-                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-sheet
-                        //td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-manager=item.manager
-                        td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-id=item.passportId
-                        td
-                            i.material-icons.removeRow(id=item._id, data-name='пасспорт от ' + item.date + ', номер паспорта ' + item.passportId + ', Заказчик: ' + item.customer) delete_forever
+            .row
+                .col-md-12
+                    table.table.table-hover.table-bordered
+                        tr
+                            th
+                                input.form-control(type="text", id="searchDate", placeholder="Дата")
+                            th
+                                input.form-control(type="text", id="number", placeholder="№")
+                            th
+                                input.form-control(type="text", id="searchCustomer", placeholder="Заказчик")
+                            th
+                                input.form-control(type="text", id="paper", placeholder="Ф\\б")
+                            th
+                                input.form-control(type="text", id="density", placeholder="Цена")
+                            th(style="width: 70px;")
+                                input.form-control(type="text", id="circulation", placeholder="Тираж")
+                            //th
+                            //    input.form-control(type="text", id="color", placeholder="Цвет")
+                            //th
+                            //    input.form-control(type="text", id="sheet", placeholder="Б. листов")
+                            th
+                                input.form-control(type="text", id="searchId", placeholder="Номер паспорта")
+                            th
+                        each item in data
+                            tr.status(data-status=item.status)
+                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-date=moment(item.passOn, "YYYY.MM.DD.").format("DD.MM")
+                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-number=item.inc
+                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-customer=item.customer
+                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-paper
+                                    strong Тип:
+                                    |   #{item.typePaper}
+                                    br
+                                    strong Размер:
+                                    |   #{item.typePaperSize}
+                                    br
+                                    strong Граммаж:
+                                    |   #{item.typePaperGramm}
+                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-price=item.price
+                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-circulation=item.circulationFiled
+                                //td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-color
+                                //td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-sheet
+                                //td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-manager=item.manager
+                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-id=item.passportId
+                                td
+                                    i.material-icons.removeRow(id=item._id, data-name='пасспорт от ' + item.date + ', номер паспорта ' + item.passportId + ', Заказчик: ' + item.customer) delete_forever

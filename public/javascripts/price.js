@@ -3,7 +3,6 @@ $(function(){
         $('.form-price').last().after(addPrice());
     });
     $(document).on('click', '#price-remove', function(){
-        console.log(23);
         var form = $('.form-price');
         if(form.length > 1) form.last().remove();
     })

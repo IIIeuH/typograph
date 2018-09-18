@@ -3,16 +3,17 @@ $(function(){
     var form = $('#formPassport');
     var socket = io();
 
-    socket.on('updatePassport', function (res) {
-        Snackbar.show({
-            text: res,
-            pos: 'top-center',
-            actionText: 'OK',
-            duration: null
-        });
-    });
+    // socket.on('updatePassport', function (res) {
+    //     Snackbar.show({
+    //         text: res,
+    //         pos: 'top-center',
+    //         actionText: 'OK',
+    //         duration: null
+    //     });
+    // });
 
-    form.on("submit", function( event ) {
+    form.on("submit", function( e ) {
+        e.preventDefault();
     //btn.click(function(){
         var data = {};
         data.sizePaper = [];
@@ -66,7 +67,7 @@ $(function(){
 
         var priceLog = {
             meta: 'Создано',
-            manager: data.manager[0] || '',
+            manager: get_cookie('manager') || '',
             price: data.priceArray
         };
 
@@ -105,7 +106,26 @@ $(function(){
                     actionText: null
                 });
                 valid = false;
+            }else if(res.status === 201){
+                var text = '';
+                res.arr.forEach(function (item){
+                    text += 'На складе не хватает бумаги тип: '+item.typePaper+' граммаж: '+item.grammPaper+' формат: '+item.sizePaper+' '+item.count+' штук.\n'
+                });
+                var confirmer = confirm(text + 'Хотите оставить заявку?');
+                if(confirmer){
+                    var obj = {
+                        order: res.arr,
+                        person: get_cookie('manager')
+                    };
+                    socket.emit('stockOrder', obj, function(res) {
+                        window.location.replace('/manager/orderpapers')
+                    });
+                }else{
+                    window.location.replace('/manager/allpassport');
+                }
+                valid = true;
             }else{
+                window.location.replace('/manager/allpassport');
                 valid = true;
             }
         });
@@ -172,7 +192,7 @@ $(function(){
 
         var priceLog = {
             meta: 'Обновлено',
-            manager: data.manager[0] || '',
+            manager: get_cookie('manager') || '',
             price: data.priceArray,
             passportId: data.passportId
         };
@@ -222,13 +242,17 @@ $(function(){
                 if(confirmer){
                     var obj = {
                         order: res.arr,
-                        person: data.manager[0]
+                        person: get_cookie('manager')
                     };
                     socket.emit('stockOrder', obj, function(res) {
                         window.location.replace('/manager/orderpapers')
                     });
                 }else{
-
+                    Snackbar.show({
+                        text: 'Паспорт сохранен!',
+                        pos: 'top-center',
+                        actionText: null
+                    });
                 }
                 valid = true;
             }else{
@@ -247,3 +271,14 @@ $(function(){
 
 
 });
+
+
+function get_cookie ( cookie_name )
+{
+    var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+
+    if ( results )
+        return ( decodeURI ( results[2] ) );
+    else
+        return null;
+}

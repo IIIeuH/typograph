@@ -47,6 +47,8 @@ $(function(){
         tokenSeparators: [',', ' ']
     });
     $('.size-paper').select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
     });
 
     //Значения checkbox в textarea
