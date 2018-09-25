@@ -1,0 +1,58 @@
+extends layout
+
+
+block content
+    include ../error
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Приход товара
+        .panel-body.passports-data
+            .row
+                .col-md-12
+                    form(method="POST")
+                        .row
+                            .col-md-6
+                                .form-group
+                                    label.col-md-4.control-label(for="number-capitalization") Номер
+                                    .col-md-8
+                                        input#number-capitalization.form-control(type='number' required)
+                            .col-md-6
+                                .form-group
+                                    label.col-md-2.control-label(for="date-capitalization") От
+                                    .col-md-10
+                                        input#date-capitalization.form-control(type='datetime-local', required, value=moment().format('YYYY-MM-DDTHH:mm'))
+                        .row
+                            .col-md-12
+                                .form-group
+                                    label.col-md-2.control-label(for="comment-capitalization") Комментарий
+                                    .col-md-10
+                                        textarea#comment-capitalization.form-control
+                        .row
+                            .col-md-12
+                                button.btn(type="button", id="capitalization-remove")
+                                    i.material-icons remove
+                                button.btn(type="button", id="capitalization-add")
+                                    i.material-icons add
+                        .wrap-numencloture
+                            .numenclature
+                                .row
+                                    .col-md-3
+                                        select.form-control.stockTypePaper(required)
+                                            option(disabled, selected, value="") Тип бумаги
+                                            each item in type
+                                                option(value=item._id)=item.name
+                                    .col-md-3
+                                        select.form-control.stockGrammPaper(required)
+                                            option(disabled, selected, value="") Граммаж бумаги
+                                            each item in gramm
+                                                option(value=item._id)=item.name
+                                    .col-md-3
+                                        select.form-control.stockSizePaper(required)
+                                            option(disabled, selected, value="") Формат бумаги
+                                            each item in size
+                                                option(value=item._id)=item.name
+                                    .col-md-3
+                                        input.form-control.stockPaperCount(required, type="number", placeholder="Кол-во", min="0")
+                        .row
+                            .col-md-12
+                                button.btn.btn-info-blue.saveCapitalization(type="submit") Добавить на склад

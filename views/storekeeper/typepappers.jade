@@ -1,0 +1,26 @@
+extends layout
+
+
+block content
+    include ../error
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Тип бумаги
+        .panel-body.passports-data
+            .row
+                .col-md-12
+                    form(method="POST")
+                        .form-group
+                            .col-md-3
+                                input#type.form-control(type='text', placeholder='Тип' required)
+                        button.btn.btn-info-blue.saveBtnPapper(type="submit", data-collection="typepappers", data-field="#type") Сохранить
+            .row
+                .col-md-12
+                    table.table.table-hover.table-bordered.table-condensed
+                        thead
+                            th Название
+                        tbody
+                            each item in data
+                                tr
+                                    td=item.name
+                                        i.material-icons.removeItemId(id=item._id, data-name=item.name, data-collection="typepappers" style="float: right;") delete_forever

@@ -386,4 +386,87 @@ module.exports.init = function(socket){
         }
     });
 
+    ///Добавление бумаги кладовщик
+    socket.on('addPapper', async (data, cb) => {
+        try{
+            await new model[data.collection]({name: data.name}).save();
+            cb({status: 200, msg: 'Обновлено!'});
+        }catch(err){
+            console.log(err);
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
+    //Удаление бумаги
+    socket.on('removeItemId', async (data, cb) => {
+        try{
+            console.log(data);
+            await model[data.collection].remove({ _id: data._id });
+            cb({status: 200, msg: 'Удалено!'});
+        }catch(err){
+            console.log(err);
+            cb({status: 412, err: err._message, msg: `Ошибка удаления! ${err}`});
+        }
+    });
+
+
+    //Весь Список Типа бумаги
+    socket.on('typepappers', async (cb) => {
+        try{
+            let data = await model.typepappers.find();
+            let result = data.map( (o) => {
+                return {id: o._id, text: o.name};
+            });
+            cb({status: 200, msg: 'Удалено!', result: result});
+        }catch(err){
+            cb({status: 412, err: err._message, msg: `Невозможно получить список бумаги! ${err}`});
+        }
+    });
+
+    //Весь Список ГРаммажа бумаги
+    socket.on('grammpappers', async (cb) => {
+        try{
+            let data = await model.grammpappers.find();
+            let result = data.map( (o) => {
+               return {id: o._id, text: o.name};
+            });
+            cb({status: 200, msg: 'Удалено!', result: result});
+        }catch(err){
+            cb({status: 412, err: err._message, msg: `Невозможно получить список бумаги! ${err}`});
+        }
+    });
+
+    //Весь Список Формата бумаги
+    socket.on('sizepappers', async (cb) => {
+        try{
+            let data = await model.sizepappers.find();
+            let result = data.map( (o) => {
+                return {id: o._id, text: o.name};
+            });
+            cb({status: 200, msg: 'Удалено!', result: result});
+        }catch(err){
+            cb({status: 412, err: err._message, msg: `Невозможно получить список бумаги! ${err}`});
+        }
+    });
+
+
+    //Добавление бумаги на склад через приход массивом
+    socket.on('addPaperCapitalization', async (data, cb) => {
+        try{
+            let res = null;
+            let paper = await model.stockpapers.findOne({typePaperId: data.typePaperId, grammPaperId: data.grammPaperId, sizePaperId: data.sizePaperId});
+
+            if(paper){
+                res =  await model.stockpapers.update({typePaperId: data.typePaperId, grammPaperId: data.grammPaperId, sizePaperId: data.sizePaperId}, {$inc: {count: data.count}});
+            }else{
+                res = await new model.stockpapers(data).save();
+            }
+            cb({status: 200, msg: 'Обновлено!', res:res});
+        }catch(err){
+            console.log(err);
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
+
 };

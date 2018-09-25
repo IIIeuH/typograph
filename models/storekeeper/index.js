@@ -24,3 +24,11 @@ module.exports.getPapers = async() => {
 module.exports.getOrder = async () => {
     return await model.stockorders.find({status: 'order'});
 };
+
+module.exports.findAll = async (collection) => {
+    try{
+        return await model[collection].find();
+    }catch (err){
+        return err;
+    }
+};

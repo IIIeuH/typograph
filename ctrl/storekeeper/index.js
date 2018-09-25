@@ -40,3 +40,44 @@ exports.paper = async (req, res) => {
         return err
     }
 };
+
+exports.typepappers = async (req, res) => {
+    try{
+        let collection = req.path.slice(1);
+        let data = await model.findAll(collection);
+        res.render('storekeeper/typepappers', {title: "Кладовщик - тип бумаги!", user: req.user, data: data});
+    }catch(err){
+        return err
+    }
+};
+
+exports.grammpappers = async (req, res) => {
+    try{
+        let collection = req.path.slice(1);
+        let data = await model.findAll(collection);
+        res.render('storekeeper/grammpappers', {title: "Кладовщик - граммаж бумаги!", user: req.user, data: data});
+    }catch(err){
+        return err
+    }
+};
+
+exports.sizepappers = async (req, res) => {
+    try{
+        let collection = req.path.slice(1);
+        let data = await model.findAll(collection);
+        res.render('storekeeper/sizepappers', {title: "Кладовщик - размер бумаги!", user: req.user, data: data});
+    }catch(err){
+        return err
+    }
+};
+
+exports.capitalization = async (req, res) => {
+    try{
+        let gramm = await model.getPapperType('grammpappers');
+        let size = await model.getPapperType('sizepappers');
+        let type = await model.getPapperType('typepappers');
+        res.render('storekeeper/capitalization', {title: "Кладовщик - Оприходование товара!", user: req.user, gramm: gramm, size: size, type: type});
+    }catch(err){
+        return err
+    }
+};
