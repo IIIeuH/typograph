@@ -53,6 +53,7 @@ $(function(){
         data.status = 'new';
         data.createdAt = new Date();
 
+        data.managerName = get_cookie('manager') || '';
         data.priceArray = [];
 
         var count = 0;

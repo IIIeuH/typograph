@@ -1,0 +1,24 @@
+extends layout
+
+
+block content
+    include ../error
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Приход товара список
+        .panel-body.passports-data
+            .row
+                .col-md-12
+                    table.table.table-bordered.table-hover
+                        thead
+                            th Номер
+                            th От
+                            th Поставщик
+                            th Сумма
+                        tbody
+                            each item in capitalization
+                                tr(onclick=`window.location.href = '/storekeeper/capitalization/edit/${item._id}'`, style="cursor: pointer")
+                                    td=item.number
+                                    td=moment(item.date).format("YYYY-MM-DD HH:mm")
+                                    td=item.provider
+                                    td=item.totals

@@ -54,7 +54,6 @@ exports.getPassport =  async function(req, res, next) {
 exports.orderPapers =  async function(req, res, next) {
     let order = await model.getOrder();
     let getOrder = await model.getOrderManager(req.user.name);
-    console.log(getOrder);
     res.render('manager/orderpapers', { title: 'Паспорт', order:order, getOrder:getOrder});
 };
 

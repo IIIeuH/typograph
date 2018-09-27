@@ -1,0 +1,20 @@
+extends layout
+
+
+block content
+    include ../error
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Расход товара список
+        .panel-body.passports-data
+            .row
+                .col-md-12
+                    table.table.table-bordered.table-hover
+                        thead
+                            th Номер
+                            th От
+                        tbody
+                            each item in consumption
+                                tr(onclick=`window.location.href = '/storekeeper/consumption/edit/${item._id}'`, style="cursor: pointer")
+                                    td=item.number
+                                    td=moment(item.date).format("YYYY-MM-DD HH:mm")

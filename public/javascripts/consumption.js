@@ -1,34 +1,31 @@
 $(function(){
     var field = '<div class="wrap-numencloture">' +
-                '  <div class="numenclature">' +
-                '    <div class="row">' +
-                '      <div class="col-md-3">' +
-                '        <select class="form-control stockTypePaper" required="required">' +
-                '          <option disabled="disabled" selected="selected" value="">Тип бумаги</option>' +
-                '        </select>' +
-                '      </div>' +
-                '      <div class="col-md-3">' +
-                '        <select class="form-control stockGrammPaper" required="required">' +
-                '          <option disabled="disabled" selected="selected" value="">Граммаж бумаги</option>' +
-                '        </select>' +
-                '      </div>' +
-                '      <div class="col-md-3">' +
-                '        <select class="form-control stockSizePaper" required="required">' +
-                '          <option disabled="disabled" selected="selected" value="">Формат бумаги</option>' +
-                '        </select>' +
-                '      </div>' +
-                '      <div class="pricer">' +
-                '       <div class="col-md-2">' +
-                '           <input class="form-control stockPaperCount" required="required" type="number" placeholder="Кол-во" min="0" />' +
-                '       </div>' +
-                '       <div class="col-md-1">' +
-                '           <input class="form-control stockPaperPrice" required="required" type="number" placeholder="Цена, р." min="0" />' +
-                '       </div>' +
-                '      </div>' +
-                '    </div>' +
-                '  </div>' +
-                '</div>';
-    $('#capitalization-add').click(function(){
+        '  <div class="numenclature">' +
+        '    <div class="row">' +
+        '      <div class="col-md-3">' +
+        '        <select class="form-control stockTypePaper" required="required">' +
+        '          <option disabled="disabled" selected="selected" value="">Тип бумаги</option>' +
+        '        </select>' +
+        '      </div>' +
+        '      <div class="col-md-3">' +
+        '        <select class="form-control stockGrammPaper" required="required">' +
+        '          <option disabled="disabled" selected="selected" value="">Граммаж бумаги</option>' +
+        '        </select>' +
+        '      </div>' +
+        '      <div class="col-md-3">' +
+        '        <select class="form-control stockSizePaper" required="required">' +
+        '          <option disabled="disabled" selected="selected" value="">Формат бумаги</option>' +
+        '        </select>' +
+        '      </div>' +
+        '      <div class="pricer">' +
+        '       <div class="col-md-3">' +
+        '           <input class="form-control stockPaperCountCon" required="required" type="number" placeholder="Кол-во" min="0" />' +
+        '       </div>' +
+        '      </div>' +
+        '    </div>' +
+        '  </div>' +
+        '</div>';
+    $('#consumption-add').click(function(){
         $('.wrap-numencloture').last().append(field);
 
         socket.emit('typepappers', function (res) {
@@ -81,7 +78,7 @@ $(function(){
 
     });
 
-    $(document).on('click', '#capitalization-remove', function(){
+    $(document).on('click', '#consumption-remove', function(){
         if($('.numenclature').length > 1){
             $('.numenclature').last().remove();
         }else{
@@ -90,24 +87,19 @@ $(function(){
     });
 
 
-    $(document).on('click', '.saveCapitalization', function(e){
-        //e.preventDefault();
+    $(document).on('click', '.saveConsumption', function(e){
+        e.preventDefault();
 
-        if($('#number-capitalization').val() === ''){
+
+        if($('#number-consumption').val() === ''){
             Snackbar.show({
                 text: 'Номер не заполнен',
                 pos: 'top-center',
                 actionText: 'OK'
             });
-        }else if($('#date-capitalization').val() === ''){
+        }else if($('#date-consumption').val() === ''){
             Snackbar.show({
                 text: 'Дата не заполнена',
-                pos: 'top-center',
-                actionText: 'OK'
-            });
-        }else if($('#provider-capitalization').val() === ''){
-            Snackbar.show({
-                text: 'Поставщик не заполнен',
                 pos: 'top-center',
                 actionText: 'OK'
             });
@@ -129,15 +121,9 @@ $(function(){
                 pos: 'top-center',
                 actionText: 'OK'
             });
-        }else if($('.stockPaperCount').last().val() === ''){
+        }else if($('.stockPaperCountCon').last().val() === ''){
             Snackbar.show({
                 text: 'Количество бумаги не заполнено!',
-                pos: 'top-center',
-                actionText: 'OK'
-            });
-        }else if($('.stockPaperPrice').last().val() === ''){
-            Snackbar.show({
-                text: 'Цена бумаги не заполнено!',
                 pos: 'top-center',
                 actionText: 'OK'
             });
@@ -153,8 +139,7 @@ $(function(){
                     grammPaper: $(this).find('.stockGrammPaper :selected').text(),
                     sizePaperId: $(this).find('.stockSizePaper').val(),
                     sizePaper: $(this).find('.stockSizePaper :selected').text(),
-                    count: +$(this).find('.stockPaperCount').val(),
-                    price: +$(this).find('.stockPaperPrice').val()
+                    count: +$(this).find('.stockPaperCountCon').val()
                 };
 
                 arrPappers.push(obj);
@@ -162,39 +147,25 @@ $(function(){
 
 
             var data = {
-                number: $('#number-capitalization').val(),
-                date: $('#date-capitalization').val(),
-                comment: $('#comment-capitalization').val(),
-                provider: $('#provider-capitalization').val(),
-                papper: arrPappers,
-                totals: +$('#totals-capitalization').text()
+                number: $('#number-consumption').val(),
+                date: $('#date-consumption').val(),
+                comment: $('#comment-consumption').val(),
+                papper: arrPappers
             };
 
-            socket.emit('addPaperCapitalization', data, function (res) {
+            socket.emit('addPaperConsumption', data, function (res) {
                 if (res.status === 412) {
                     Snackbar.show({
                         text: res.msg,
                         pos: 'top-center',
-                        actionText: null
+                        actionText: 'OK'
                     });
                 }else{
-                    //window.location.reload();
+                    window.location.reload();
                 }
             });
         }
-    });
 
-
-    ///Итог
-    $(document).on('input', '.stockPaperCount, .stockPaperPrice', function () {
-        var countFields = $('.stockPaperCount');
-        var priceFields = $('.stockPaperPrice');
-        var res = 0;
-
-        for(var i = 0; i < countFields.length; i++){
-            res += countFields[i].value * priceFields[i].value;
-        }
-        $('#totals-capitalization').text(res);
     });
 
 });

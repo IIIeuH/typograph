@@ -34,8 +34,16 @@ exports.paper = async (req, res) => {
         let size = await model.getPapperType('sizepappers');
         let type = await model.getPapperType('typepappers');
         let papers = await model.getPapers();
+        res.render('storekeeper/papers', {title: "Кладовщик - Склад!", user: req.user, gramm: gramm, size: size, type: type, papers:papers});
+    }catch(err){
+        return err
+    }
+};
+
+exports.orderPaper = async (req, res) => {
+    try{
         let order = await model.getOrder();
-        res.render('storekeeper/papers', {title: "Кладовщик - Склад!", user: req.user, gramm: gramm, size: size, type: type, papers:papers, order:order});
+        res.render('storekeeper/orderPaper', {title: "Кладовщик - Склад!", user: req.user, order});
     }catch(err){
         return err
     }
@@ -76,7 +84,56 @@ exports.capitalization = async (req, res) => {
         let gramm = await model.getPapperType('grammpappers');
         let size = await model.getPapperType('sizepappers');
         let type = await model.getPapperType('typepappers');
-        res.render('storekeeper/capitalization', {title: "Кладовщик - Оприходование товара!", user: req.user, gramm: gramm, size: size, type: type});
+        let number = await model.getNumber('capitalizations');
+        res.render('storekeeper/capitalization', {title: "Кладовщик - Оприходование товара!", user: req.user, gramm: gramm, size: size, type: type, number});
+    }catch(err){
+        return err
+    }
+};
+
+exports.consumption = async (req, res) => {
+    try{
+        let gramm = await model.getPapperType('grammpappers');
+        let size = await model.getPapperType('sizepappers');
+        let type = await model.getPapperType('typepappers');
+        let number = await model.getNumber('consumptions');
+        res.render('storekeeper/consumption', {title: "Кладовщик - Расход товара!", user: req.user, gramm: gramm, size: size, type: type, number});
+    }catch(err){
+        return err
+    }
+};
+
+exports.capitalizationList = async (req, res) => {
+    try{
+        let capitalization = await model.findAll('capitalizations');
+        res.render('storekeeper/capitalization-list', {title: "Кладовщик - приход список!", user: req.user, capitalization: capitalization});
+    }catch(err){
+        return err
+    }
+};
+
+exports.consumptionList = async (req, res) => {
+    try{
+        let consumption = await model.findAll('consumptions');
+        res.render('storekeeper/consumption-list', {title: "Кладовщик - расход список!", user: req.user, consumption: consumption});
+    }catch(err){
+        return err
+    }
+};
+
+exports.capitalizationEdit = async (req, res) => {
+    try{
+        let capitalization = await model.capiralizationEdit(req.params.id);
+        res.render('storekeeper/capitalization-edit', {title: "Кладовщик - приход просмотр!", user: req.user, capitalization: capitalization});
+    }catch(err){
+        return err
+    }
+};
+
+exports.consumptionEdit = async (req, res) => {
+    try{
+        let consumption = await model.consumptionEdit(req.params.id);
+        res.render('storekeeper/consumption-edit', {title: "Кладовщик - расход просмотр!", user: req.user, consumption: consumption});
     }catch(err){
         return err
     }

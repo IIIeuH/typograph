@@ -29,18 +29,38 @@ html
                     .menu-wrap
                         ul.nav.nav-pills.nav-stacked(style='max-width: 300px;')
                             li
-                                a(href='/storekeeper') Главная
+                                a(href='/storekeeper') Паспорта
                             li
                                 a(href='/storekeeper/archive') Архив паспартов
-                            li
-                                a(href='/storekeeper/papers') Склад бумаги
-                            li
-                                a(href='/storekeeper/capitalization') Приход товара
-                            li
-                                a(href='/storekeeper/typepappers') Тип бумаги
-                            li
-                                a(href='/storekeeper/grammpappers') Граммаж бумаги
-                            li
-                                a(href='/storekeeper/sizepappers') Формат бумаги
+                            li.dropdown
+                                a.dropdown-toggle(data-toggle="dropdown" data-target="#" style="cursor: pointer") Бумага
+                                    span.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(href='/storekeeper/order-paper') Заявки
+                                    li
+                                        a(href='/storekeeper/papers') Склад
+                                    li
+                                        a(href='/storekeeper/typepappers') Тип
+                                    li
+                                        a(href='/storekeeper/grammpappers') Граммаж
+                                    li
+                                        a(href='/storekeeper/sizepappers') Формат
+                            li.dropdown
+                                a.dropdown-toggle(data-toggle="dropdown" data-target="#" style="cursor: pointer") Приход
+                                    span.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(href='/storekeeper/capitalization') Товара
+                                    li
+                                        a(href='/storekeeper/capitalization-list') Список
+                            li.dropdown
+                                a.dropdown-toggle(data-toggle="dropdown" data-target="#" style="cursor: pointer") Расход
+                                    span.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(href='/storekeeper/consumption') Товара
+                                    li
+                                        a(href='/storekeeper/consumption-list') Список
                 .main
                     block content

@@ -5,44 +5,39 @@ block content
     include ../error
     .panel.panel-white
         .panel-heading
-            h3.panel-title Приход товара
+            h3.panel-title Расход товара
         .panel-body.passports-data
             .container-fluid
                 .row
                     .col-md-12
-                        form(method="POST")
+                        form
                             .row
-                                .col-md-4
+                                .col-md-6
                                     .form-group
                                         if number
-                                            label.col-md-4.control-label(for="number-capitalization") Номер
+                                            label.col-md-4.control-label(for="number-consumption") Номер
                                             .col-md-8
-                                                input#number-capitalization.form-control(type='number' required, value=number.number+1)
+                                                input#number-consumption.form-control(type='number' required, value=number.number+1)
                                         else
-                                            label.col-md-4.control-label(for="number-capitalization") Номер
+                                            label.col-md-4.control-label(for="number-consumption") Номер
                                             .col-md-8
-                                                input#number-capitalization.form-control(type='number' required)
-                                .col-md-4
+                                                input#number-consumption.form-control(type='number' required, value=1)
+                                .col-md-6
                                     .form-group
-                                        label.col-md-2.control-label(for="provider-capitalization") Поставщик
+                                        label.col-md-2.control-label(for="date-consumption") От
                                         .col-md-10
-                                            input#provider-capitalization.form-control(type='text', required)
-                                .col-md-4
-                                    .form-group
-                                        label.col-md-2.control-label(for="date-capitalization") От
-                                        .col-md-10
-                                            input#date-capitalization.form-control(type='datetime-local', required, value=moment().format('YYYY-MM-DDTHH:mm'))
+                                            input#date-consumption.form-control(type='datetime-local', required, value=moment().format('YYYY-MM-DDTHH:mm'))
                             .row
                                 .col-md-12
                                     .form-group
-                                        label.col-md-2.control-label(for="comment-capitalization") Комментарий
+                                        label.col-md-2.control-label(for="comment-consumption") Комментарий
                                         .col-md-10
-                                            textarea#comment-capitalization.form-control
+                                            textarea#comment-consumption.form-control
                             .row
                                 .col-md-12
-                                    button.btn(type="button", id="capitalization-remove")
+                                    button.btn(type="button", id="consumption-remove")
                                         i.material-icons remove
-                                    button.btn(type="button", id="capitalization-add")
+                                    button.btn(type="button", id="consumption-add")
                                         i.material-icons add
                             .wrap-numencloture
                                 .numenclature
@@ -63,13 +58,8 @@ block content
                                                 each item in size
                                                     option(value=item._id)=item.name
                                         .pricer
-                                            .col-md-2
-                                                input.form-control.stockPaperCount(required, type="number", placeholder="Кол-во", min="0")
-                                            .col-md-1
-                                                input.form-control.stockPaperPrice(required, type="number", placeholder="Цена, р.", min="0")
+                                            .col-md-3
+                                                input.form-control.stockPaperCountCon(required, type="number", placeholder="Кол-во", min="0")
                             .row
                                 .col-md-6
-                                    button.btn.btn-info-blue.saveCapitalization(type="submit") Добавить на склад
-                                .col-md-6
-                                    h2(style="float: right") Итого:
-                                        span#totals-capitalization 0
+                                    button.btn.btn-danger-red.saveConsumption(type="button") Списать со склада

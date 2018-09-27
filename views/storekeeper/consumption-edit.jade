@@ -1,0 +1,38 @@
+extends layout
+
+
+block content
+    include ../error
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Приход товара
+        .panel-body.passports-data
+            .row
+                .col-md-12
+                    table.table.table-bordered
+                        thead
+                            th Номер
+                            th От
+                            th Комментарий
+                        tbody
+                            tr
+                                td=consumption.number
+                                td=moment(consumption.date).format("YYYY-MM-DD HH:mm")
+                                td=consumption.comment
+
+            .row
+                .col-md-12
+                    h1 Бумага
+                    table.table.table-bordered
+                        thead
+                            th Тип
+                            th Граммаж
+                            th Формат
+                            th Кол-во
+                        tbody
+                            each item in consumption.papper
+                                tr
+                                    td=item.typePaper
+                                    td=item.grammPaper
+                                    td=item.sizePaper
+                                    td #{item.count} шт.

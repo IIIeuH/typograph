@@ -101,7 +101,6 @@ $(function(){
 
         var table = $(this).closest('.panel-default').find('.history-body');
 
-        console.log(table);
 
         var that = $(this);
 

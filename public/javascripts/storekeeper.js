@@ -9,8 +9,8 @@ $(function(){
 //Сохранение статуса
 function changeStatusKeeper(socket){
     var el = $('.production-podstatus');
-    var number = el.parents('tr').find('.passport-number').text();
     el.click(function(e){
+        var number = $(this).parents('tr').find('.passport-number').text();
         var c = confirm('Вы действительно хотите паспорту № ' + number + ' присвоить статус ' + $(this).data('name'));
         var that = $(this);
         if(c){

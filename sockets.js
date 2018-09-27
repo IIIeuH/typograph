@@ -69,8 +69,11 @@ module.exports.init = function(socket){
 
                 if(stock && stock.count >= count){
                     await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: count, manager: data.managerName, passportId: data.passportId}).save();
                 }else if(stock && stock.count < count){
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
+                    await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$set: {count: 0}});
+                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: stock.count, manager: data.managerName, passportId: data.passportId}).save();
                 }else if(!stock){
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
                     //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
@@ -145,8 +148,11 @@ module.exports.init = function(socket){
 
                 if(stock && stock.count >= count){
                     await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: count, manager: data.managerName, passportId: idPassport}).save();
                 }else if(stock && stock.count < count){
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
+                    await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$set: {count: 0}});
+                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: stock.count, manager: data.managerName, passportId: idPassport}).save();
                 }else if(!stock){
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
                     //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
@@ -200,7 +206,6 @@ module.exports.init = function(socket){
 
     socket.on('valStatus', async (data, cb) => {
         try{
-            console.log(data.name);
             if(data.name === 'Исполнен'){
                 await model.passports.updateOne({passportId: data.passportId}, {$set: {status: "success", productionStatus: data.status}});
                 socket.broadcast.emit('success-status', `Паспорт ${data.passportId} исполнен!`);
@@ -453,15 +458,63 @@ module.exports.init = function(socket){
     //Добавление бумаги на склад через приход массивом
     socket.on('addPaperCapitalization', async (data, cb) => {
         try{
-            let res = null;
-            let paper = await model.stockpapers.findOne({typePaperId: data.typePaperId, grammPaperId: data.grammPaperId, sizePaperId: data.sizePaperId});
 
-            if(paper){
-                res =  await model.stockpapers.update({typePaperId: data.typePaperId, grammPaperId: data.grammPaperId, sizePaperId: data.sizePaperId}, {$inc: {count: data.count}});
-            }else{
-                res = await new model.stockpapers(data).save();
+            await new model.capitalizations(data).save();
+
+            for (let item of data.papper){
+                let paper = await model.stockpapers.findOne({typePaperId: item.typePaperId, grammPaperId: item.grammPaperId, sizePaperId: item.sizePaperId});
+
+                if(paper){
+                    await model.stockpapers.update({typePaperId: item.typePaperId, grammPaperId: item.grammPaperId, sizePaperId: item.sizePaperId}, {$inc: {count: item.count}});
+                }else{
+                    await new model.stockpapers(item).save();
+                }
             }
-            cb({status: 200, msg: 'Обновлено!', res:res});
+            cb({status: 200, msg: 'Обновлено!'});
+        }catch(err){
+            console.log(err);
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
+    //Спасание бумаги со склад через расход массивом
+    socket.on('addPaperConsumption', async (data, cb) => {
+        try{
+
+
+            let resultList = data.papper.map( async(item) =>{
+                return await model.stockpapers.findOne({typePaperId: item.typePaperId, grammPaperId: item.grammPaperId, sizePaperId: item.sizePaperId});
+            });
+
+
+            Promise.all(resultList).then( async(res)=>{
+                let flag = false;
+                res.forEach( (item, i) =>{
+                   if(!item){
+                       cb({status: 412, msg: `Операция не может быть выполнена так как бумаги ${data.papper[i].typePaper} ${data.papper[i].grammPaper} ${data.papper[i].sizePaper} нет на складе!`});
+                       flag = false;
+                       return false;
+                   }else if(item.count < data.papper[i].count){
+                       cb({status: 412, msg: `Операция не может быть выполнена так как бумаги ${data.papper[i].typePaper} ${data.papper[i].grammPaper} ${data.papper[i].sizePaper} на складе всего ${item.count} штук!`});
+                       flag = false;
+                       return false;
+                   }else{
+                       flag = true;
+                   }
+                });
+
+
+                if(flag){
+                    await new model.consumptions(data).save();
+                    for (let item of data.papper){
+                        let paper = await model.stockpapers.findOne({typePaperId: item.typePaperId, grammPaperId: item.grammPaperId, sizePaperId: item.sizePaperId});
+                        if(paper){
+                            await model.stockpapers.update({typePaperId: item.typePaperId, grammPaperId: item.grammPaperId, sizePaperId: item.sizePaperId}, {$inc: {count: -item.count}});
+                        }
+                    }
+                    cb({status: 200, msg: 'Обновлено!'});
+                }
+            });
         }catch(err){
             console.log(err);
             cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});

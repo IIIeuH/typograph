@@ -5,7 +5,6 @@ $(function(){
     saveBtnPapper.click(function(e){
         e.preventDefault();
 
-            console.log($(this).data('field'));
         var data = {
             collection: $(this).data('collection'),
             name: $($(this).data('field')).val()
@@ -35,8 +34,6 @@ $(function(){
                 collection: $(this).data('collection'),
                 _id: $(this).attr('id')
             };
-
-            console.log($(this).data('id'));
 
             socket.emit('removeItemId', data, function (res) {
                 if(res.status === 200){

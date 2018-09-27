@@ -186,11 +186,11 @@ table .form-group{
     width: 200px;
     padding-left: 20px;
 }
-.menu a, a:focus{
-    font-weight: 600 !important;
-    background-color: transparent !important;
-    color: #494949 !important;
-}
+/*.menu a, a:focus{*/
+    /*font-weight: 600 !important;*/
+    /*background-color: transparent !important;*/
+    /*color: #494949 !important;*/
+/*}*/
 .menu.admin a, a:focus{
     font-weight: 600 !important;
     background-color: transparent !important;

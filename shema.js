@@ -128,6 +128,20 @@ const PriceLogs = new Schema({
     passportId: String
 },{versionKey: false});
 
+const PaperLogs = new Schema({
+    date: {
+        type: Date,
+        default: new Date()
+    },
+    manager: String,
+    passportId: String,
+    typePaper: String,
+    grammPaper: String,
+    sizePaper: String,
+    count: Number,
+    managerName: String
+},{versionKey: false});
+
 const StockPapers = new Schema({
     typePaperId: ObjectId,
     grammPaperId: ObjectId,
@@ -153,10 +167,44 @@ const StockOrder = new Schema({
 },{versionKey: false});
 
 
-function countCheck(val) {
-    console.log(val);
-    return val >= 0;
-}
+const Capitalization = new Schema({
+    number: Number,
+    date: Date,
+    comment: String,
+    provider: String,
+    totals: Number,
+    papper:[
+        {
+            typePaperId: ObjectId,
+            typePaper: String,
+            grammPaperId: ObjectId,
+            grammPaper: String,
+            sizePaperId: ObjectId,
+            sizePaper: String,
+            count: Number,
+            price: Number
+        }
+    ]
+},{versionKey: false});
+
+
+const Consumption = new Schema({
+    number: Number,
+    date: Date,
+    comment: String,
+    papper:[
+        {
+            typePaperId: ObjectId,
+            typePaper: String,
+            grammPaperId: ObjectId,
+            grammPaper: String,
+            sizePaperId: ObjectId,
+            sizePaper: String,
+            count: Number
+        }
+    ]
+},{versionKey: false});
+
 
 const typepappers = mongoose.model('typepappers', Typepappers);
 const grammpappers = mongoose.model('grammpappers', Grammpappers);
@@ -166,6 +214,9 @@ const users = mongoose.model('users', Users);
 const pricelogs = mongoose.model('pricelogs', PriceLogs);
 const stockpapers = mongoose.model('stockpapers', StockPapers);
 const stockorders = mongoose.model('stockorders', StockOrder);
+const capitalizations = mongoose.model('capitalizations', Capitalization);
+const consumptions = mongoose.model('consumptions', Consumption);
+const paperlogs = mongoose.model('paperlogs', PaperLogs);
 
 module.exports.typepappers = typepappers;
 module.exports.grammpappers = grammpappers;
@@ -175,4 +226,7 @@ module.exports.users = users;
 module.exports.pricelogs = pricelogs;
 module.exports.stockpapers = stockpapers;
 module.exports.stockorders = stockorders;
+module.exports.capitalizations = capitalizations;
+module.exports.consumptions = consumptions;
+module.exports.paperlogs = paperlogs;
 module.exports.ObjectId = ObjectId;
