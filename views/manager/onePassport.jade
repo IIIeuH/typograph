@@ -2,382 +2,383 @@ extends index
 
 block content
     .noPrint
-        .userName.hidden=user.name
-        .panel.panel-white
-            .panel-heading
-                h3.h3 Заказ № #{passport.inc} от #{moment(passport.date, "DD.MM.YYYY").format("DD.MM")}
-            .panel-body
-                .container-fluid
-                    .row
-                        .passportId.hidden=passport.passportId
-                        .col-md-6
-                            .form-group
-                                .col-md-4
-                                    label.control-label Сдать на
-                                .col-md-8
-                                    input.form-control.pass-on(type="date", , max="2040-04-20", required, value=passport.passOn)
-                        .col-md-6
-                            .form-group
-                                if passport.timePassport
+        form(method="POST", id="updatePassport")
+            .userName.hidden=user.name
+            .panel.panel-white
+                .panel-heading
+                    h3.h3 Заказ № #{passport.inc} от #{moment(passport.date, "DD.MM.YYYY").format("DD.MM")}
+                .panel-body
+                    .container-fluid
+                        .row
+                            .passportId.hidden=passport.passportId
+                            .col-md-6
+                                .form-group
                                     .col-md-4
-                                        .checkbox
-                                            label
-                                                input(type="checkbox", id="timeCheck", checked)
-                                            | Время
+                                        label.control-label Сдать на
                                     .col-md-8
-                                        input.form-control.time(type="time", disabled, id="timeInput", required, value=passport.timePassport)
-                                else
+                                        input.form-control.pass-on(type="date", , max="2040-04-20", required, value=passport.passOn)
+                            .col-md-6
+                                .form-group
+                                    if passport.timePassport
+                                        .col-md-4
+                                            .checkbox
+                                                label
+                                                    input(type="checkbox", id="timeCheck", checked)
+                                                | Время
+                                        .col-md-8
+                                            input.form-control.time(type="time", disabled, id="timeInput", required, value=passport.timePassport)
+                                    else
+                                        .col-md-4
+                                            .checkbox
+                                                label
+                                                    input(type="checkbox", id="timeCheck")
+                                                | Время
+                                        .col-md-8
+                                            input.form-control.time(type="time", disabled, id="timeInput", required, value=passport.timePassport)
+                        .row
+                            .col-md-12
+                                .form-group
                                     .col-md-4
-                                        .checkbox
-                                            label
-                                                input(type="checkbox", id="timeCheck")
-                                            | Время
-                                    .col-md-8
-                                        input.form-control.time(type="time", disabled, id="timeInput", required, value=passport.timePassport)
-                    .row
-                        .col-md-12
-                            .form-group
-                                .col-md-4
-                                    label.control-label(style="margin-right: 10px;") Цена
-                                    button.btn(type="button", id="price-remove")
-                                        i.material-icons remove
-                                    button.btn(type="button", id="price-add")
-                                        i.material-icons add
-                    .row
-                        if(passport.priceArray.length)
-                            each item in passport.priceArray
+                                        label.control-label(style="margin-right: 10px;") Цена
+                                        button.btn(type="button", id="price-remove")
+                                            i.material-icons remove
+                                        button.btn(type="button", id="price-add")
+                                            i.material-icons add
+                        .row
+                            if(passport.priceArray.length)
+                                each item in passport.priceArray
+                                    .col-md-3.form-price
+                                        .form-group
+                                            .col-md-4
+                                                label.control-label Название
+                                            .col-md-8
+                                                input.form-control.price-name(type="text", value=item.name, required)
+                                        .form-group
+                                            .col-md-4
+                                                label.control-label Сумма
+                                            .col-md-8
+                                                input.form-control.price-number(type="number", min="0", value=item.number, required)
+                            else
                                 .col-md-3.form-price
                                     .form-group
                                         .col-md-4
                                             label.control-label Название
                                         .col-md-8
-                                            input.form-control.price-name(type="text", value=item.name, required)
+                                            input.form-control.price-name(type="text", required)
                                     .form-group
                                         .col-md-4
                                             label.control-label Сумма
                                         .col-md-8
-                                            input.form-control.price-number(type="number", min="0", value=item.number, required)
-                        else
-                            .col-md-3.form-price
-                                .form-group
-                                    .col-md-4
-                                        label.control-label Название
+                                            input.form-control.price-number(type="number", min="0", required)
+                        .row
+                            .col-md-6
+                                .form-group.has-error
+                                    label.control-label.col-md-4 Контактное лицо
                                     .col-md-8
-                                        input.form-control.price-name(type="text", required)
+                                        input.form-control.contact-person(type="text", id="contact", required, value=passport.contactPerson)
+                            .col-md-6
                                 .form-group
-                                    .col-md-4
-                                        label.control-label Сумма
+                                    label.control-label.col-md-4 Телефон
                                     .col-md-8
-                                        input.form-control.price-number(type="number", min="0", required)
-                    .row
-                        .col-md-6
-                            .form-group.has-error
-                                label.control-label.col-md-4 Контактное лицо
-                                .col-md-8
-                                    input.form-control.contact-person(type="text", id="contact", required, value=passport.contactPerson)
-                        .col-md-6
-                            .form-group
-                                label.control-label.col-md-4 Телефон
-                                .col-md-8
-                                    input.form-control.phone(type="tel", id="phone", placeholder="+7(xxx) xxx-xx-xx", required, value=passport.phone)
-                    .row
-                        .col-md-12
-                            .form-group
-                                .col-md-2
-                                    label.control-label Заказчик
-                                .col-md-10
-                                    input.form-control.patter.customer(required, value=passport.customer)
-                    .row
-                        .col-md-12
-                            .form-group
-                                .col-md-2
-                                    label.control-label Наименование
-                                .col-md-10
-                                    input.form-control.name.patter(required, value=passport.name)
-                    .row
-                        .col-md-12
-                            .form-group
-                                label.col-md-2.control-label Тираж заказчику
-                                .col-md-10
-                                    input.form-control.patter.circulation(required, value=passport.circulationFiled)
-                    .row
-                        .col-md-12
-                            .form-group
-                                label.col-md-2.control-label Размер
-                                .col-md-1
-                                    select.form-control.size-paper.not-select
-                                        option
-                                        option По штампу
-                                        option Евро
-                                        option А2
-                                        option А3
-                                        option А4
-                                        option А5
-                                        option А6
-                                .col-md-9
-                                    .size-paper-input
-                                        each item in passport.sizePaper
-                                            .itemPaper=item
-                    .row
-                        .col-md-12
-                            .form-group
-                                label.col-md-2.control-label Страниц
-                                .col-md-10
-                                    input.form-control.patter.page(value=passport.page)
-                    .row
-                        .col-md-12
-                            .form-group
-                                label.col-md-2.control-label Красочность
-                                .col-md-10
-                                    input.form-control.patter.redness(required, value=passport.redness)
+                                        input.form-control.phone(type="tel", id="phone", placeholder="+7(xxx) xxx-xx-xx", required, value=passport.phone)
+                        .row
+                            .col-md-12
+                                .form-group
+                                    .col-md-2
+                                        label.control-label Заказчик
+                                    .col-md-10
+                                        input.form-control.patter.customer(required, value=passport.customer)
+                        .row
+                            .col-md-12
+                                .form-group
+                                    .col-md-2
+                                        label.control-label Наименование
+                                    .col-md-10
+                                        input.form-control.name.patter(required, value=passport.name)
+                        .row
+                            .col-md-12
+                                .form-group
+                                    label.col-md-2.control-label Тираж заказчику
+                                    .col-md-10
+                                        input.form-control.patter.circulation(required, value=passport.circulationFiled)
+                        .row
+                            .col-md-12
+                                .form-group
+                                    label.col-md-2.control-label Размер
+                                    .col-md-1
+                                        select.form-control.size-paper.not-select
+                                            option
+                                            option По штампу
+                                            option Евро
+                                            option А2
+                                            option А3
+                                            option А4
+                                            option А5
+                                            option А6
+                                    .col-md-9
+                                        .size-paper-input
+                                            each item in passport.sizePaper
+                                                .itemPaper=item
+                        .row
+                            .col-md-12
+                                .form-group
+                                    label.col-md-2.control-label Страниц
+                                    .col-md-10
+                                        input.form-control.patter.page(value=passport.page)
+                        .row
+                            .col-md-12
+                                .form-group
+                                    label.col-md-2.control-label Красочность
+                                    .col-md-10
+                                        input.form-control.patter.redness(required, value=passport.redness)
 
-                    .row
-                        .col-md-6
-                            .form-group
-                                label.col-md-4.control-label Комплектующие
-                                .col-md-6
-                                    textarea.form-control.set(rows="3")=passport.set
-                                .col-md-2
-                                    button.btn.btn-success-green.addSet(type="button" data-toggle="modal" data-target="#myModal") Добавить
-                                    .modal(id="myModal")
-                                        .modal-dialog
-                                            .modal-content
-                                                .modal-header
-                                                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-                                                    h4.modal-title Список значений
-                                                .modal-body.set-modal-body
-                                                    .box Люверсы
-                                                    .box Болты металлические
-                                                    .box  Болты пластиковые
-                                                    .box  Ригель
-                                                    .box  Курсор
-                                                    .box  Спайдеры
-                                                    .box  Держатели для воблеров
-                                                    .box  Механизмы кольца / клепки
-                                                    .box  Шнур
-                                                    .box  Уголки металлические
-                                                    .box  Скотч 2-сторонний
-                                                    .box  Скотч Тонкий
-                                                    .box  Скотч Объемный
-                                                    button.btn.btn-primary.addBox(type='button') Добавить машину
-                                                    .carBox
-                                                        button.close.closeCarBox(type='button') ×
-                                                        h4.modal-title Значения для машины
-                                                        .resultBox
-                                                .modal-footer
-                                                    button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
-                                                    button.btn.btn-primary.resultButton(type='button') Применить
-                        .col-md-6
-                            .form-group
-                                label.col-md-2.control-label Отделка
-                                .col-md-6
-                                    textarea.form-control.decoration(rows="3")=passport.decoration
-                                .col-md-2
-                                    button.btn.btn-success-green.addSetD(type="button" data-toggle="modal" data-target="#modalDecoration") Добавить
-                                    .modal(id="modalDecoration")
-                                        .modal-dialog
-                                            .modal-content
-                                                .modal-header
-                                                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-                                                    h4.modal-title Список значений
-                                                .modal-body.decoration-modal
-                                                    .boxD Ламинат 1+0
-                                                    .boxD Ламинат 1+1
-                                                    .boxD Ламинат глянцевый
-                                                    .boxD Ламинат матовый
-                                                    .boxD Уф-лак 1+0
-                                                    .boxD Уф-лак 1+1
-                                                    .boxD Уф-лак сполошной
-                                                    .boxD Уф-лак выборочно
-                                                    .boxD Уф-лак глянцевый
-                                                    .boxD Уф-лак матовый
-                                                    .boxD Обычный
-                                                    .boxD Объемный
-                                                    .boxD Глитеры цвет
-                                                    .boxD Переплет
-                                                    .boxD Скоба
-                                                    .boxD Пружина
-                                                    .boxD КБС
-                                                    .boxD Твердный
-                                                    .boxD Листоподборка
-                                                    .boxD Вкладка
-                                                    .boxD Склейка
-                                                    .boxD Кашировка
-                                                    .boxD Фальцовка
-                                                    .boxD Биговка
-                                                    .boxD Перфорация
-                                                    .boxD Микро
-                                                    .boxD Тиснение
-                                                    .boxD Фольга
-                                                    .boxD Цвет
-                                                    .boxD Блинтовое
-                                                    .boxD Конгрев
-                                                    .boxD Высечка
-                                                    .boxD Тигель
-                                                    .boxD Автомат
-                                                    .boxD Зарайский пресс
-                                                    .boxD Нумерация
-                                                    .boxD Сверление
-                                                    button.btn.btn-primary.addBoxD(type='button') Добавить машину
-                                                    .carBoxD
-                                                        button.close.closeCarBoxD(type='button') ×
-                                                        h4.modal-title Значения для машины
-                                                        .resultBoxD
-                                                .modal-footer
-                                                    button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
-                                                    button.btn.btn-primary.resultButtonDecoration(type='button') Применить
-                    .row
-                        .col-md-12
-                            .form-group
-                                label.control-label Количество машин
-                                button.btn(type="button", id="car-remove")
-                                    i.material-icons remove
-                                button.btn(type="button", id="car-add")
-                                    i.material-icons add
-                    .row
-                        .col-md-12
-                            each item in passport.allCar
-                                .car-container
-                                    table.table.table-bordered.table-condensed.car-tabel
-                                        tr
-                                            td
-                                                .row
-                                                    .col-md-12
-                                                        .form-group
-                                                            label.col-md-3.control-label На машину
+                        .row
+                            .col-md-6
+                                .form-group
+                                    label.col-md-4.control-label Комплектующие
+                                    .col-md-6
+                                        textarea.form-control.set(rows="3")=passport.set
+                                    .col-md-2
+                                        button.btn.btn-success-green.addSet(type="button" data-toggle="modal" data-target="#myModal") Добавить
+                                        .modal(id="myModal")
+                                            .modal-dialog
+                                                .modal-content
+                                                    .modal-header
+                                                        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                                                        h4.modal-title Список значений
+                                                    .modal-body.set-modal-body
+                                                        .box Люверсы
+                                                        .box Болты металлические
+                                                        .box  Болты пластиковые
+                                                        .box  Ригель
+                                                        .box  Курсор
+                                                        .box  Спайдеры
+                                                        .box  Держатели для воблеров
+                                                        .box  Механизмы кольца / клепки
+                                                        .box  Шнур
+                                                        .box  Уголки металлические
+                                                        .box  Скотч 2-сторонний
+                                                        .box  Скотч Тонкий
+                                                        .box  Скотч Объемный
+                                                        button.btn.btn-primary.addBox(type='button') Добавить машину
+                                                        .carBox
+                                                            button.close.closeCarBox(type='button') ×
+                                                            h4.modal-title Значения для машины
+                                                            .resultBox
+                                                    .modal-footer
+                                                        button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
+                                                        button.btn.btn-primary.resultButton(type='button') Применить
+                            .col-md-6
+                                .form-group
+                                    label.col-md-2.control-label Отделка
+                                    .col-md-6
+                                        textarea.form-control.decoration(rows="3")=passport.decoration
+                                    .col-md-2
+                                        button.btn.btn-success-green.addSetD(type="button" data-toggle="modal" data-target="#modalDecoration") Добавить
+                                        .modal(id="modalDecoration")
+                                            .modal-dialog
+                                                .modal-content
+                                                    .modal-header
+                                                        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                                                        h4.modal-title Список значений
+                                                    .modal-body.decoration-modal
+                                                        .boxD Ламинат 1+0
+                                                        .boxD Ламинат 1+1
+                                                        .boxD Ламинат глянцевый
+                                                        .boxD Ламинат матовый
+                                                        .boxD Уф-лак 1+0
+                                                        .boxD Уф-лак 1+1
+                                                        .boxD Уф-лак сполошной
+                                                        .boxD Уф-лак выборочно
+                                                        .boxD Уф-лак глянцевый
+                                                        .boxD Уф-лак матовый
+                                                        .boxD Обычный
+                                                        .boxD Объемный
+                                                        .boxD Глитеры цвет
+                                                        .boxD Переплет
+                                                        .boxD Скоба
+                                                        .boxD Пружина
+                                                        .boxD КБС
+                                                        .boxD Твердный
+                                                        .boxD Листоподборка
+                                                        .boxD Вкладка
+                                                        .boxD Склейка
+                                                        .boxD Кашировка
+                                                        .boxD Фальцовка
+                                                        .boxD Биговка
+                                                        .boxD Перфорация
+                                                        .boxD Микро
+                                                        .boxD Тиснение
+                                                        .boxD Фольга
+                                                        .boxD Цвет
+                                                        .boxD Блинтовое
+                                                        .boxD Конгрев
+                                                        .boxD Высечка
+                                                        .boxD Тигель
+                                                        .boxD Автомат
+                                                        .boxD Зарайский пресс
+                                                        .boxD Нумерация
+                                                        .boxD Сверление
+                                                        button.btn.btn-primary.addBoxD(type='button') Добавить машину
+                                                        .carBoxD
+                                                            button.close.closeCarBoxD(type='button') ×
+                                                            h4.modal-title Значения для машины
+                                                            .resultBoxD
+                                                    .modal-footer
+                                                        button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
+                                                        button.btn.btn-primary.resultButtonDecoration(type='button') Применить
+                        .row
+                            .col-md-12
+                                .form-group
+                                    label.control-label Количество машин
+                                    button.btn(type="button", id="car-remove")
+                                        i.material-icons remove
+                                    button.btn(type="button", id="car-add")
+                                        i.material-icons add
+                        .row
+                            .col-md-12
+                                each item in passport.allCar
+                                    .car-container
+                                        table.table.table-bordered.table-condensed.car-tabel
+                                            tr
+                                                td
+                                                    .row
+                                                        .col-md-12
+                                                            .form-group
+                                                                label.col-md-3.control-label На машину
+                                                                    .col-md-3
+                                                                    select.form-control.typePaper(style="margin-top: 10px;")
+                                                                        option(selected) #{item.typePaper}
+                                                            .form-group
                                                                 .col-md-3
-                                                                select.form-control.typePaper(style="margin-top: 10px;")
-                                                                    option(selected) #{item.typePaper}
-                                                        .form-group
-                                                            .col-md-3
-                                                                select.form-control.car-select.not-select(required)
-                                                                    if item.car === 'A2'
-                                                                        option(selected) A2
-                                                                        option A3
-                                                                    else
-                                                                        option A2
-                                                                        option(selected) A3
-                                                        .form-group
-                                                            .col-md-3
-                                                                input.form-control.comment-top(value=item.commentTop)
-                                                .form-group
-                                                    label.col-md-5.control-label Шт.
-                                                    .col-md-3
-                                                        input.form-control.Sht(type="text", required, value=item.sht)
-                                                    .col-md-4
-                                                        select.form-control.typePaperGramm(required)
-                                                            option(selected) #{item.grammPaper}
-                                                .form-group
-                                                    label.col-md-5.control-label На
-                                                    .col-md-3
-                                                        input.form-control.on(type="text", required, value=item.on)
-                                                .form-group
-                                                    .col-md-4
-                                                        select.form-control.typePaperSize(required)
-                                                            option(selected) #{item.sizePaper}
-                                                .form-group
-                                                    label.col-md-5.control-label Печ. листов
-                                                    .col-md-7
-                                                        input.form-control.printSheet(type="text", required, value=item.printSheet)
-                                                .form-group
-                                                    label.col-md-5.control-label Исходных листов
-                                                    .col-md-7
-                                                        input.form-control.allSheet(type="text", required, value=item.allSheet)
-                                        tr
-                                            td
-                                                textarea(cols="30", style="text-align: center;").signature=item.signature
-                    .row
-                        .form-group
-                            label.col-md-2.control-label(for="manager") Менеджер
-                            .col-md-10
-                                select.form-control.manager(id="manager", multiple="multiple", required)
-                                    each item in passport.manager
-                                        option(selected) #{item}
-                    .row
-                        .form-group
-                            if passport.file
-                                label.col-md-2.control-label(for="file") Адрес исходного файла
-                                .col-md-2
-                                    div.checkbox
-                                        label
-                                            input(type="checkbox", id="noFile", checked)
-                                        |   Есть файла
-                                .col-md-8
-                                    input.form-control.fileText(type="text", readonly="", placeholder="Файл...", value=passport.file)
-                                    input(required, disabled, type="file", id="file", multiple="", accept="image/*,application/pdf,application/msword,application/rtf,application/rtf,text/plain,text/csv,text/xml")
-                                    #fullPath
-                            else
-                                label.col-md-2.control-label(for="file") Адрес исходного файла
-                                .col-md-2
-                                    div.checkbox
-                                        label
-                                            input(type="checkbox", id="noFile")
-                                        |   Есть файла
-                                .col-md-8
-                                    input.form-control.fileText(type="text", readonly="", placeholder="Файл...")
-                                    input(required, disabled, type="file", id="file", multiple="", accept="image/*,application/pdf,application/msword,application/rtf,application/rtf,text/plain,text/csv,text/xml")
-                                    #fullPath
-
-                    .row
-                        .col-md-3
-                            if passport.deliveryFiled == 'Доставка'
-                                .form-group
-                                    .radio.radio-primary.delever
-                                        label.border-label
-                                            input(type="radio", name="delivery", value="Самовывоз")
-                                            | Самовывоз
-                                        label
-                                            input(type="radio", name="delivery" value="Доставка", checked)
-                                            | Доставка
-                            else
-                                .form-group
-                                    .radio.radio-primary.delever
-                                        label.border-label
-                                            input(type="radio", name="delivery", value="Самовывоз", checked)
-                                            | Самовывоз
-                                        label
-                                            input(type="radio", name="delivery" value="Доставка")
-                                            | Доставка
-                        .col-md-3.type-delever
-                            if passport.typeDeliveryFiled == 'Наш транспорт'
-                                .form-group
-                                    .radio.radio-primary
-                                        label.border-label
-                                            input(type="radio", name="type-delivery", value="Автобус")
-                                            | Автобус
-                                        label
-                                            input(type="radio", name="type-delivery" value="Наш транспорт", checked)
-                                            | Наш транспорт
-                            else
-                                .form-group
-                                    .radio.radio-primary
-                                        label.border-label
-                                            input(type="radio", name="type-delivery", value="Автобус", checked)
-                                            | Автобус
-                                        label
-                                            input(type="radio", name="type-delivery" value="Наш транспорт")
-                                            | Наш транспорт
-                        .col-md-6
-                            if passport.address
-                                .form-group.delivery-address
-                                    label.col-md-4.control-label(for="delivery-address") Адрес доставки
-                                    .col-md-8
-                                        input.form-control.address(type="text", id="delivery-address", value=passport.address)
-                            else
-                                .form-group.delivery-address
-                                    label.col-md-4.control-label(for="delivery-address") Адрес доставки
-                                    .col-md-8
-                                        input.form-control.address(type="text", id="delivery-address")
-                    .row
-                        .col-md-12
+                                                                    select.form-control.car-select.not-select(required)
+                                                                        if item.car === 'A2'
+                                                                            option(selected) A2
+                                                                            option A3
+                                                                        else
+                                                                            option A2
+                                                                            option(selected) A3
+                                                            .form-group
+                                                                .col-md-3
+                                                                    input.form-control.comment-top(value=item.commentTop)
+                                                    .form-group
+                                                        label.col-md-5.control-label Шт.
+                                                        .col-md-3
+                                                            input.form-control.Sht(type="text", required, value=item.sht)
+                                                        .col-md-4
+                                                            select.form-control.typePaperGramm(required)
+                                                                option(selected) #{item.grammPaper}
+                                                    .form-group
+                                                        label.col-md-5.control-label На
+                                                        .col-md-3
+                                                            input.form-control.on(type="text", required, value=item.on)
+                                                    .form-group
+                                                        .col-md-4
+                                                            select.form-control.typePaperSize(required)
+                                                                option(selected) #{item.sizePaper}
+                                                    .form-group
+                                                        label.col-md-5.control-label Печ. листов
+                                                        .col-md-7
+                                                            input.form-control.printSheet(type="text", required, value=item.printSheet)
+                                                    .form-group
+                                                        label.col-md-5.control-label Исходных листов
+                                                        .col-md-7
+                                                            input.form-control.allSheet(type="text", required, value=item.allSheet)
+                                            tr
+                                                td
+                                                    textarea(cols="30", style="text-align: center;").signature=item.signature
+                        .row
                             .form-group
-                                label.col-md-2.control-label(for="comment") Комментарий
+                                label.col-md-2.control-label(for="manager") Менеджер
                                 .col-md-10
-                                    textarea.form-control.comment(type="text", id="comment") #{passport.comment}
-                .ready-btn
-                    button.btn.btn-success-green(type="button", id='updatePassportBtn') Сохранить
-                    button.btn.btn-info-blue(type="button", id="print") Печать
-                    button.btn.btn-primary-purple(type="button", id="prepress-sent", data-id=passport.passportId) Отправить допечатнику
+                                    select.form-control.manager(id="manager", multiple="multiple", required)
+                                        each item in passport.manager
+                                            option(selected) #{item}
+                        .row
+                            .form-group
+                                if passport.file
+                                    label.col-md-2.control-label(for="file") Адрес исходного файла
+                                    .col-md-2
+                                        div.checkbox
+                                            label
+                                                input(type="checkbox", id="noFile", checked)
+                                            |   Есть файла
+                                    .col-md-8
+                                        input.form-control.fileText(type="text", readonly="", placeholder="Файл...", value=passport.file)
+                                        input(required, disabled, type="file", id="file", multiple="", accept="image/*,application/pdf,application/msword,application/rtf,application/rtf,text/plain,text/csv,text/xml")
+                                        #fullPath
+                                else
+                                    label.col-md-2.control-label(for="file") Адрес исходного файла
+                                    .col-md-2
+                                        div.checkbox
+                                            label
+                                                input(type="checkbox", id="noFile")
+                                            |   Есть файла
+                                    .col-md-8
+                                        input.form-control.fileText(type="text", readonly="", placeholder="Файл...")
+                                        input(required, disabled, type="file", id="file", multiple="", accept="image/*,application/pdf,application/msword,application/rtf,application/rtf,text/plain,text/csv,text/xml")
+                                        #fullPath
+
+                        .row
+                            .col-md-3
+                                if passport.deliveryFiled == 'Доставка'
+                                    .form-group
+                                        .radio.radio-primary.delever
+                                            label.border-label
+                                                input(type="radio", name="delivery", value="Самовывоз")
+                                                | Самовывоз
+                                            label
+                                                input(type="radio", name="delivery" value="Доставка", checked)
+                                                | Доставка
+                                else
+                                    .form-group
+                                        .radio.radio-primary.delever
+                                            label.border-label
+                                                input(type="radio", name="delivery", value="Самовывоз", checked)
+                                                | Самовывоз
+                                            label
+                                                input(type="radio", name="delivery" value="Доставка")
+                                                | Доставка
+                            .col-md-3.type-delever
+                                if passport.typeDeliveryFiled == 'Наш транспорт'
+                                    .form-group
+                                        .radio.radio-primary
+                                            label.border-label
+                                                input(type="radio", name="type-delivery", value="Автобус")
+                                                | Автобус
+                                            label
+                                                input(type="radio", name="type-delivery" value="Наш транспорт", checked)
+                                                | Наш транспорт
+                                else
+                                    .form-group
+                                        .radio.radio-primary
+                                            label.border-label
+                                                input(type="radio", name="type-delivery", value="Автобус", checked)
+                                                | Автобус
+                                            label
+                                                input(type="radio", name="type-delivery" value="Наш транспорт")
+                                                | Наш транспорт
+                            .col-md-6
+                                if passport.address
+                                    .form-group.delivery-address
+                                        label.col-md-4.control-label(for="delivery-address") Адрес доставки
+                                        .col-md-8
+                                            input.form-control.address(type="text", id="delivery-address", value=passport.address)
+                                else
+                                    .form-group.delivery-address
+                                        label.col-md-4.control-label(for="delivery-address") Адрес доставки
+                                        .col-md-8
+                                            input.form-control.address(type="text", id="delivery-address")
+                        .row
+                            .col-md-12
+                                .form-group
+                                    label.col-md-2.control-label(for="comment") Комментарий
+                                    .col-md-10
+                                        textarea.form-control.comment(type="text", id="comment") #{passport.comment}
+                    .ready-btn
+                        button.btn.btn-success-green(type="submit", id='updatePassportBtn') Сохранить
+                        button.btn.btn-info-blue(type="button", id="print") Печать
+                        button.btn.btn-primary-purple(type="button", id="prepress-sent", data-id=passport.passportId) Отправить допечатнику
     .wrapperPrint
         table.table.table-bordered.table-condensed
             tr

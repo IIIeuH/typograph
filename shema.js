@@ -170,7 +170,6 @@ const StockOrder = new Schema({
 const Capitalization = new Schema({
     number: Number,
     date: Date,
-    comment: String,
     provider: String,
     totals: Number,
     papper:[
@@ -182,7 +181,8 @@ const Capitalization = new Schema({
             sizePaperId: ObjectId,
             sizePaper: String,
             count: Number,
-            price: Number
+            price: Number,
+            priceAll: Number
         }
     ]
 },{versionKey: false});

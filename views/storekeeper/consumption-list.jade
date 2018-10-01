@@ -13,8 +13,11 @@ block content
                         thead
                             th Номер
                             th От
+                            th
                         tbody
                             each item in consumption
                                 tr(onclick=`window.location.href = '/storekeeper/consumption/edit/${item._id}'`, style="cursor: pointer")
                                     td=item.number
                                     td=moment(item.date).format("YYYY-MM-DD HH:mm")
+                                    td
+                                        i.material-icons.removeItemId(id=item._id, data-name=item.number, data-collection="consumptions" style="float: right;") delete_forever

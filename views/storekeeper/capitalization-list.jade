@@ -15,10 +15,13 @@ block content
                             th От
                             th Поставщик
                             th Сумма
+                            th
                         tbody
                             each item in capitalization
-                                tr(onclick=`window.location.href = '/storekeeper/capitalization/edit/${item._id}'`, style="cursor: pointer")
-                                    td=item.number
-                                    td=moment(item.date).format("YYYY-MM-DD HH:mm")
-                                    td=item.provider
-                                    td=item.totals
+                                tr
+                                    td(onclick=`window.location.href = '/storekeeper/capitalization/edit/${item._id}'`, style="cursor: pointer")=item.number
+                                    td(onclick=`window.location.href = '/storekeeper/capitalization/edit/${item._id}'`, style="cursor: pointer")=moment(item.date).format("YYYY-MM-DD HH:mm")
+                                    td(onclick=`window.location.href = '/storekeeper/capitalization/edit/${item._id}'`, style="cursor: pointer")=item.provider
+                                    td(onclick=`window.location.href = '/storekeeper/capitalization/edit/${item._id}'`, style="cursor: pointer")=item.totals
+                                    td
+                                        i.material-icons.removeItemId(id=item._id, data-name=item.number, data-collection="capitalizations" style="float: right;") delete_forever

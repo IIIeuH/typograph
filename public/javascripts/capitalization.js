@@ -2,17 +2,17 @@ $(function(){
     var field = '<div class="wrap-numencloture">' +
                 '  <div class="numenclature">' +
                 '    <div class="row">' +
-                '      <div class="col-md-3">' +
+                '      <div class="col-md-2">' +
                 '        <select class="form-control stockTypePaper" required="required">' +
                 '          <option disabled="disabled" selected="selected" value="">Тип бумаги</option>' +
                 '        </select>' +
                 '      </div>' +
-                '      <div class="col-md-3">' +
+                '      <div class="col-md-2">' +
                 '        <select class="form-control stockGrammPaper" required="required">' +
                 '          <option disabled="disabled" selected="selected" value="">Граммаж бумаги</option>' +
                 '        </select>' +
                 '      </div>' +
-                '      <div class="col-md-3">' +
+                '      <div class="col-md-2">' +
                 '        <select class="form-control stockSizePaper" required="required">' +
                 '          <option disabled="disabled" selected="selected" value="">Формат бумаги</option>' +
                 '        </select>' +
@@ -21,8 +21,12 @@ $(function(){
                 '       <div class="col-md-2">' +
                 '           <input class="form-control stockPaperCount" required="required" type="number" placeholder="Кол-во" min="0" />' +
                 '       </div>' +
-                '       <div class="col-md-1">' +
-                '           <input class="form-control stockPaperPrice" required="required" type="number" placeholder="Цена, р." min="0" />' +
+                '       <div class="col-md-2">' +
+                '           <input class="form-control stockPaperPrice" required="required" type="number" placeholder="Сумма за все листы" min="0" />' +
+                '       </div>' +
+                '       <div class="col-md-2">' +
+                '           <input class="form-control stockPaperPriceOne" required="required" type="number" placeholder="Сумма за лист" min="0" step="0.01" />' +
+                '           <h4 style="float: right;">Итого:<span class="totals-capitalization">0</span></h4>' +
                 '       </div>' +
                 '      </div>' +
                 '    </div>' +
@@ -154,7 +158,8 @@ $(function(){
                     sizePaperId: $(this).find('.stockSizePaper').val(),
                     sizePaper: $(this).find('.stockSizePaper :selected').text(),
                     count: +$(this).find('.stockPaperCount').val(),
-                    price: +$(this).find('.stockPaperPrice').val()
+                    price: +$(this).find('.stockPaperPriceOne').val(),
+                    priceAll: +$(this).find('.stockPaperPrice').val()
                 };
 
                 arrPappers.push(obj);
@@ -164,10 +169,9 @@ $(function(){
             var data = {
                 number: $('#number-capitalization').val(),
                 date: $('#date-capitalization').val(),
-                comment: $('#comment-capitalization').val(),
                 provider: $('#provider-capitalization').val(),
                 papper: arrPappers,
-                totals: +$('#totals-capitalization').text()
+                totals: +$('#totals-capitalization-all').text()
             };
 
             socket.emit('addPaperCapitalization', data, function (res) {
@@ -187,14 +191,31 @@ $(function(){
 
     ///Итог
     $(document).on('input', '.stockPaperCount, .stockPaperPrice', function () {
-        var countFields = $('.stockPaperCount');
-        var priceFields = $('.stockPaperPrice');
-        var res = 0;
+        var countFields = $(this).parents('.pricer').find('.stockPaperCount').val();
+        var priceFields = $(this).parents('.pricer').find('.stockPaperPrice').val();
+        var res = $(this).parents('.pricer').find('.stockPaperPrice').val();
+        var sumList = 0;
+        var all = 0;
+        //
+        // for(var i = 0; i < countFields.length; i++){
+        //     //es += priceFields[i].value * countFields[i].value;
+        //     sumList += priceFields[i].value / countFields[i].value;
+        // }
 
-        for(var i = 0; i < countFields.length; i++){
-            res += countFields[i].value * priceFields[i].value;
-        }
-        $('#totals-capitalization').text(res);
+        sumList = priceFields / countFields;
+
+        $(this).parents('.pricer').find('.stockPaperPriceOne').val(sumList.toFixed(2));
+        $(this).parents('.pricer').find('.totals-capitalization').text(res);
+
+        var itogo = $('.totals-capitalization');
+
+
+        itogo.each(function(){
+            all += +$(this).text();
+        });
+
+
+        $('#totals-capitalization-all').text(all);
     });
 
 });

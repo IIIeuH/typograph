@@ -1,6 +1,7 @@
 $(function(){
     var btn = $('#savePassportBtn');
     var form = $('#formPassport');
+    var formUpdate = $('#updatePassport');
     var socket = io();
 
     // socket.on('updatePassport', function (res) {
@@ -135,8 +136,9 @@ $(function(){
         }
     });
 
-    var updateBtn = $('#updatePassportBtn');
-    updateBtn.on("click", function( event ) {
+    //var updateBtn = $('#updatePassportBtn');
+    formUpdate.on("submit", function( e ) {
+        e.preventDefault();
         //btn.click(function(){
         var data = {};
         data.sizePaper = [];

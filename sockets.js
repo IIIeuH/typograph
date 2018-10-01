@@ -85,17 +85,27 @@ module.exports.init = function(socket){
 
             Promise.all(res).then( async() =>{
                 if(arrayNoPapers.length){
-                    await saveData.save();
-                    await saveLogs.save();
-                    cb({status: 201, arr: arrayNoPapers});
+                    let check = await model.passports.findOne({passportId: data.passportId});
+                    if(!check){
+                        await saveData.save();
+                        await saveLogs.save();
+                        cb({status: 201, arr: arrayNoPapers});
+                    }else{
+                        return false
+                    }
                 }else{
-                    await saveData.save();
-                    await saveLogs.save();
-                    cb({status: 200, msg: "Паспорт сохранен!"});
+                    let check = await model.passports.findOne({passportId: data.passportId});
+                    if(!check) {
+                        await saveData.save();
+                        await saveLogs.save();
+                        cb({status: 200, msg: "Паспорт сохранен!"});
+                    }else{
+                        return false;
+                    }
                 }
             });
         }catch(err){
-            console.log(err);
+            console.err(err);
             cb({status: 412, err: err._message, msg: 'Заполните обязательные поля'});
             return err;
         }
@@ -111,72 +121,78 @@ module.exports.init = function(socket){
             delete data.data.date;
             delete data.data.timeSave;
 
-            function groupBy( array , f )
-            {
-                var groups = {};
-                array.forEach( function( o )
-                {
-                    var group = JSON.stringify( f(o) );
-                    groups[group] = groups[group] || [];
-                    groups[group].push( o );
-                });
-                return Object.keys(groups).map( function( group )
-                {
-                    return groups[group];
-                })
-            }
+            // function groupBy( array , f )
+            // {
+            //     var groups = {};
+            //     array.forEach( function( o )
+            //     {
+            //         var group = JSON.stringify( f(o) );
+            //         groups[group] = groups[group] || [];
+            //         groups[group].push( o );
+            //     });
+            //     return Object.keys(groups).map( function( group )
+            //     {
+            //         return groups[group];
+            //     })
+            // }
+            //
+            // var result = groupBy(data.data.allCar, function(item){
+            //     return [item.typePaper, item.grammPaper, item.sizePaper];
+            // });
+            //
+            // let arrayNoPapers = [];
+            //
+            // let res = result.map( async(o) => {
+            //     let count = 0;
+            //     let type = null;
+            //     let gramm = null;
+            //     let size = null;
+            //     o.forEach( (item)  => {
+            //         count += +item.allSheet;
+            //         type = item.typePaper;
+            //         gramm = item.grammPaper;
+            //         size = item.sizePaper;
+            //     });
+            //
+            //     let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
+            //
+            //     if(stock && stock.count >= count){
+            //         await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+            //         await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: count, manager: data.managerName, passportId: idPassport}).save();
+            //     }else if(stock && stock.count < count){
+            //         arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
+            //         await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$set: {count: 0}});
+            //         await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: stock.count, manager: data.managerName, passportId: idPassport}).save();
+            //     }else if(!stock){
+            //         arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
+            //         //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
+            //         //let confirm = confirm(`На складе нет бумаги тип: ${type} граммаж: ${gramm} формат: ${size}, хотите оставить заявку?`)
+            //     }
+            //
+            //     return {typePaper: type, grammPaper: gramm, sizePaper: size, count: count};
+            // });
+            //
+            // Promise.all(res).then( async() =>{
+            //     if(arrayNoPapers.length){
+            //         await model.passports.update({_id: data.id}, data.data);
+            //         let saveLogs = new model.pricelogs(data.priceLog);
+            //         await saveLogs.save();
+            //         socket.broadcast.emit('updatePassport', `Паспорт ${idPassport} изменен пользователем ${data.data.userUpdate}!`);
+            //         cb({status: 201, arr: arrayNoPapers});
+            //     }else{
+            //         await model.passports.update({_id: data.id}, data.data);
+            //         let saveLogs = new model.pricelogs(data.priceLog);
+            //         await saveLogs.save();
+            //         socket.broadcast.emit('updatePassport', `Паспорт ${idPassport} изменен пользователем ${data.data.userUpdate}!`);
+            //         cb({status: 200, msg: 'Пасспорт обновлен!'});
+            //     }
+            // });
 
-            var result = groupBy(data.data.allCar, function(item){
-                return [item.typePaper, item.grammPaper, item.sizePaper];
-            });
-
-            let arrayNoPapers = [];
-
-            let res = result.map( async(o) => {
-                let count = 0;
-                let type = null;
-                let gramm = null;
-                let size = null;
-                o.forEach( (item)  => {
-                    count += +item.allSheet;
-                    type = item.typePaper;
-                    gramm = item.grammPaper;
-                    size = item.sizePaper;
-                });
-
-                let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
-
-                if(stock && stock.count >= count){
-                    await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
-                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: count, manager: data.managerName, passportId: idPassport}).save();
-                }else if(stock && stock.count < count){
-                    arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
-                    await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$set: {count: 0}});
-                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: stock.count, manager: data.managerName, passportId: idPassport}).save();
-                }else if(!stock){
-                    arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
-                    //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
-                    //let confirm = confirm(`На складе нет бумаги тип: ${type} граммаж: ${gramm} формат: ${size}, хотите оставить заявку?`)
-                }
-
-                return {typePaper: type, grammPaper: gramm, sizePaper: size, count: count};
-            });
-
-            Promise.all(res).then( async() =>{
-                if(arrayNoPapers.length){
-                    await model.passports.update({_id: data.id}, data.data);
-                    let saveLogs = new model.pricelogs(data.priceLog);
-                    await saveLogs.save();
-                    socket.broadcast.emit('updatePassport', `Паспорт ${idPassport} изменен пользователем ${data.data.userUpdate}!`);
-                    cb({status: 201, arr: arrayNoPapers});
-                }else{
-                    await model.passports.update({_id: data.id}, data.data);
-                    let saveLogs = new model.pricelogs(data.priceLog);
-                    await saveLogs.save();
-                    socket.broadcast.emit('updatePassport', `Паспорт ${idPassport} изменен пользователем ${data.data.userUpdate}!`);
-                    cb({status: 200, msg: 'Пасспорт обновлен!'});
-                }
-            });
+            await model.passports.update({_id: data.id}, data.data);
+            let saveLogs = new model.pricelogs(data.priceLog);
+            await saveLogs.save();
+            socket.broadcast.emit('updatePassport', `Паспорт ${idPassport} изменен пользователем ${data.data.userUpdate}!`);
+            cb({status: 200, msg: 'Пасспорт обновлен!'});
         }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка сохранения! ${err}`});
             return err;

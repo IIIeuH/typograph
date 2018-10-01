@@ -14,13 +14,11 @@ block content
                             th Номер
                             th Поставщик
                             th От
-                            th Комментарий
                         tbody
                             tr
                                 td=capitalization.number
                                 td=capitalization.provider
                                 td=moment(capitalization.date).format("YYYY-MM-DD HH:mm")
-                                td=capitalization.comment
 
             .row
                 .col-md-12
@@ -31,7 +29,8 @@ block content
                             th Граммаж
                             th Формат
                             th Кол-во
-                            th Цена
+                            th Цена за шт.
+                            th Цена общая
                         tbody
                             each item in capitalization.papper
                                 tr
@@ -40,8 +39,9 @@ block content
                                     td=item.sizePaper
                                     td #{item.count} шт.
                                     td #{item.price} р.
+                                    td #{item.priceAll} р.
                         tfoot
                             tr
-                                td(colspan=4)
+                                td(colspan=5)
                                     span(style="float:right;") Итого:
                                 td #{capitalization.totals} р.
