@@ -5,7 +5,7 @@ module.exports.main = async() => {
 };
 
 module.exports.archive = async() => {
-    return await model.passports.find({podstatus: {$exists: true}}, {passOn: 1, inc: 1, customer: 1, price: 1, circulationFiled: 1, passportId: 1, status: 1, typePaper: 1, typePaperSize: 1, typePaperGramm: 1, podstatus: 1}).sort({inc: -1});
+    return await model.passports.find({podstatus: {$exists: true}}, {passOn: 1, inc: 1, customer: 1, price: 1, circulationFiled: 1, passportId: 1, status: 1, typePaper: 1, typePaperSize: 1, typePaperGramm: 1, podstatus: 1, createdAt: 1}).sort({inc: -1});
 };
 
 module.exports.passport = async(id) => {
