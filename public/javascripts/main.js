@@ -6,6 +6,7 @@ $(function(){
     var carAdd            = $('#car-add');
     var carRemove         = $('#car-remove');
     var data              = $('.passport-date');
+    var dataCreated       = $('.passport-date-created');
     var id                = $('.passport-id');
     var customer          = $('.passport-customer');
     var number            = $('.passport-number');
@@ -16,6 +17,7 @@ $(function(){
     var color             = $('.passport-color');
     var sheet             = $('.passport-sheet');
     var strData           = $('#searchDate');
+    var strDataCreated    = $('#searchDateCreated');
     var strId             = $('#searchId');
     var strCustomer       = $('#searchCustomer');
     var strManager        = $('#searchManager');
@@ -380,6 +382,10 @@ $(function(){
     strData.keyup(function(){
         searchPassports($(this).val(), data);
     });
+    strDataCreated.keyup(function(){
+        console.log($(this).val(), dataCreated);
+        searchPassports($(this).val(), dataCreated);
+    });
     strNumber.keyup(function(){
         searchPassports($(this).val(), number);
     });
@@ -445,8 +451,9 @@ $(function(){
 });
 
 function searchPassports(str, field){
+    var tr = null;
     $.each(field, function () {
-        var tr = $(this).parent();
+        tr = $(this).parent();
         if(!!~$(this).text().toLowerCase().indexOf(str.toLowerCase()) || str.toLowerCase() === ''){
             tr.show();
         }else{

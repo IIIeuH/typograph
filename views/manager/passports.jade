@@ -15,7 +15,9 @@ block content
                     table.table.table-hover.table-bordered
                         tr
                             th
-                                input.form-control(type="text", id="searchDate", placeholder="Дата")
+                                input.form-control(type="text", id="searchDateCreated", placeholder="Дата создания")
+                            th
+                                input.form-control(type="text", id="searchDate", placeholder="Дата выдачи")
                             th
                                 input.form-control(type="text", id="number", placeholder="№")
                             th
@@ -35,7 +37,8 @@ block content
                             th
                         each item in data
                             tr.status(data-status=item.status)
-                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-date=moment(item.passOn, "YYYY.MM.DD.").format("DD.MM")
+                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-date-created=moment(item.createdAt).format("YYYY.DD.MM")
+                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-date=moment(item.passOn, "YYYY.MM.DD").format("YYYY.MM.DD")
                                 td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-number=item.inc
                                 td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-customer=item.customer
                                 td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-paper
