@@ -558,24 +558,45 @@ function removeCar(){
 
 //Цвета для менеджеры
 function statusManager(){
+    console.time('start');
     var el = $('.status');
     el.each(function(){
-        if($(this).data('status') === 'prepress'){
-            $(this).addClass('danger');
+        switch ($(this).data('status')){
+            case 'prepress':
+                $(this).addClass('danger');
+                break;
+            case 'citipi':
+                $(this).addClass('warning');
+                break;
+            case 'keeper':
+                $(this).addClass('info');
+                break;
+            case 'production':
+                $(this).addClass('active');
+                break;
+            case 'success':
+                $(this).addClass('success');
+                break;
+            default:
+                $(this).addClass('');
         }
-        if($(this).data('status') === 'citipi'){
-            $(this).addClass('warning');
-        }
-        if($(this).data('status') === 'keeper'){
-            $(this).addClass('info');
-        }
-        if($(this).data('status') === 'production'){
-            $(this).addClass('active');
-        }
-        if($(this).data('status') === 'success'){
-            $(this).addClass('success');
-        }
+        // if($(this).data('status') === 'prepress'){
+        //     $(this).addClass('danger');
+        // }
+        // if($(this).data('status') === 'citipi'){
+        //     $(this).addClass('warning');
+        // }
+        // if($(this).data('status') === 'keeper'){
+        //     $(this).addClass('info');
+        // }
+        // if($(this).data('status') === 'production'){
+        //     $(this).addClass('active');
+        // }
+        // if($(this).data('status') === 'success'){
+        //     $(this).addClass('success');
+        // }
     });
+    console.timeEnd('start');
 }
 
 

@@ -10,39 +10,24 @@ block content
                 thead
                     tr
                         th
-                            .form-group
-                                label.col-md-12.control-label(for="searchDate") Дата
-                                .col-md-12
-                                    input.form-control(type="text", id="searchDate", placeholder="Поиск...")
+                            input.form-control(type="text", id="searchDateCreated", placeholder="Дата создания")
                         th
-                            .form-group
-                                label.col-md-12.control-label(for="number") №
-                                .col-md-12
-                                    input.form-control(type="text", id="number", placeholder="Поиск...")
+                            input.form-control(type="text", id="searchDate", placeholder="Дата выдачи")
                         th
-                            .form-group
-                                label.col-md-12.control-label(for="searchCustomer") Заказчик
-                                .col-md-12
-                                    input.form-control(type="text", id="searchCustomer", placeholder="Поиск...")
+                            input.form-control(type="text", id="number", placeholder="№  ")
                         th
-                            .form-group
-                                label.col-md-12.control-label(for="paper") Ф\б
-                                .col-md-12
-                                    input.form-control(type="text", id="paper", placeholder="Поиск...")
+                            input.form-control(type="text", id="searchCustomer", placeholder="Заказчик")
                         th
-                            .form-group
-                                label.col-md-12.control-label(for="circulation") Тираж
-                                .col-md-12
-                                    input.form-control(type="text", id="circulation", placeholder="Поиск...")
+                            input.form-control(type="text", id="paper", placeholder="Ф\\б")
                         th
-                            .form-group
-                                label.col-md-12.control-label(for="id") ИД
-                                .col-md-12
-                                    input.form-control(type="text", id="id", placeholder="Поиск...")
+                            input.form-control(type="text", id="circulation", placeholder="Тираж")
+                        th
+                            input.form-control(type="text", id="id", placeholder="ИД")
                 tbody
                     each item in passports
                         tr(data-status=item.status, data-id=item.passportId, onclick='window.location.href="/citipi/'+item._id+'"; return false')
-                            td.passport-date=moment(item.passOn, "YYYY.MM.DD.").format("DD.MM")
+                            td.passport-date-created=moment(item.createdAt).format("YYYY.MM.DD")
+                            td.passport-date=moment(item.passOn, "YYYY.MM.DD").format("YYYY.MM.DD")
                             td.passport-number=item.inc
                             td.passport-customer=item.customer
                             td.passport-paper

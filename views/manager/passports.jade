@@ -37,7 +37,7 @@ block content
                             th
                         each item in data
                             tr.status(data-status=item.status)
-                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-date-created=moment(item.createdAt).format("YYYY.DD.MM")
+                                td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-date-created=moment(item.createdAt).format("YYYY.MM.DD")
                                 td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-date=moment(item.passOn, "YYYY.MM.DD").format("YYYY.MM.DD")
                                 td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-number=item.inc
                                 td(onclick='window.location.href="/manager/passport/'+item._id+'"; return false').passport-customer=item.customer

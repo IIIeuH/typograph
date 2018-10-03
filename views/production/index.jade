@@ -12,68 +12,55 @@ block content
             //span.label.label-default(style="margin-right: 5px;") Производство
             //span.label.label-success(style="margin-right: 5px;") Исполнен
         .panel-body.passports-data
-            table.table.table-hover.table-bordered.table-condensed
-                thead
-                    tr
-                        th
-                            .form-group
-                                label.col-md-12.control-label(for="searchDate") Дата
-                                .col-md-12
-                                    input.form-control(type="text", id="searchDate", placeholder="Поиск...")
-                        th
-                            .form-group
-                                label.col-md-12.control-label(for="number") №
-                                .col-md-12
-                                    input.form-control(type="text", id="number", placeholder="Поиск...")
-                        th
-                            .form-group
-                                label.col-md-12.control-label(for="searchCustomer") Заказчик
-                                .col-md-12
-                                    input.form-control(type="text", id="searchCustomer", placeholder="Поиск...")
-                        th
-                            .form-group
-                                label.col-md-12.control-label(for="paper") Ф\б
-                                .col-md-12
-                                    input.form-control(type="text", id="paper", placeholder="Поиск...")
-                        th
-                            .form-group
-                                label.col-md-12.control-label(for="circulation") Тираж
-                                .col-md-12
-                                    input.form-control(type="text", id="circulation", placeholder="Поиск...")
-                        th
-                            .form-group
-                                label.col-md-12.control-label(for="id") ИД
-                                .col-md-12
-                                    input.form-control(type="text", id="id", placeholder="Поиск...")
-                        th Не исполнен
-                        th В работе
-                        th Исполнен
-                        th Отправлен
-                        //th
-                tbody
-                    each item in passports
-                        tr.status-check(data-status=item.status, data-id=item.passportId)
-                            td.passport-date(onclick='window.location.href="/production/'+item._id+'"; return false')=moment(item.passOn, "YYYY.MM.DD.").format("DD.MM")
-                            td.passport-number(onclick='window.location.href="/production/'+item._id+'"; return false')=item.inc
-                            td.passport-customer(onclick='window.location.href="/production/'+item._id+'"; return false')=item.customer
-                            td.passport-paper(onclick='window.location.href="/production/'+item._id+'"; return false')
-                                strong Тип:
-                                |   #{item.typePaper}
-                                br
-                                strong Размер:
-                                |   #{item.typePaperSize}
-                                br
-                                strong Граммаж:
-                                |   #{item.typePaperGramm}
-                            td.passport-circulation(onclick='window.location.href="/production/'+item._id+'"; return false')=item.circulationFiled
-                            td.passport-id(onclick='window.location.href="/production/'+item._id+'"; return false')=item.passportId
-                            td
-                                input.form-control.production-status(type="checkbox", value="notready", data-productionStatus=item.productionStatus, data-name="Не готов")
-                            td
-                                input.form-control.production-status(type="checkbox", value="job", data-productionStatus=item.productionStatus, data-name="В работе")
-                            td
-                                input.form-control.production-status(type="checkbox", value="success", data-productionStatus=item.productionStatus, data-name="Исполнен")
-                            td
-                                input.form-control.production-status(type="checkbox", value="sent", data-productionStatus=item.productionStatus, data-name="Отправлен")
-                            //td
-                            //    i.material-icons.remove(id=item._id, data-name='пасспорт от ' + item.date + ', номер паспорта ' + item.passportId + ', Заказчик: ' + item.customer) delete_forever
+            .row
+                .col-md-12
+                    table.table.table-hover.table-bordered
+                        thead
+                            tr
+                                th
+                                    input.form-control(type="text", id="searchDateCreated", placeholder="Дата создания")
+                                th
+                                    input.form-control(type="text", id="searchDate", placeholder="Дата выдачи")
+                                th
+                                    input.form-control(type="text", id="number", placeholder="№  ")
+                                th
+                                    input.form-control(type="text", id="searchCustomer", placeholder="Заказчик")
+                                th
+                                    input.form-control(type="text", id="paper", placeholder="Ф\\б")
+                                th
+                                    input.form-control(type="text", id="circulation", placeholder="Тираж")
+                                th
+                                    input.form-control(type="text", id="id", placeholder="ИД")
+                                th Не исполнен
+                                th В работе
+                                th Исполнен
+                                th Отправлен
+                                //th
+                        tbody
+                            each item in passports
+                                tr.status-check(data-status=item.status, data-id=item.passportId)
+                                    td.passport-date-created(onclick='window.location.href="/production/'+item._id+'"; return false')=moment(item.createdAt).format("YYYY.MM.DD")
+                                    td.passport-date(onclick='window.location.href="/production/'+item._id+'"; return false')=moment(item.passOn, "YYYY.MM.DD").format("YYYY.MM.DD")
+                                    td.passport-number(onclick='window.location.href="/production/'+item._id+'"; return false')=item.inc
+                                    td.passport-customer(onclick='window.location.href="/production/'+item._id+'"; return false')=item.customer
+                                    td.passport-paper(onclick='window.location.href="/production/'+item._id+'"; return false')
+                                        strong Тип:
+                                        |   #{item.typePaper}
+                                        br
+                                        strong Размер:
+                                        |   #{item.typePaperSize}
+                                        br
+                                        strong Граммаж:
+                                        |   #{item.typePaperGramm}
+                                    td.passport-circulation(onclick='window.location.href="/production/'+item._id+'"; return false')=item.circulationFiled
+                                    td.passport-id(onclick='window.location.href="/production/'+item._id+'"; return false')=item.passportId
+                                    td
+                                        input.form-control.production-status(type="checkbox", value="notready", data-productionStatus=item.productionStatus, data-name="Не готов")
+                                    td
+                                        input.form-control.production-status(type="checkbox", value="job", data-productionStatus=item.productionStatus, data-name="В работе")
+                                    td
+                                        input.form-control.production-status(type="checkbox", value="success", data-productionStatus=item.productionStatus, data-name="Исполнен")
+                                    td
+                                        input.form-control.production-status(type="checkbox", value="sent", data-productionStatus=item.productionStatus, data-name="Отправлен")
+                                    //td
+                                    //    i.material-icons.remove(id=item._id, data-name='пасспорт от ' + item.date + ', номер паспорта ' + item.passportId + ', Заказчик: ' + item.customer) delete_forever
