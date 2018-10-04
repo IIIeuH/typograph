@@ -50,10 +50,7 @@ const Passports = new Schema({
         type: String,
         required: true
     },
-    sizePaper: {
-        type: Array,
-        required: true
-    },
+    sizePaper: [],
     page: {
         type: String
     },
@@ -61,18 +58,9 @@ const Passports = new Schema({
         type: String,
         required: true
     },
-    typePaper: {
-        type: String,
-        required: true
-    },
-    typePaperSize: {
-        type: String,
-        required: true
-    },
-    typePaperGramm: {
-        type: String,
-        required: true
-    },
+    typePaper: String,
+    typePaperSize: String,
+    typePaperGramm: String,
     set: String,
     decoration: String,
     manager: {
