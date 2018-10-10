@@ -45,6 +45,7 @@ $(function(){
         $('.itemPaper').map(function () {
             data.sizePaper.push($(this).text());
         });
+        data.typePaper = $('.typePaper').val() || '';
         data.typePaperSize = $('.typePaperSize').val() || '';
         data.typePaperGramm = $('.typePaperGramm').val() || '';
         data.set = $('.set').val() || '';

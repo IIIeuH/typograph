@@ -1,4 +1,5 @@
 const model = require('../../models/storekeeper');
+const _     = require('lodash');
 
 exports.main = async (req, res) => {
     try{
@@ -134,6 +135,36 @@ exports.consumptionEdit = async (req, res) => {
     try{
         let consumption = await model.consumptionEdit(req.params.id);
         res.render('storekeeper/consumption-edit', {title: "Кладовщик - расход просмотр!", user: req.user, consumption: consumption});
+    }catch(err){
+        return err
+    }
+};
+
+exports.passportsNoPapers = async (req, res) => {
+    try{
+        let data = await model.passportsNoPapers();
+        data = _.chain(data).groupBy("passportId").map(function(v, i) {
+            return {
+                passportId: i,
+                date:  _.get(_.find(v, 'date'), 'date'),
+                manager: _.get(_.find(v, 'manager'), 'manager'),
+                typePaper: _.map(v, 'typePaper'),
+                grammPaper: _.map(v, 'grammPaper'),
+                sizePaper: _.map(v, 'sizePaper'),
+                count: _.map(v, 'count')
+            }
+        }).value();
+        console.log(data);
+        res.render('storekeeper/passportsNoPapers', {title: "Кладовщик - паспорта!", user: req.user, data: data});
+    }catch(err){
+        return err
+    }
+};
+exports.getPassport = async (req, res) => {
+    try{
+        let passportId = req.params.passportId;
+        let data = await model.getPassport(passportId);
+        res.redirect(`/storekeeper/${data._id}`);
     }catch(err){
         return err
     }

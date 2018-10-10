@@ -138,6 +138,7 @@ const PaperLogs = new Schema({
     typePaper: String,
     grammPaper: String,
     sizePaper: String,
+    enough: Boolean,
     count: Number,
     managerName: String
 },{versionKey: false});

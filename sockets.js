@@ -69,13 +69,14 @@ module.exports.init = function(socket){
 
                 if(stock && stock.count >= count){
                     await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
-                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: count, manager: data.managerName, passportId: data.passportId}).save();
+                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (stock.count - count), manager: data.managerName, passportId: data.passportId, enough:true}).save();
                 }else if(stock && stock.count < count){
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
-                    await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$set: {count: 0}});
-                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: stock.count, manager: data.managerName, passportId: data.passportId}).save();
+                    await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count), manager: data.managerName, passportId: data.passportId, enough:false}).save();
                 }else if(!stock){
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
+                    //await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
                     //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
                     //let confirm = confirm(`На складе нет бумаги тип: ${type} граммаж: ${gramm} формат: ${size}, хотите оставить заявку?`)
                 }

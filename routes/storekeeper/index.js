@@ -23,6 +23,8 @@ router.get('/capitalization-list', ctrl.capitalizationList);
 router.get('/consumption', ctrl.consumption);
 router.get('/consumption-list', ctrl.consumptionList);
 router.get('/consumption/edit/:id', ctrl.consumptionEdit);
+router.get('/passports-no-papers', ctrl.passportsNoPapers);
+router.get('/getpassport/:passportId', ctrl.getPassport);
 
 router.get('/:id', ctrl.passport);
 

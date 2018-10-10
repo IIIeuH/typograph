@@ -1,0 +1,37 @@
+extends layout
+
+
+block content
+    include ../error
+    .panel.panel-white
+        .panel-heading
+            h3.panel-title Паспорта на которые не хватило бумаги
+        .panel-body
+            .row
+                .col-md-12
+                    table.table.table-bordered.table-hover
+                        thead
+                            th Дата
+                            th № паспорта
+                            th Менеджер
+                            th
+                        tbody
+                            for item in data
+                                tr(onclick="window.location.href='/storekeeper/getpassport/"+item.passportId+"'; return false", style="cursor: pointer")
+                                    td=moment(item.date).format('YYYY.MM.DD')
+                                    td=item.passportId
+                                    td=item.manager
+                                    td
+                                        table.table.table-bordered
+                                            thead
+                                                th Тип бумаги
+                                                th Граммаж бумаги
+                                                th Размер бумаги
+                                                th Кол-во бумаги не хватило
+                                            tbody
+                                                each o, i in item.typePaper
+                                                    tr
+                                                        td=item.typePaper[i]
+                                                        td=item.grammPaper[i]
+                                                        td=item.sizePaper[i]
+                                                        td=item.count[i]

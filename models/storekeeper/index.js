@@ -52,3 +52,11 @@ module.exports.consumptionEdit = async (id) => {
 module.exports.getNumber = async (collection) => {
     return await model[collection].findOne({}, {number: 1, _id: 0}).sort({number:-1}).limit(1);
 };
+
+module.exports.passportsNoPapers = async () => {
+    return model['paperlogs'].find({enough:false}).sort({date:-1});
+};
+
+module.exports.getPassport = async (passport) => {
+    return model.passports.findOne({passportId: passport}, {_id: 1});
+};
