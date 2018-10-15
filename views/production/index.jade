@@ -39,8 +39,8 @@ block content
                         tbody
                             each item in passports
                                 tr.status-check(data-status=item.status, data-id=item.passportId)
-                                    td.passport-date-created(onclick='window.location.href="/production/'+item._id+'"; return false')=moment(item.createdAt).format("YYYY.MM.DD")
-                                    td.passport-date(onclick='window.location.href="/production/'+item._id+'"; return false')=moment(item.passOn, "YYYY.MM.DD").format("YYYY.MM.DD")
+                                    td.passport-date-created(onclick='window.location.href="/production/'+item._id+'"; return false')=moment(item.createdAt).format("DD.MM.YYYY")
+                                    td.passport-date(onclick='window.location.href="/production/'+item._id+'"; return false')=moment(item.passOn, "YYYY.MM.DD").format("DD.MM.YYYY")
                                     td.passport-number(onclick='window.location.href="/production/'+item._id+'"; return false')=item.inc
                                     td.passport-customer(onclick='window.location.href="/production/'+item._id+'"; return false')=item.customer
                                     td.passport-paper(onclick='window.location.href="/production/'+item._id+'"; return false')

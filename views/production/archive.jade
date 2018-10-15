@@ -31,8 +31,8 @@ block content
                 tbody
                     each item in passports
                         tr.status-check(data-status=item.status, data-id=item.passportId)
-                            td.passport-date-created=moment(item.createdAt).format("YYYY.MM.DD")
-                            td.passport-date=moment(item.passOn, "YYYY.MM.DD").format("YYYY.MM.DD")
+                            td.passport-date-created=moment(item.createdAt).format("DD.MM.YYYY")
+                            td.passport-date=moment(item.passOn, "YYYY.MM.DD").format("DD.MM.YYYY")
                             td.passport-number=item.inc
                             td.passport-customer=item.customer
                             td.passport-paper
