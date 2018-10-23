@@ -154,7 +154,6 @@ exports.passportsNoPapers = async (req, res) => {
                 count: _.map(v, 'count')
             }
         }).value();
-        console.log(data);
         res.render('storekeeper/passportsNoPapers', {title: "Кладовщик - паспорта!", user: req.user, data: data});
     }catch(err){
         return err

@@ -3,6 +3,67 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 const _ = require('lodash');
 
+function groupBy( array , f )
+{
+    var groups = {};
+    array.forEach( function( o )
+    {
+        var group = JSON.stringify( f(o) );
+        groups[group] = groups[group] || [];
+        groups[group].push( o );
+    });
+    return Object.keys(groups).map( function( group )
+    {
+        return groups[group];
+    })
+}
+
+async function sellPapperAndLogs(allCar,managerName, passportId){
+    var result = groupBy(allCar, function(item){
+        return [item.typePaper, item.grammPaper, item.sizePaper];
+    });
+
+    let arrayNoPapers = [];
+
+    let res = result.map( async(o) => {
+        let count = 0;
+        let type = null;
+        let gramm = null;
+        let size = null;
+        o.forEach( (item)  => {
+            count += +item.allSheet;
+            type = item.typePaper;
+            gramm = item.grammPaper;
+            size = item.sizePaper;
+        });
+
+        console.log(count);
+
+        let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
+
+        if(stock && stock.count >= count){
+            await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+            await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (stock.count - count), manager: managerName, passportId: passportId, enough:true}).save();
+        }else if(stock && stock.count < count){
+            arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
+            await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+            await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count), manager: managerName, passportId: passportId, enough:false}).save();
+        }else if(!stock){
+            arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
+            //await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+            //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
+            //let confirm = confirm(`На складе нет бумаги тип: ${type} граммаж: ${gramm} формат: ${size}, хотите оставить заявку?`)
+        }
+
+        return {typePaper: type, grammPaper: gramm, sizePaper: size, count: count};
+    });
+
+    Promise.all(res).then( async() =>{
+        return arrayNoPapers;
+    });
+}
+
+
 module.exports.init = function(socket){
     socket.on('savePassportBtn', async (data, priceLog, cb) => {
         try{
@@ -32,21 +93,6 @@ module.exports.init = function(socket){
 
 
 
-            function groupBy( array , f )
-            {
-                var groups = {};
-                array.forEach( function( o )
-                {
-                    var group = JSON.stringify( f(o) );
-                    groups[group] = groups[group] || [];
-                    groups[group].push( o );
-                });
-                return Object.keys(groups).map( function( group )
-                {
-                    return groups[group];
-                })
-            }
-
             var result = groupBy(data.allCar, function(item){
                 return [item.typePaper, item.grammPaper, item.sizePaper];
             });
@@ -68,12 +114,12 @@ module.exports.init = function(socket){
                 let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
 
                 if(stock && stock.count >= count){
-                    await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
-                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (stock.count - count), manager: data.managerName, passportId: data.passportId, enough:true}).save();
+                    //await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+                    //await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (stock.count - count), manager: data.managerName, passportId: data.passportId, enough:true}).save();
                 }else if(stock && stock.count < count){
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
-                    await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
-                    await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count), manager: data.managerName, passportId: data.passportId, enough:false}).save();
+                    //await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+                    //await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count), manager: data.managerName, passportId: data.passportId, enough:false}).save();
                 }else if(!stock){
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
                     //await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
@@ -247,12 +293,35 @@ module.exports.init = function(socket){
 
 
     //Отправка допечатнику
-    socket.on('prepress', async (id, cb) => {
+    socket.on('prepress', async (id, allCar,managerName, passportId, cb) => {
         try{
+            let resInc = await model.passports.aggregate([
+                {
+                    $match: {}
+                },
+                {
+                    $group: {
+                        _id: null,
+                        inc: {$max: "$inc"}
+                    }
+                }
+            ]);
+            let inc = 0;
+            if(!resInc.length){
+                inc = + 1;
+            }else{
+                inc = resInc[0].inc + 1;
+            }
+            let str = '00000';
+            let number = +String(inc).length;
+            str = str.slice(number) + String(inc);
+            passportId += '-' + str;
+            await sellPapperAndLogs(allCar,managerName, passportId);
             await model.passports.update({passportId: id}, {$set: {status: "prepress"}});
             socket.broadcast.emit('prepress-status', `Паспорт ${id} отправлен допечатнику!`);
             cb({status: 200, msg: 'Паспорт отправлен допечатнику!'});
         }catch(err){
+            console.log(err);
             cb({status: 412, err: err._message, msg: `Ошибка отправки! ${err}`});
         }
     });

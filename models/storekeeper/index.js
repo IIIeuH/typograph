@@ -17,7 +17,7 @@ module.exports.getPapperType = async(table) => {
 };
 
 module.exports.getPapers = async() => {
-    return await model.stockpapers.find({}).sort({grammPaper: -1});
+    return await model.stockpapers.find({}).sort({typePaper: -1});
 };
 
 

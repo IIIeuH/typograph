@@ -50,7 +50,27 @@ $(function(){
     btnSent.click(function(){
         var p = confirm("Вы уверены что хотите отправить этот паспорт допечатнику?");
         if(p){
-            socket.emit('prepress', $(this).data('id'), function (res) {
+
+            var allCar = [];
+            $('.car-container').each(function(){
+                var obj = {};
+                obj.typePaper = $(this).find('.typePaper').val();
+                obj.grammPaper = $(this).find('.typePaperGramm').val();
+                obj.sizePaper = $(this).find('.typePaperSize').val();
+                obj.commentTop = $(this).find('.comment-top').val();
+                obj.car = $(this).find('.car-select').val();
+                obj.sht = $(this).find('.Sht').val();
+                obj.on = $(this).find('.on').val();
+                obj.printSheet = $(this).find('.printSheet').val();
+                obj.allSheet = $(this).find('.allSheet').val();
+                obj.signature = $(this).find('.signature').val();
+                allCar.push(obj);
+            });
+
+            var managerName = get_cookie('manager') || '';
+            var passportId = moment().format("DDMMYYYY") || '';
+
+            socket.emit('prepress', $(this).data('id'), allCar, managerName, passportId, function (res) {
                 if(res.status === 200){
                     Snackbar.show({
                         text: res.msg,
