@@ -1,11 +1,11 @@
 const model = require('../../shema');
 
 module.exports.main = async() => {
-    return await model.passports.find({status: "citipi"});
+    return await model.passports.find({status: "citipi"}).sort({inc: -1});
 };
 
 module.exports.all = async() => {
-    return await model.passports.find();
+    return await model.passports.find().sort({inc: -1});
 };
 
 module.exports.passport = async(id) => {

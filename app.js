@@ -11,6 +11,8 @@ const routes = require('./routes/index');
 const passport = require('./models/passport');
 const flash        = require('req-flash');
 const MongoStore = require('connect-mongo')(session);
+const helmet = require('helmet');
+const compression = require('compression');
 const ctrl = require('./ctrl/index');
 const app = express();
 const http = require('http').Server(app);
@@ -27,6 +29,8 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(helmet());
+app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

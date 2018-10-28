@@ -27,7 +27,7 @@ block content
                     each item in passports
                         tr(data-status=item.status, data-id=item.passportId, onclick='window.location.href="/citipi/all/'+item._id+'"; return false')
                             td.passport-date-created=moment(item.createdAt).format("DD.MM.YYYY")
-                            td.passport-date=moment(item.passOn, "YYYY.MM.DD").format("DD.MM.YYYY")
+                            td.passport-date=item.passOn
                             td.passport-number=item.inc
                             td.passport-customer=item.customer
                             td.passport-paper

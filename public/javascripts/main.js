@@ -380,39 +380,48 @@ $(function(){
 
     //поиск в pasports
     strData.keyup(function(){
-        searchPassports($(this).val(), data);
+        //searchPassports($(this).val(), data);
+        searchPassportsBd($(this).val(), 'passOn', data);
     });
     strDataCreated.keyup(function(){
-        console.log($(this).val(), dataCreated);
-        searchPassports($(this).val(), dataCreated);
+        //searchPassports($(this).val(), dataCreated);
+        searchPassportsBd($(this).val(), 'date', dataCreated);
     });
     strNumber.keyup(function(){
         searchPassports($(this).val(), number);
+        //searchPassportsBd($(this).val(), 'inc');
     });
     strId.keyup(function(){
-        searchPassports($(this).val(), id);
+        //searchPassports($(this).val(), id);
+        searchPassportsBd($(this).val(), 'passportId', id);
     });
     strCustomer.keyup(function(){
-        searchPassports($(this).val(), customer);
+        //searchPassports($(this).val(), customer);
+        searchPassportsBd($(this).val(), 'customer', customer);
     });
     strManager.keyup(function(){
-        searchPassports($(this).val(), manager);
+        //searchPassports($(this).val(), manager);
+        searchPassportsBd($(this).val(), 'manager', manager);
     });
-    strPaper.keyup(function(){
-        searchPassports($(this).val(), paper);
-    });
+    // strPaper.keyup(function(){
+    //     //searchPassports($(this).val(), paper);
+    //     searchPassportsBd($(this).val(), 'date');
+    // });
     strDensity.keyup(function(){
         searchPassports($(this).val(), density);
+        //searchPassportsBd($(this).val(), 'price');
     });
     strCirculation.keyup(function(){
-        searchPassports($(this).val(), circulation);
+        //searchPassports($(this).val(), circulation);
+        searchPassportsBd($(this).val(), 'circulationFiled', circulation);
     });
-    strColor.keyup(function(){
-        searchPassports($(this).val(), color);
-    });
-    strSheet.keyup(function(){
-        searchPassports($(this).val(), sheet);
-    });
+    // strColor.keyup(function(){
+    //     //searchPassports($(this).val(), color);
+    //     searchPassportsBd($(this).val(), '');
+    // });
+    // strSheet.keyup(function(){
+    //     searchPassports($(this).val(), sheet);
+    // });
 
     //Убираем чат
     if(window.location.pathname === '/'){
@@ -460,6 +469,54 @@ function searchPassports(str, field){
             tr.hide();
         }
     })
+}
+
+
+function searchPassportsBd(str, field, data){
+    if(window.location.href.split('/')[3] === 'production' || window.location.href.split('/')[3] === 'storekeeper'){
+        searchPassports(str, data)
+    }else{
+        socket.emit('searchPassports', str, field, window.location.href.split('/')[3], window.location.href.split('/')[4], function(res) {
+            $('.passports-data').find('tbody').empty();
+            if(res.passports.length){
+                console.log();
+                if(window.location.href.split('/')[3] === 'manager'){
+                    res.passports.forEach( function(item) {
+                        $('.passports-data').find('tbody').append(
+                            '<tr class="status" data-status="'+item.status+'">\n' +
+                            '  <td class="passport-date-created" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+moment(item.createdAt).format("DD.MM.YYYY")+'</td>' +
+                            '  <td class="passport-date" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+item.passOn+'</td>' +
+                            '  <td class="passport-number" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+item.inc+'</td>' +
+                            '  <td class="passport-customer" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+item.customer+'</td>' +
+                            '  <td class="passport-paper" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false"><strong>Тип:</strong>'+item.typePaper+'<br /><strong>Размер:</strong>'+item.typePaperSize+'<br /><strong>Граммаж:</strong> '+item.typePaperGramm+'</td>' +
+                            '  <td class="passport-price" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+item.price+'</td>' +
+                            '  <td class="passport-circulation" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+item.circulationFiled+'</td>' +
+                            '  <td class="passport-id" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+item.passportId+'</td>' +
+                            '  <td>' +
+                            '       <i class="material-icons removeRow" id="'+item._id+'" data-name="пасспорт от ' + item.date + ', номер паспорта ' + item.passportId + ', Заказчик: ' + item.customer +'">delete_forever</i>' +
+                            '  </td>' +
+                            '</tr>'
+                        );
+                    });
+                    statusManager();
+                }else{
+                    res.passports.forEach( function(item) {
+                        $('.passports-data').find('tbody').append(
+                            '<tr class="status" data-status="'+item.status+'">\n' +
+                            '  <td class="passport-date-created" onclick="window.location.href=&quot;'+window.location.pathname+'/'+item._id+'&quot;; return false">'+moment(item.createdAt).format("DD.MM.YYYY")+'</td>' +
+                            '  <td class="passport-date" onclick="window.location.href=&quot;'+window.location.pathname+'/'+item._id+'&quot;; return false">'+item.passOn+'</td>' +
+                            '  <td class="passport-number" onclick="window.location.href=&quot;'+window.location.pathname+'/'+item._id+'&quot;; return false">'+item.inc+'</td>' +
+                            '  <td class="passport-customer" onclick="window.location.href=&quot;'+window.location.pathname+'/'+item._id+'&quot;; return false">'+item.customer+'</td>' +
+                            '  <td class="passport-paper" onclick="window.location.href=&quot;'+window.location.pathname+'/'+item._id+'&quot;; return false"><strong>Тип:</strong>'+item.typePaper+'<br /><strong>Размер:</strong>'+item.typePaperSize+'<br /><strong>Граммаж:</strong> '+item.typePaperGramm+'</td>' +
+                            '  <td class="passport-circulation" onclick="window.location.href=&quot;'+window.location.pathname+'/'+item._id+'&quot;; return false">'+item.circulationFiled+'</td>' +
+                            '  <td class="passport-id" onclick="window.location.href=&quot;'+window.location.pathname+'/'+item._id+'&quot;; return false">'+item.passportId+'</td>' +
+                            '</tr>'
+                        );
+                    });
+                }
+            }
+        });
+    }
 }
 
 
@@ -558,7 +615,6 @@ function removeCar(){
 
 //Цвета для менеджеры
 function statusManager(){
-    console.time('start');
     var el = $('.status');
     el.each(function(){
         switch ($(this).data('status')){
@@ -596,7 +652,6 @@ function statusManager(){
         //     $(this).addClass('success');
         // }
     });
-    console.timeEnd('start');
 }
 
 

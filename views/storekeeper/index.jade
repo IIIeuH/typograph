@@ -46,7 +46,7 @@ block content
                 tbody
                     each item in passports
                         tr.status-check.hider(data-status=item.status, data-id=item.passportId)
-                            td.passport-date(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=moment(item.passOn, "YYYY.MM.DD.").format("DD.MM")
+                            td.passport-date(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=item.passOn
                             td.passport-number(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=item.inc
                             td.passport-customer(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')=item.customer
                             td.passport-paper(onclick='window.location.href="/storekeeper/'+item._id+'"; return false')

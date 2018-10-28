@@ -607,5 +607,42 @@ module.exports.init = function(socket){
         }
     });
 
+    //Подгрузка данных
+    socket.on('loadContent', async (skip, cb) => {
+        try{
+            console.log(skip);
+            let passports = await model.passports.find({},{passOn: 1, inc: 1, customer: 1, price: 1, circulationFiled: 1, passportId: 1, status: 1, typePaper: 1, typePaperSize: 1, typePaperGramm: 1, createdAt: 1, date: 1}).sort({inc: -1}).skip(skip).limit(20);
+            cb({status: 200, passports});
+        }catch(err){
+            console.log(err);
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
+    //Поиск данных
+    socket.on('searchPassports', async (str, field, role, dop, cb) => {
+        try{
+            let search = {};
+
+            if(role === 'manager'){
+                search[field] = new RegExp(str);
+            }else if(role === 'citipi' && !dop){
+                search[field] = new RegExp(str);
+                search.status = role;
+            }else if(role === 'citipi' && dop){
+                search[field] = new RegExp(str);
+            }else if(role === 'prepress' && !dop){
+                search[field] = new RegExp(str);
+                search.status = role;
+            }else if(role === 'prepress' && dop){
+                search[field] = new RegExp(str);
+            }
+            let passports = await model.passports.find(search,{passOn: 1, inc: 1, customer: 1, price: 1, circulationFiled: 1, passportId: 1, status: 1, typePaper: 1, typePaperSize: 1, typePaperGramm: 1, createdAt: 1, date: 1}).sort({inc: -1}).limit(20);
+            cb({status: 200, passports});
+        }catch(err){
+            console.log(err);
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
 
 };

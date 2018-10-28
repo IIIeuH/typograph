@@ -24,7 +24,7 @@ $(function(){
         data.decoration = [];
         data.manager = [];
         data.allCar = [];
-        data.passOn = $('.pass-on').val() || '';
+        data.passOn = moment($('.pass-on').val(), "YYYY-MM-DD").format("DD.MM.YYYY") || '';
         data.timePassport = $('.time').val() || '';
         data.contactPerson = $('.contact-person').val() || '';
         data.phone = $('.phone').val() || '';
@@ -149,7 +149,7 @@ $(function(){
         data.decoration = [];
         data.manager = [];
         data.allCar = [];
-        data.passOn = $('.pass-on').val() || '';
+        data.passOn = moment($('.pass-on').val(), "YYYY-MM-DD").format("DD.MM.YYYY") || '';
         data.timePassport = $('.time').val() || '';
         data.contactPerson = $('.contact-person').val() || '';
         data.phone = $('.phone').val() || '';
