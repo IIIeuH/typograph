@@ -1,7 +1,7 @@
 const model = require('../../shema');
 
 module.exports.main = async() => {
-    return await model.passports.find({status: "keeper", podstatus: {$exists: false}});
+    return await model.passports.find({status: "keeper", podstatus: {$exists: false}}).sort({inc: -1});
 };
 
 module.exports.archive = async() => {

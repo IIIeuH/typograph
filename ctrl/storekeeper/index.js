@@ -144,6 +144,7 @@ exports.passportsNoPapers = async (req, res) => {
     try{
         let data = await model.passportsNoPapers();
         data = _.chain(data).groupBy("passportId").map(function(v, i) {
+            console.log(i);
             return {
                 passportId: i,
                 date:  _.get(_.find(v, 'date'), 'date'),
@@ -162,7 +163,9 @@ exports.passportsNoPapers = async (req, res) => {
 exports.getPassport = async (req, res) => {
     try{
         let passportId = req.params.passportId;
+        console.log(passportId);
         let data = await model.getPassport(passportId);
+        console.log(data);
         res.redirect(`/storekeeper/${data._id}`);
     }catch(err){
         return err
