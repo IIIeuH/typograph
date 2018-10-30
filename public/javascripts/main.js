@@ -388,8 +388,8 @@ $(function(){
         searchPassportsBd($(this).val(), 'date', dataCreated);
     });
     strNumber.keyup(function(){
-        searchPassports($(this).val(), number);
-        //searchPassportsBd($(this).val(), 'inc');
+        //searchPassports($(this).val(), number);
+        searchPassportsBd($(this).val(), 'incString');
     });
     strId.keyup(function(){
         //searchPassports($(this).val(), id);

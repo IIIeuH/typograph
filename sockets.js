@@ -37,7 +37,6 @@ async function sellPapperAndLogs(allCar,managerName, passportId){
             size = item.sizePaper;
         });
 
-        console.log(count);
 
         let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
 
@@ -83,6 +82,7 @@ module.exports.init = function(socket){
             }else{
                 data.inc = inc[0].inc + 1;
             }
+            data.incString = data.inc;
             let str = '00000';
             let number = +String(data.inc).length;
             str = str.slice(number) + String(data.inc);
@@ -625,20 +625,20 @@ module.exports.init = function(socket){
             let search = {};
 
             if(role === 'manager'){
-                search[field] = new RegExp(str, 'gi');
+                search[field] = new RegExp(str, 'i');
             }else if(role === 'citipi' && !dop){
-                search[field] = new RegExp(str, 'gi');
+                search[field] = new RegExp(str, 'i');
                 search.status = role;
             }else if(role === 'citipi' && dop){
-                search[field] = new RegExp(str, 'gi');
+                search[field] = new RegExp(str, 'i');
             }else if(role === 'prepress' && !dop){
-                search[field] = new RegExp(str, 'gi');
+                search[field] = new RegExp(str, 'i');
                 search.status = role;
             }else if(role === 'prepress' && dop){
-                search[field] = new RegExp(str, 'gi');
+                search[field] = new RegExp(str, 'i');
             }
-            console.log(search);
             let passports = await model.passports.find(search,{passOn: 1, inc: 1, customer: 1, price: 1, circulationFiled: 1, passportId: 1, status: 1, typePaper: 1, typePaperSize: 1, typePaperGramm: 1, createdAt: 1, date: 1}).sort({inc: -1}).limit(20);
+            //let passports = await model.passports.find({$where: "/146.*/.test(String(this.passOn))" }).sort({inc: -1}).limit(20);
             cb({status: 200, passports});
         }catch(err){
             console.log(err);

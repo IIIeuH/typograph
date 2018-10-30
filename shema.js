@@ -77,6 +77,7 @@ const Passports = new Schema({
     timeSave: String,
     passportId: String,
     inc: Number,
+    incString: String,
     managerId: ObjectId,
     status: String,
     podstatus: String,
