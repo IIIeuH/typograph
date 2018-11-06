@@ -18,7 +18,7 @@ block content
                         tbody
                             for item in data
                                 tr(onclick="window.location.href='/storekeeper/getpassport/"+item.passportId+"'; return false", style="cursor: pointer")
-                                    td=moment(item.date).format('YYYY.MM.DD')
+                                    td=moment(item.date).format('DD.MM.YYYY')
                                     td=item.passportId
                                     td=item.manager
                                     td

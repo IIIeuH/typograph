@@ -143,11 +143,12 @@ exports.consumptionEdit = async (req, res) => {
 exports.passportsNoPapers = async (req, res) => {
     try{
         let data = await model.passportsNoPapers();
-        data = _.chain(data).groupBy("passportId").map(function(v, i) {
+        console.log(data);
+        data = _.chain(data).groupBy("date").map(function(v, i) {
             console.log(i);
             return {
-                passportId: i,
-                date:  _.get(_.find(v, 'date'), 'date'),
+                passportId: _.get(_.find(v, 'passportId'), 'passportId'),
+                date:  i,
                 manager: _.get(_.find(v, 'manager'), 'manager'),
                 typePaper: _.map(v, 'typePaper'),
                 grammPaper: _.map(v, 'grammPaper'),

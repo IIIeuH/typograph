@@ -68,7 +68,7 @@ $(function(){
             });
 
             var managerName = get_cookie('manager') || '';
-            var passportId = moment().format("DDMMYYYY") || '';
+            var passportId = $(this).data('id');
 
             socket.emit('prepress', $(this).data('id'), allCar, managerName, passportId, function (res) {
                 if(res.status === 200){

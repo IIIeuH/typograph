@@ -40,15 +40,20 @@ async function sellPapperAndLogs(allCar,managerName, passportId){
 
         let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
 
+        console.log(stock);
+
         if(stock && stock.count >= count){
+            console.log(123);
             await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
             await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (stock.count - count), manager: managerName, passportId: passportId, enough:true}).save();
         }else if(stock && stock.count < count){
+            console.log(234);
             arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
             await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
             await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count), manager: managerName, passportId: passportId, enough:false}).save();
         }else if(!stock){
             arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
+            await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: count, manager: managerName, passportId: passportId, enough:false}).save();
             //await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
             //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
             //let confirm = confirm(`На складе нет бумаги тип: ${type} граммаж: ${gramm} формат: ${size}, хотите оставить заявку?`)
@@ -315,7 +320,6 @@ module.exports.init = function(socket){
             let str = '00000';
             let number = +String(inc).length;
             str = str.slice(number) + String(inc);
-            passportId += '-' + str;
             await sellPapperAndLogs(allCar,managerName, passportId);
             await model.passports.update({passportId: id}, {$set: {status: "prepress"}});
             socket.broadcast.emit('prepress-status', `Паспорт ${id} отправлен допечатнику!`);
