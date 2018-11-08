@@ -10,7 +10,7 @@ $(document).ready(function(){
                     $('.'+table).find('tbody').append(
                         '<tr class="status" data-status="'+item.status+'">\n' +
                         '  <td class="passport-date-created" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+moment(item.createdAt).format("DD.MM.YYYY")+'</td>' +
-                        '  <td class="passport-date" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+moment(item.passOn, "YYYY.MM.DD").format("DD.MM.YYYY")+'</td>' +
+                        '  <td class="passport-date" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+moment(item.passOn, "DD.MM.YYYY").format("DD.MM.YYYY")+'</td>' +
                         '  <td class="passport-number" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+item.inc+'</td>' +
                         '  <td class="passport-customer" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+item.customer+'</td>' +
                         '  <td class="passport-paper" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false"><strong>Тип:</strong>'+item.typePaper+'<br /><strong>Размер:</strong>'+item.typePaperSize+'<br /><strong>Граммаж:</strong> '+item.typePaperGramm+'</td>' +
