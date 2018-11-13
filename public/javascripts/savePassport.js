@@ -111,22 +111,56 @@ $(function(){
                 valid = false;
             }else if(res.status === 201){
                 var text = '';
-                res.arr.forEach(function (item){
-                    text += 'На складе не хватает бумаги тип: '+item.typePaper+' граммаж: '+item.grammPaper+' формат: '+item.sizePaper+' '+item.count+' штук.\n'
-                });
-                var confirmer = confirm(text + 'Хотите оставить заявку?');
-                if(confirmer){
-                    var obj = {
-                        order: res.arr,
-                        person: get_cookie('manager')
-                    };
-                    socket.emit('stockOrder', obj, function(res) {
-                        window.location.replace('/manager/orderpapers')
+                var noPaper = res.arr.filter( function (item) {return !item.stock});
+                if(noPaper.length){
+                    noPaper.forEach(function (item){
+                        text += 'Вы не сможете создать паспорт так как на складе не существует бумага тип: '+item.typePaper+' граммаж: '+item.grammPaper+' формат: '+item.sizePaper+' '+item.count+'\n'
                     });
+                    var confirmer = confirm(text + 'Хотите оставить заявку?');
+                    if(confirmer){
+                        var obj = {
+                            order: noPaper,
+                            person: get_cookie('manager'),
+                            status: 'order'
+                        };
+                        socket.emit('stockOrder', obj, function(res) {
+                            if(res.status === 200){
+                                Snackbar.show({
+                                    text: 'Заявка отправлена!',
+                                    pos: 'top-center',
+                                    actionText: null
+                                });
+                            }else{
+                                Snackbar.show({
+                                    text: res.msg,
+                                    pos: 'top-center',
+                                    actionText: null
+                                });
+                            }
+                            // window.location.replace('/manager/orderpapers')
+                        });
+                    }else{
+                        window.location.replace('/manager/allpassport');
+                    }
+                    valid = false;
                 }else{
-                    window.location.replace('/manager/allpassport');
+                    res.arr.forEach(function (item){
+                        text += 'На складе не хватает бумаги тип: '+item.typePaper+' граммаж: '+item.grammPaper+' формат: '+item.sizePaper+' '+item.count+' штук.\n'
+                    });
+                    var confirmer = confirm(text + 'Хотите оставить заявку?');
+                    if(confirmer){
+                        var obj = {
+                            order: res.arr,
+                            person: get_cookie('manager')
+                        };
+                        socket.emit('stockOrder', obj, function(res) {
+                            window.location.replace('/manager/orderpapers')
+                        });
+                    }else{
+                        window.location.replace('/manager/allpassport');
+                    }
+                    valid = true;
                 }
-                valid = true;
             }else{
                 window.location.replace('/manager/allpassport');
                 valid = true;

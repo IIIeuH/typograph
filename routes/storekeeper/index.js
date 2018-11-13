@@ -14,6 +14,7 @@ router.get('/grammpappers', ctrl.grammpappers);
 router.get('/sizepappers', ctrl.sizepappers);
 
 router.get('/capitalization', ctrl.capitalization);
+router.get('/capitalization/redactor/:id', ctrl.capitalizationRedactor);
 router.post('/capitalization', (req, res) => {
     res.redirect('/storekeeper/capitalization');
 });

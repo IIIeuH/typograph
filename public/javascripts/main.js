@@ -537,6 +537,7 @@ function addCar(){
         '            <div class="form-group">\n' +
         '              <div class="col-md-3">\n' +
         '                <select required="required" class="form-control car-select not-select">\n' +
+        '                  <option></option>\n' +
         '                  <option>A2</option>\n' +
         '                  <option>A3</option>\n' +
         '                </select>\n' +

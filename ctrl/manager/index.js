@@ -1,4 +1,5 @@
 const model = require('../../models/manager');
+const _     = require('lodash');
 
 
 exports.main = (req, res) => {
@@ -59,5 +60,6 @@ exports.orderPapers =  async function(req, res, next) {
 
 exports.stockOrders =  async function(req, res, next) {
     let papers = await model.getPapers();
-    res.render('manager/stockOrders', { title: 'Склад бумаги', papers:papers});
+    let sortNamePaper = _.orderBy(papers, ['typePaper', 'grammPaper'], ['desc', 'asc']);
+    res.render('manager/stockOrders', { title: 'Склад бумаги', papers:sortNamePaper});
 };

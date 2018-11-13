@@ -35,7 +35,9 @@ exports.paper = async (req, res) => {
         // let size = await model.getPapperType('sizepappers');
         // let type = await model.getPapperType('typepappers');
         let papers = await model.getPapers();
-        res.render('storekeeper/papers', {title: "Кладовщик - Склад!", user: req.user, papers:papers});
+        let sortNamePaper = _.orderBy(papers, ['typePaper', 'grammPaper'], ['desc', 'asc']);
+        // return (a && +a.grammPaper) - (b && +b.grammPaper
+        res.render('storekeeper/papers', {title: "Кладовщик - Склад!", user: req.user, papers:sortNamePaper});
     }catch(err){
         return err
     }
@@ -92,6 +94,19 @@ exports.capitalization = async (req, res) => {
     }
 };
 
+exports.capitalizationRedactor = async (req, res) => {
+    try{
+        let gramm = await model.getPapperType('grammpappers');
+        let size = await model.getPapperType('sizepappers');
+        let type = await model.getPapperType('typepappers');
+        let capitalization = await model.getCapitalization(req.params.id);
+        res.cookie('paper', capitalization.papper);
+        res.render('storekeeper/capitalization-redactor', {title: "Кладовщик - Редактирование оприходования товара!", capitalization:capitalization, gramm:gramm, size:size, type:type});
+    }catch(err){
+        return err
+    }
+};
+
 exports.consumption = async (req, res) => {
     try{
         let gramm = await model.getPapperType('grammpappers');
@@ -143,9 +158,7 @@ exports.consumptionEdit = async (req, res) => {
 exports.passportsNoPapers = async (req, res) => {
     try{
         let data = await model.passportsNoPapers();
-        console.log(data);
         data = _.chain(data).groupBy("date").map(function(v, i) {
-            console.log(i);
             return {
                 passportId: _.get(_.find(v, 'passportId'), 'passportId'),
                 date:  i,

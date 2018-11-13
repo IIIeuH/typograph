@@ -1,4 +1,5 @@
 const model = require('../../shema');
+const mongoose = require('mongoose');
 
 module.exports.main = async() => {
     return await model.passports.find({status: "keeper", podstatus: {$exists: false}}).sort({inc: -1});
@@ -17,7 +18,7 @@ module.exports.getPapperType = async(table) => {
 };
 
 module.exports.getPapers = async() => {
-    return await model.stockpapers.find({}).sort({typePaper: -1, grammPaper: -1});
+    return await model.stockpapers.find({});
 };
 
 
@@ -51,6 +52,10 @@ module.exports.consumptionEdit = async (id) => {
 
 module.exports.getNumber = async (collection) => {
     return await model[collection].findOne({}, {number: 1, _id: 0}).sort({number:-1}).limit(1);
+};
+
+module.exports.getCapitalization = async (id) => {
+    return await model.capitalizations.findOne({_id: mongoose.Types.ObjectId(id)});
 };
 
 module.exports.passportsNoPapers = async () => {

@@ -149,7 +149,7 @@ const StockPapers = new Schema({
     grammPaperId: ObjectId,
     sizePaperId: ObjectId,
     typePaper: String,
-    grammPaper: String,
+    grammPaper: Number,
     sizePaper: String,
     count: Number,
     person: String

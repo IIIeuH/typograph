@@ -122,11 +122,11 @@ module.exports.init = function(socket){
                     //await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
                     //await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (stock.count - count), manager: data.managerName, passportId: data.passportId, enough:true}).save();
                 }else if(stock && stock.count < count){
-                    arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
+                    arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count), stock: true});
                     //await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
                     //await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count), manager: data.managerName, passportId: data.passportId, enough:false}).save();
                 }else if(!stock){
-                    arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count});
+                    arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count, stock: false});
                     //await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
                     //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
                     //let confirm = confirm(`На складе нет бумаги тип: ${type} граммаж: ${gramm} формат: ${size}, хотите оставить заявку?`)
@@ -157,7 +157,6 @@ module.exports.init = function(socket){
                 }
             });
         }catch(err){
-            console.err(err);
             cb({status: 412, err: err._message, msg: 'Заполните обязательные поля'});
             return err;
         }
@@ -563,6 +562,43 @@ module.exports.init = function(socket){
             cb({status: 200, msg: 'Обновлено!'});
         }catch(err){
             console.log(err);
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
+    //Обновление бумаги на склад через приход массивом
+    socket.on('redactorPaperCapitalization', async (data, id, cb) => {
+        try{
+            await model.capitalizations.update({_id: mongoose.Types.ObjectId(id)}, {$set: data});
+
+            for (let item of data.papper){
+                console.log(item);
+                let paper = await model.stockpapers.findOne({typePaperId: mongoose.Types.ObjectId(item.typePaperId), grammPaperId: mongoose.Types.ObjectId(item.grammPaperId), sizePaperId: mongoose.Types.ObjectId(item.sizePaperId)});
+                if(paper){
+                    await model.stockpapers.update({typePaperId: item.typePaperId, grammPaperId: item.grammPaperId, sizePaperId: item.sizePaperId}, {$inc: {count: item.count}});
+                }else{
+                    await new model.stockpapers(item).save();
+                }
+            }
+            cb({status: 200, msg: 'Обновлено!'});
+        }catch(err){
+            console.log(err);
+            cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
+        }
+    });
+
+    //Списание бумаги на склад через приход массивом для того что бы заного запсать новую бумагу
+    socket.on('subtractPaperCapitalization', async (data, cb) => {
+        try{
+            for (let item of data){
+                let paper = await model.stockpapers.findOne({typePaperId: item.typePaperId, grammPaperId: item.grammPaperId, sizePaperId: item.sizePaperId});
+
+                if(paper){
+                    await model.stockpapers.update({typePaperId: item.typePaperId, grammPaperId: item.grammPaperId, sizePaperId: item.sizePaperId}, {$inc: {count: -item.count}});
+                }
+            }
+            cb({status: 200, msg: 'Обновлено!'});
+        }catch(err){
             cb({status: 412, err: err._message, msg: `Ошибка обновления! ${err}`});
         }
     });

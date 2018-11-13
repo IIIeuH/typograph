@@ -38,5 +38,5 @@ module.exports.deleteItem = async (id, collection) => {
 
 
 module.exports.getPapers = async() => {
-    return await model.stockpapers.find({}).sort({grammPaper: -1});
+    return await model.stockpapers.find({});
 };
