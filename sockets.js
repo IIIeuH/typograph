@@ -38,16 +38,15 @@ async function sellPapperAndLogs(allCar,managerName, passportId){
         });
 
 
+
         let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
 
-        console.log(stock);
+        console.log(stock, count);
 
         if(stock && stock.count >= count){
-            console.log(123);
             await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
             await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (stock.count - count), manager: managerName, passportId: passportId, enough:true}).save();
         }else if(stock && stock.count < count){
-            console.log(234);
             arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count)});
             await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
             await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count), manager: managerName, passportId: passportId, enough:false}).save();
@@ -127,7 +126,7 @@ module.exports.init = function(socket){
                     //await new model.paperlogs({typePaper: type, grammPaper: gramm, sizePaper: size, count: (count - stock.count), manager: data.managerName, passportId: data.passportId, enough:false}).save();
                 }else if(!stock){
                     arrayNoPapers.push({typePaper: type, grammPaper: gramm, sizePaper: size, count: count, stock: false});
-                    //await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
+                    await new model.stockpapers({typePaper: type, grammPaper: gramm, sizePaper: size, count: 0}).save();
                     //cb({status: 200, msg: `На складе не хватает бумаги тип: ${type} граммаж: ${gramm} формат: ${size} ${count - (stock.count || 0)} штук.`});
                     //let confirm = confirm(`На складе нет бумаги тип: ${type} граммаж: ${gramm} формат: ${size}, хотите оставить заявку?`)
                 }
