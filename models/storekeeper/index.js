@@ -26,6 +26,14 @@ module.exports.getOrder = async () => {
     return await model.stockorders.find({status: 'order'}).sort({_id: -1});
 };
 
+module.exports.deleteItem = async (id, collection) => {
+    try{
+        return await shema[collection].deleteOne({_id: id});
+    }catch (err){
+        return err;
+    }
+};
+
 module.exports.findAll = async (collection) => {
     try{
         return await model[collection].find().sort({_id: -1});

@@ -9,12 +9,13 @@ block content
         .panel-body
             .row
                 .col-md-12
-                    table.table.table-bordered
+                    table.table.table-bordered.table-condensed
                         thead
                             th Тип бумаги
                             th Граммаж бумаги
                             th Формат бумаги
                             th Кол-во
+                            th
                         tbody.papers-stock
                             each item in papers
                                 tr
@@ -22,3 +23,5 @@ block content
                                     td=item.grammPaper
                                     td=item.sizePaper
                                     td=item.count
+                                    td(style="width: 35px;")
+                                        i.material-icons.removeRow(style="cursor: pointer;" id=item._id, data-name=' Тип бумаги: ' + item.typePaper + ', Граммаж бумаги: ' + item.grammPaper + ', Формат бумаги: ' + item.sizePaper + ', Кол-во: ' + item.count) delete_forever

@@ -8,6 +8,7 @@ router.route('/archive')
     .get(ctrl.archive);
 
 router.get('/papers', ctrl.paper);
+router.delete('/papers', ctrl.deleteItem);
 router.get('/order-paper', ctrl.orderPaper);
 router.get('/typepappers', ctrl.typepappers);
 router.get('/grammpappers', ctrl.grammpappers);

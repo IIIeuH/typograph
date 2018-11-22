@@ -43,6 +43,10 @@ exports.paper = async (req, res) => {
     }
 };
 
+exports.deleteItem = async (req, res, next) => {
+    res.json(await model.deleteItem(req.body.id, 'stockpapers'));
+};
+
 exports.orderPaper = async (req, res) => {
     try{
         let order = await model.getOrder();
