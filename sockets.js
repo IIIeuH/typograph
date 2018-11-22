@@ -662,8 +662,9 @@ module.exports.init = function(socket){
     socket.on('searchPassports', async (str, field, role, dop, cb) => {
         try{
             let search = {};
+            console.log(str, field, role, dop);
 
-            if(role === 'manager'){
+            if(role === 'manager' || role === 'supervisor'){
                 search[field] = new RegExp(str, 'i');
             }else if(role === 'citipi' && !dop){
                 search[field] = new RegExp(str, 'i');

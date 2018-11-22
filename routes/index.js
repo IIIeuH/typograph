@@ -7,6 +7,7 @@ const prepressRoutes = require('./prepress/index');
 const ticipiRoutes = require('./citipi/index');
 const admin = require('./admin');
 const administrator = require('./administrator');
+const supervisor = require('./supervisor');
 
 router.route('/login')
     .get(ctrl.login)
@@ -29,6 +30,7 @@ router.use('/prepress', ctrl.permission, prepressRoutes);
 router.use('/citipi', ctrl.permission, ticipiRoutes);
 router.use('/admin', ctrl.permission, admin);
 router.use('/administrator', ctrl.permission, administrator);
+router.use('/supervisor', ctrl.permission, supervisor);
 
 router.use(ctrl.error);
 

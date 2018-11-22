@@ -478,8 +478,8 @@ function searchPassportsBd(str, field, data){
     }else{
         socket.emit('searchPassports', str, field, window.location.href.split('/')[3], window.location.href.split('/')[4], function(res) {
             $('.passports-data').find('tbody').empty();
+            console.log(res.passports);
             if(res.passports.length){
-                console.log();
                 if(window.location.href.split('/')[3] === 'manager'){
                     res.passports.forEach( function(item) {
                         $('.passports-data').find('tbody').append(
@@ -494,6 +494,25 @@ function searchPassportsBd(str, field, data){
                             '  <td class="passport-id" onclick="window.location.href=&quot;/manager/passport/'+item._id+'&quot;; return false">'+item.passportId+'</td>' +
                             '  <td>' +
                             '       <i class="material-icons removeRow" id="'+item._id+'" data-name="пасспорт от ' + item.date + ', номер паспорта ' + item.passportId + ', Заказчик: ' + item.customer +'">delete_forever</i>' +
+                            '  </td>' +
+                            '</tr>'
+                        );
+                    });
+                    statusManager();
+                }else if(window.location.href.split('/')[3] === 'supervisor') {
+                    res.passports.forEach(function (item) {
+                        $('.passports-data').find('tbody').append(
+                            '<tr class="status" data-status="' + item.status + '">\n' +
+                            '  <td class="passport-date-created" onclick="window.location.href=&quot;/supervisor/passport/' + item._id + '&quot;; return false">' + moment(item.createdAt).format("DD.MM.YYYY") + '</td>' +
+                            '  <td class="passport-date" onclick="window.location.href=&quot;/supervisor/passport/' + item._id + '&quot;; return false">' + item.passOn + '</td>' +
+                            '  <td class="passport-number" onclick="window.location.href=&quot;/supervisor/passport/' + item._id + '&quot;; return false">' + item.inc + '</td>' +
+                            '  <td class="passport-customer" onclick="window.location.href=&quot;/supervisor/passport/' + item._id + '&quot;; return false">' + item.customer + '</td>' +
+                            '  <td class="passport-paper" onclick="window.location.href=&quot;/supervisor/passport/' + item._id + '&quot;; return false"><strong>Тип:</strong>' + item.typePaper + '<br /><strong>Размер:</strong>' + item.typePaperSize + '<br /><strong>Граммаж:</strong> ' + item.typePaperGramm + '</td>' +
+                            '  <td class="passport-price" onclick="window.location.href=&quot;/supervisor/passport/' + item._id + '&quot;; return false">' + item.price + '</td>' +
+                            '  <td class="passport-circulation" onclick="window.location.href=&quot;/supervisor/passport/' + item._id + '&quot;; return false">' + item.circulationFiled + '</td>' +
+                            '  <td class="passport-id" onclick="window.location.href=&quot;/supervisor/passport/' + item._id + '&quot; return false">' + item.passportId + '</td>' +
+                            '  <td>' +
+                            '       <i class="material-icons removeRow" id="' + item._id + '" data-name="пасспорт от ' + item.date + ', номер паспорта ' + item.passportId + ', Заказчик: ' + item.customer + '">delete_forever</i>' +
                             '  </td>' +
                             '</tr>'
                         );
