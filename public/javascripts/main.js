@@ -548,13 +548,13 @@ function addCar(){
         '        <div class="row">\n' +
         '          <div class="col-md-12">\n' +
         '            <div class="form-group">\n' +
-        '              <label class="col-md-3 control-label">На машину</label>\n' +
-        '              <div class="col-md-3">\n' +
+        '              <label class="col-md-2 control-label">На машину</label>\n' +
+        '              <div class="col-md-5">\n' +
         '                <select style="margin-top: 10px;" required="required" class="form-control typePaper"></select>\n' +
         '              </div>\n' +
         '            </div>\n' +
         '            <div class="form-group">\n' +
-        '              <div class="col-md-3">\n' +
+        '              <div class="col-md-2">\n' +
         '                <select required="required" class="form-control car-select not-select">\n' +
         '                  <option></option>\n' +
         '                  <option>A2</option>\n' +
