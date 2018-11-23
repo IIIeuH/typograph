@@ -320,11 +320,12 @@ $(function(){
 
 
         itogo.each(function(){
+            console.log(+$(this).text());
             all += +$(this).text();
         });
 
 
-        $('#totals-capitalization-all').text(all);
+        $('#totals-capitalization-all').text(all.toFixed(2));
     });
 
 

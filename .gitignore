@@ -1,5 +1,5 @@
 node_modules/
 .idea/
-public/app/
-public/dist/
+public/app/*
+public/dist/*
 
