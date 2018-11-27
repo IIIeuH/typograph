@@ -252,10 +252,16 @@ block content
                                                             .form-group
                                                                 .col-md-2
                                                                     select.form-control.car-select.not-select(required)
-                                                                        if item.car === 'A2'
+                                                                        if item.car === 'A1'
+                                                                            option(selected) A1
+                                                                            option A2
+                                                                            option A3
+                                                                        else if item.car === 'A2'
+                                                                            option A1
                                                                             option(selected) A2
                                                                             option A3
                                                                         else
+                                                                            option A1
                                                                             option A2
                                                                             option(selected) A3
                                                             .form-group
