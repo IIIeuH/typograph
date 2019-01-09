@@ -41,7 +41,6 @@ async function sellPapperAndLogs(allCar,managerName, passportId){
 
         let stock = await model.stockpapers.findOne({typePaper: type, grammPaper: gramm, sizePaper: size});
 
-        console.log(stock, count);
 
         if(stock && stock.count >= count){
             await model.stockpapers.update({typePaper: type, grammPaper: gramm, sizePaper: size}, {$inc: {count: -count}});
@@ -72,7 +71,7 @@ module.exports.init = function(socket){
         try{
             let inc = await model.passports.aggregate([
                 {
-                    $match: {}
+                    $match: {year: new Date().getFullYear()}
                 },
                 {
                     $group: {
@@ -86,11 +85,13 @@ module.exports.init = function(socket){
             }else{
                 data.inc = inc[0].inc + 1;
             }
+            console.log(inc);
             data.incString = data.inc;
             let str = '00000';
             let number = +String(data.inc).length;
             str = str.slice(number) + String(data.inc);
             data.passportId += '-' + str;
+            data.year = new Date().getFullYear();
             priceLog.passportId = data.passportId;
             let saveData = new model.passports(data);
             let saveLogs = new model.pricelogs(priceLog);
@@ -650,7 +651,7 @@ module.exports.init = function(socket){
     socket.on('loadContent', async (skip, cb) => {
         try{
             console.log(skip);
-            let passports = await model.passports.find({},{passOn: 1, inc: 1, customer: 1, price: 1, circulationFiled: 1, passportId: 1, status: 1, typePaper: 1, typePaperSize: 1, typePaperGramm: 1, createdAt: 1, date: 1}).sort({inc: -1}).skip(skip).limit(20);
+            let passports = await model.passports.find({},{passOn: 1, inc: 1, customer: 1, price: 1, circulationFiled: 1, passportId: 1, status: 1, typePaper: 1, typePaperSize: 1, typePaperGramm: 1, createdAt: 1, date: 1}).sort({createdAt: -1, inc: -1}).skip(skip).limit(20);
             cb({status: 200, passports});
         }catch(err){
             console.log(err);
@@ -662,8 +663,6 @@ module.exports.init = function(socket){
     socket.on('searchPassports', async (str, field, role, dop, cb) => {
         try{
             let search = {};
-            console.log(str, field, role, dop);
-
             if(role === 'manager' || role === 'supervisor'){
                 search[field] = new RegExp(str, 'i');
             }else if(role === 'citipi' && !dop){
@@ -677,7 +676,7 @@ module.exports.init = function(socket){
             }else if(role === 'prepress' && dop){
                 search[field] = new RegExp(str, 'i');
             }
-            let passports = await model.passports.find(search,{passOn: 1, inc: 1, customer: 1, price: 1, circulationFiled: 1, passportId: 1, status: 1, typePaper: 1, typePaperSize: 1, typePaperGramm: 1, createdAt: 1, date: 1}).sort({inc: -1});
+            let passports = await model.passports.find(search,{passOn: 1, inc: 1, customer: 1, price: 1, circulationFiled: 1, passportId: 1, status: 1, typePaper: 1, typePaperSize: 1, typePaperGramm: 1, createdAt: 1, date: 1}).sort({createdAt: -1, inc: -1});
 
             cb({status: 200, passports});
         }catch(err){

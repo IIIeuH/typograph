@@ -88,7 +88,8 @@ const Passports = new Schema({
     price: Number,
     createdAt: Date,
     updatedAt: Date,
-    priceArray: Array
+    priceArray: Array,
+    year: Number
 },{versionKey: false});
 
 const Users = new Schema({

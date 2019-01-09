@@ -9,7 +9,7 @@ module.exports.passport = async(id) => {
 };
 
 module.exports.archive = async() => {
-    return await model.passports.find({$and: [{status: {$ne: "prepress"}}, {status: {$ne: "new"}}]}).sort({inc: -1});
+    return await model.passports.find({$and: [{status: {$ne: "prepress"}}, {status: {$ne: "new"}}]}).sort({createdAt: -1, inc: -1});
 };
 
 module.exports.passportLookd = async(id) => {
